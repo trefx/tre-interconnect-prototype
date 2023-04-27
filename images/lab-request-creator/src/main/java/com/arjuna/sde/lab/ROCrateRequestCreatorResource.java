@@ -16,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.jboss.logging.Logger;
+
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
@@ -27,6 +29,9 @@ import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 @Path("/request_creator")
 public class ROCrateRequestCreatorResource
 {
+    @Inject
+    Logger log;
+
     @Channel("outgoing-requests")
     public Emitter<RoCrate> requestEmitter;
 
@@ -37,12 +42,12 @@ public class ROCrateRequestCreatorResource
     {
         try
         {
-            System.out.printf("DataSHIELD Platform Name:     %s\n", dataSHIELDPlatformName);
-            System.out.printf("DataSHIELD Profile Name:      %s\n", dataSHIELDProfileName);
-            System.out.printf("DataSHIELD Symbol Names List: %s\n", dataSHIELDSymbolNamesList);
-            System.out.printf("DataSHIELD Table Names List:  %s\n", dataSHIELDTableNamesList);
-            System.out.printf("DataSHIELD Workspace Name:    %s\n", dataSHIELDWorkspaceName);
-            System.out.printf("DataSHIELD R Script:          %s\n", dataSHIELDRScript);
+            log.debugf("DataSHIELD Platform Name:     %s\n", dataSHIELDPlatformName);
+            log.debugf("DataSHIELD Profile Name:      %s\n", dataSHIELDProfileName);
+            log.debugf("DataSHIELD Symbol Names List: %s\n", dataSHIELDSymbolNamesList);
+            log.debugf("DataSHIELD Table Names List:  %s\n", dataSHIELDTableNamesList);
+            log.debugf("DataSHIELD Workspace Name:    %s\n", dataSHIELDWorkspaceName);
+            log.debugf("DataSHIELD R Script:          %s\n", dataSHIELDRScript);
 
             dataSHIELDPlatformName    = validDataSHIELDPlatformName(dataSHIELDPlatformName);
             dataSHIELDProfileName     = validDataSHIELDProfileName(dataSHIELDProfileName);
