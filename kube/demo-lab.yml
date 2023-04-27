@@ -43,6 +43,14 @@ spec:
         value: "password"
   - name: webportal
     image: docker.io/risbic/lab-webportal:latest
+    ports:
+    - containerPort: 80
+      hostPort: 8080
+    env:
+      - name: NGINX_HOST
+        value: "localhost"
+      - name: NGINX_PORT
+        value: "80"
   - name: request_creator
     image: docker.io/risbic/lab-request-creator:latest
   - name: request_sender
