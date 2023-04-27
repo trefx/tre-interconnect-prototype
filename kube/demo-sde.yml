@@ -1,0 +1,67 @@
+#
+# Copyright (c) 2023, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
+#
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-sde
+spec:
+  containers:
+  - name: mongo
+    image: quay.io/domino/mongo
+    volumeMounts:
+      - mountPath: /data/db
+        name: mongo-data
+    env:
+      - name: MONGO_INITDB_ROOT_USERNAME
+        value: "admin"
+      - name: MONGO_INITDB_ROOT_PASSWORD
+        value: "password"
+  - name: minio
+    image: quay.io/minio/minio
+    volumeMounts:
+      - mountPath: /data
+        name: minio-data
+    env:
+      - name: MINIO_ROOT_USER
+        value: "admin"
+      - name: MINIO_ROOT_PASSWORD
+        value: "password"
+    args: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
+  - name: activemq
+    image: quay.io/artemiscloud/activemq-artemis-broker
+    ports:
+    - containerPort: 8161
+      hostPort: 8261
+    env:
+      - name: AMQ_USER
+        value: "admin"
+      - name: AMQ_PASSWORD
+        value: "password"
+  - name: webportal
+    image: docker.io/risbic/sde-webportal:latest
+    ports:
+    - containerPort: 4200
+      hostPort: 8280
+  - name: request_receiver
+    image: docker.io/risbic/sde-request-receiver:latest
+  - name: request_checker
+    image: docker.io/risbic/sde-request-checker:latest
+  - name: analysis-adaptor
+    image: docker.io/risbic/sde-analysis-adaptor:latest
+  - name: response-checker
+    image: docker.io/risbic/sde-response-checker:latest
+  - name: response-sender
+    image: docker.io/risbic/sde-response-sender:latest
+  - name: control
+    image: docker.io/risbic/sde-control:latest
+  volumes:
+    - name: mongo-data
+      hostPath:
+        path: /home/swheater/sde-demo/data/sde/mongo
+        type: DirectoryOrCreate
+    - name: minio-data
+      hostPath:
+        path: /home/swheater/sde-demo/data/sde/minio
+        type: DirectoryOrCreate

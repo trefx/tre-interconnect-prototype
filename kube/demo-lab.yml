@@ -1,0 +1,58 @@
+#
+# Copyright (c) 2023, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
+#
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-lab
+spec:
+  containers:
+  - name: mongo
+    image: quay.io/domino/mongo
+    volumeMounts:
+      - mountPath: /data/db
+        name: mongo-data
+    ports:
+    - containerPort: 27017
+    env:
+      - name: MONGO_INITDB_ROOT_USERNAME
+        value: "admin"
+      - name: MONGO_INITDB_ROOT_PASSWORD
+        value: "password"
+  - name: minio
+    image: quay.io/minio/minio
+    volumeMounts:
+      - mountPath: /data
+        name: minio-data
+    env:
+      - name: MINIO_ROOT_USER
+        value: "admin"
+      - name: MINIO_ROOT_PASSWORD
+        value: "password"
+    args: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
+  - name: activemq
+    image: quay.io/artemiscloud/activemq-artemis-broker
+    ports:
+    - containerPort: 8161
+      hostPort: 8061
+    env:
+      - name: AMQ_USER
+        value: "admin"
+      - name: AMQ_PASSWORD
+        value: "password"
+  - name: webportal
+    image: docker.io/risbic/lab-webportal:latest
+  - name: request_creator
+    image: docker.io/risbic/lab-request-creator:latest
+  - name: request_sender
+    image: docker.io/risbic/lab-request-sender:latest
+  volumes:
+    - name: mongo-data
+      hostPath:
+        path: /home/swheater/sde-demo/data/lab/mongo
+        type: DirectoryOrCreate
+    - name: minio-data
+      hostPath:
+        path: /home/swheater/sde-demo/data/lab/minio
+        type: DirectoryOrCreate

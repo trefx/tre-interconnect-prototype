@@ -1,0 +1,22 @@
+#
+# Copyright (c) 2023, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
+#
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-dmz
+spec:
+  containers:
+  - name: activemq
+    image: quay.io/artemiscloud/activemq-artemis-broker
+    ports:
+    - containerPort: 8161
+      hostPort: 8161
+    env:
+      - name: AMQ_USER
+        value: "admin"
+      - name: AMQ_PASSWORD
+        value: "password"
+  - name: request_creator
+    image: docker.io/risbic/dmz-response-router:latest
