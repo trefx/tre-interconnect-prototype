@@ -17,6 +17,23 @@ all:
 	$(MAKE) -C sde-response-sender all
 	$(MAKE) -C sde-webportal all
 
+all-lab:
+	$(MAKE) -C lab-request-creator all
+	$(MAKE) -C lab-request-sender all
+	$(MAKE) -C lab-webportal all
+
+all-dmz:
+	$(MAKE) -C dmz-response-router all
+
+all-sde:
+	$(MAKE) -C sde-analysis-adaptor all
+	$(MAKE) -C sde-control all
+	$(MAKE) -C sde-request-checker all
+	$(MAKE) -C sde-request-receiver all
+	$(MAKE) -C sde-response-checker all
+	$(MAKE) -C sde-response-sender all
+	$(MAKE) -C sde-webportal all
+
 push:
 	$(MAKE) -C lab-request-creator push
 	$(MAKE) -C lab-request-sender push
