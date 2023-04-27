@@ -1,0 +1,51 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>DataSHIELD Request Creater</mat-card-title>
+        <mat-card-subtitle>Analysis parameters</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="8em">
+            <mat-grid-tile>
+                <mat-form-field class="parameter-form-field" appearance="outline">
+                    <mat-label>Platform Name</mat-label>
+                    <input matInput type="text" [value]="dataSHIELDPlatformName">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="parameter-form-field" appearance="outline">
+                    <mat-label>Profile Name</mat-label>
+                    <input matInput type="text" [value]="dataSHIELDProfileName">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="parameter-form-field" appearance="outline">
+                    <mat-label>Symbol Names List</mat-label>
+                    <input matInput type="text" [value]="dataSHIELDSymbolNamesList">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="parameter-form-field" appearance="outline">
+                    <mat-label>Table Names List</mat-label>
+                    <input matInput type="text" [value]="dataSHIELDTableNamesList">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field class="parameter-form-field" appearance="outline">
+                    <mat-label>Workspace Name</mat-label>
+                    <input matInput type="text" [value]="dataSHIELDWorkspaceName">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3">
+                <mat-form-field class="parameter-form-field"appearance="outline">
+                    <mat-label>R Script</mat-label>
+                    <input matInput type="text" [value]="dataSHIELDRScript">
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button (click)="doCreateDataSHIELDRequest()">Create Request</button>
+    </mat-card-actions>
+</mat-card>

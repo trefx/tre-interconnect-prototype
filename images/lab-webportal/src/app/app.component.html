@@ -1,0 +1,21 @@
+<mat-toolbar>
+    <button mat-icon-button aria-label="Menu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>SDE Debugging Portal</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button aria-label="User">
+        <mat-icon>person</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Apps">
+        <mat-icon>apps</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-tab-group>
+    <mat-tab matBadge="8" matBadgePosition="after" matBadgeColor="primary" label="Dummy Researcher">
+        <sde-create-datashield-request></sde-create-datashield-request>
+    </mat-tab>
+    <mat-tab matBadge="8" matBadgePosition="after" matBadgeColor="primary" label="Analysis Request"> Analysis Request </mat-tab>
+    <mat-tab matBadge="8" matBadgePosition="after" matBadgeColor="primary" label="Analysis Response"> Analysis Response </mat-tab>
+</mat-tab-group>
