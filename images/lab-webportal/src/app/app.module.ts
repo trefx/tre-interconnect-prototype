@@ -20,12 +20,12 @@ import { MatBadgeModule }     from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent }                     from './app.component';
-import { ROCrateComponent }                 from './rocrate/rocrate.component';
-import { ROCrateListComponent }             from './rocrate-list/rocrate-list.component';
-import { CreateDataSHIELDRequestComponent } from './create-datashield-request/create-datashield-request.component';
+import { AppComponent }            from './app.component';
+import { ROCrateComponent }        from './rocrate/rocrate.component';
+import { ROCrateListComponent }    from './rocrate-list/rocrate-list.component';
+import { RequestCreatorComponent } from './request-creator/request-creator.component';
 
-import { CreateDataSHIELDRequestService }   from './create-datashield-request.service';
+import { RequestCreatorService }   from './request-creator.service';
 
 @NgModule
 ({
@@ -34,7 +34,7 @@ import { CreateDataSHIELDRequestService }   from './create-datashield-request.se
         AppComponent,
         ROCrateComponent,
         ROCrateListComponent,
-        CreateDataSHIELDRequestComponent
+        RequestCreatorComponent
     ],
     imports:
     [
@@ -55,7 +55,7 @@ import { CreateDataSHIELDRequestService }   from './create-datashield-request.se
     ],
     providers:
     [
-        CreateDataSHIELDRequestService
+        RequestCreatorService
     ],
     bootstrap:
     [

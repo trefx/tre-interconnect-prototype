@@ -8,15 +8,15 @@ import { Observable } from 'rxjs';
 ({
     providedIn: 'root'
 })
-export class CreateDataSHIELDRequestService
+export class RequestCreatorService
 {
-    private serviceURL = "http://localhost:9092/requester/send";
+    private serviceURL = "http://localhost:8080/service/request_creator";
 
     public constructor(private httpClient: HttpClient)
     {
     }
 
-    public createDataSHIELDRequest(dataSHIELDPlatformName: string, dataSHIELDProfileName: string, dataSHIELDSymbolNamesList: string, dataSHIELDTableNamesList: string, dataSHIELDWorkspaceName: string, dataSHIELDRScript: string): Observable<string>
+    public createRequest(dataSHIELDPlatformName: string, dataSHIELDProfileName: string, dataSHIELDSymbolNamesList: string, dataSHIELDTableNamesList: string, dataSHIELDWorkspaceName: string, dataSHIELDRScript: string): Observable<string>
     {
         let body   = new HttpParams();
         let params = new HttpParams();
