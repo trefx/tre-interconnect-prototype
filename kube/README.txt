@@ -9,3 +9,4 @@ podman play kube --network sde demo-sde.yml
 ----
 
 Webportal for Reseachers to submitting Analysis Requests, and view Analysis Responses - Port 8080.
+Webportal for SDE Admins to check Analysis Requests and Analysis Responses - Port 8082.

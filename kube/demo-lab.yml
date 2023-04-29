@@ -34,17 +34,15 @@ spec:
   - name: activemq
     image: quay.io/artemiscloud/activemq-artemis-broker
     ports:
-    - containerPort: 8161
-      hostPort: 8161
+    - containerPort: 5672
+      hostPort: 5672
     env:
       - name: AMQ_USER
         value: "admin"
       - name: AMQ_PASSWORD
         value: "password"
-      - name: AMQ_HOST
-        value: "localhost"
       - name: AMQ_PORT
-        value: "8161"
+        value: "5672"
   - name: webportal
     image: docker.io/risbic/lab-webportal:latest
     ports:
