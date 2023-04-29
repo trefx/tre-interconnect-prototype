@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button aria-label="Menu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>SDE Admin Portal</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button aria-label="User">
+        <mat-icon>person</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Apps">
+        <mat-icon>apps</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-tab-group>
+    <mat-tab matBadge="8" matBadgePosition="after" matBadgeColor="primary" label="Agreements Data">
+        <sde-agreement-data></sde-agreement-data>
+    </mat-tab>
+    <mat-tab matBadge="8" matBadgePosition="after" matBadgeColor="primary" label="Interaction History">
+        <sde-interaction-history></sde-interaction-history>
+    </mat-tab>
+    <mat-tab matBadge="8" matBadgePosition="after" matBadgeColor="primary" label="Request Checking">
+        <sde-request-checker></sde-request-checker>
+    </mat-tab>
+    <mat-tab matBadge="8" matBadgePosition="after" matBadgeColor="primary" label="Response Checking">
+        <sde-response-checker></sde-response-checker>
+    </mat-tab>
+</mat-tab-group>
