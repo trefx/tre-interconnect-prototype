@@ -77,10 +77,12 @@ public class ROCrateRequestCreatorResource
         }
         catch (Error error)
         {
+            log.debug("Error while creating request RO_Crate", error);
             return "Error: " + error.getMessage();
         }
         catch (Exception exception)
         {
+            log.debug("Exception while creating request RO_Crate", exception);
             return "Exception: " + exception.getMessage();
         }
     }
