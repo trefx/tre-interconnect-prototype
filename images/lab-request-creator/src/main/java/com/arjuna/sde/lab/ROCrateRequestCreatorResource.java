@@ -11,7 +11,6 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +25,30 @@ import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
 import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
+class Request
+{
+    public String dataSHIELDPlatformName;
+    public String dataSHIELDProfileName;
+    public String dataSHIELDSymbolNamesList;
+    public String dataSHIELDTableNamesList;
+    public String dataSHIELDWorkspaceName;
+    public String dataSHIELDRScript;
+
+    public Request()
+    {
+    }
+
+    public Request(String dataSHIELDPlatformName, String dataSHIELDProfileName, String dataSHIELDSymbolNamesList, String dataSHIELDTableNamesList, String dataSHIELDWorkspaceName, String dataSHIELDRScript)
+    {
+        this.dataSHIELDPlatformName    = dataSHIELDPlatformName;
+        this.dataSHIELDProfileName     = dataSHIELDProfileName;
+        this.dataSHIELDSymbolNamesList = dataSHIELDSymbolNamesList;
+        this.dataSHIELDTableNamesList  = dataSHIELDTableNamesList;
+        this.dataSHIELDWorkspaceName   = dataSHIELDWorkspaceName;
+        this.dataSHIELDRScript         = dataSHIELDRScript;
+    }
+}
+
 @Path("/request_creator")
 public class ROCrateRequestCreatorResource
 {
@@ -38,23 +61,23 @@ public class ROCrateRequestCreatorResource
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postRequest(@QueryParam("datashield-platform-name") String dataSHIELDPlatformName, @QueryParam("datashield-profile-name") String dataSHIELDProfileName, @QueryParam("datashield-symbol-names-list") String dataSHIELDSymbolNamesList, @QueryParam("datashield-table-names-list") String dataSHIELDTableNamesList, @QueryParam("datashield-workspace-name") String dataSHIELDWorkspaceName, @QueryParam("datashield-r-script") String dataSHIELDRScript)
+    public String postRequest(Request request)
     {
         try
         {
-            log.debugf("DataSHIELD Platform Name:     %s\n", dataSHIELDPlatformName);
-            log.debugf("DataSHIELD Profile Name:      %s\n", dataSHIELDProfileName);
-            log.debugf("DataSHIELD Symbol Names List: %s\n", dataSHIELDSymbolNamesList);
-            log.debugf("DataSHIELD Table Names List:  %s\n", dataSHIELDTableNamesList);
-            log.debugf("DataSHIELD Workspace Name:    %s\n", dataSHIELDWorkspaceName);
-            log.debugf("DataSHIELD R Script:          %s\n", dataSHIELDRScript);
+            log.debugf("DataSHIELD Platform Name:     %s\n", request.dataSHIELDPlatformName);
+            log.debugf("DataSHIELD Profile Name:      %s\n", request.dataSHIELDProfileName);
+            log.debugf("DataSHIELD Symbol Names List: %s\n", request.dataSHIELDSymbolNamesList);
+            log.debugf("DataSHIELD Table Names List:  %s\n", request.dataSHIELDTableNamesList);
+            log.debugf("DataSHIELD Workspace Name:    %s\n", request.dataSHIELDWorkspaceName);
+            log.debugf("DataSHIELD R Script:          %s\n", request.dataSHIELDRScript);
 
-            dataSHIELDPlatformName    = validDataSHIELDPlatformName(dataSHIELDPlatformName);
-            dataSHIELDProfileName     = validDataSHIELDProfileName(dataSHIELDProfileName);
-            dataSHIELDSymbolNamesList = validDataSHIELDSymbolNamesList(dataSHIELDSymbolNamesList);
-            dataSHIELDTableNamesList  = validDataSHIELDTableNamesList(dataSHIELDTableNamesList);
-            dataSHIELDWorkspaceName   = validDataSHIELDWorkspaceName(dataSHIELDWorkspaceName);
-            dataSHIELDRScript         = validDataSHIELDRScript(dataSHIELDRScript);
+            String dataSHIELDPlatformName    = validDataSHIELDPlatformName(request.dataSHIELDPlatformName);
+            String dataSHIELDProfileName     = validDataSHIELDProfileName(request.dataSHIELDProfileName);
+            String dataSHIELDSymbolNamesList = validDataSHIELDSymbolNamesList(request.dataSHIELDSymbolNamesList);
+            String dataSHIELDTableNamesList  = validDataSHIELDTableNamesList(request.dataSHIELDTableNamesList);
+            String dataSHIELDWorkspaceName   = validDataSHIELDWorkspaceName(request.dataSHIELDWorkspaceName);
+            String dataSHIELDRScript         = validDataSHIELDRScript(request.dataSHIELDRScript);
 
             RootDataEntity rootDataEntity = new RootDataEntity.RootDataEntityBuilder()
                 .addProperty("request-type", "DataSHIELD:1.0.0")

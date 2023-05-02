@@ -1,6 +1,6 @@
 server {
-    listen       8080;
-    server_name  _;
+    listen       ${LISTEN_PORT};
+    server_name  ${SERVER_NAME};
 
     location /service/request_creator {
         proxy_pass http://request_creator:7000/request_creator;
@@ -12,11 +12,11 @@ server {
 
     location / {
         root   /usr/local/nginx/html;
-        index  index.html
+        index  index.html;
     }
 
     error_page   500 502 503 504  /50x.html;
     location = /50x.html {
-        root   /usr/local/nginx/html;
+        root   ${SERVER_ROOT};
     }
 }

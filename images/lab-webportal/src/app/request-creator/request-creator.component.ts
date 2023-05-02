@@ -29,6 +29,7 @@ export class RequestCreatorComponent
 
     public doCreateRequest(): void
     {
+        console.log("###### " + "doCreateRequest" + " ######");
         let outcome = this.requestCreatorService.createRequest(this.dataSHIELDPlatformName, this.dataSHIELDProfileName, this.dataSHIELDSymbolNamesList, this.dataSHIELDTableNamesList, this.dataSHIELDWorkspaceName, this.dataSHIELDRScript);
     }
 }
