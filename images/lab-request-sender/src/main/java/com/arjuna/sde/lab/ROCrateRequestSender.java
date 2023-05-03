@@ -19,8 +19,6 @@ import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
 import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
 @ApplicationScoped
@@ -30,26 +28,31 @@ public class ROCrateRequestSender
     Logger log;
 
     @Blocking
-    @Incoming("outgoing-requests")
-    @Outgoing("incoming-responses")
+    @Incoming("incoming")
+    @Outgoing("outgoing")
     public RoCrate forwardRequest(Object requestObject)
     {
         try
         {
             ObjectMapper objectMapper = new ObjectMapper();
 
+            log.info("########################");
             log.infof("Class: %s\n", requestObject.getClass().getName());
+            log.info("########################");
 
-            return null;
+            RoCrate roCrate = new RoCrate.RoCrateBuilder("Request", UUID.randomUUID().toString())
+                .build();
+
+            return roCrate;
         }
         catch (Error error)
         {
-            log.debug("Error while forwarding request RO_Crate", error);
+            log.error("Error while forwarding request RO_Crate", error);
             return null;
         }
         catch (Exception exception)
         {
-            log.debug("Exception while forwarding request RO_Crate", exception);
+            log.error("Exception while forwarding request RO_Crate", exception);
             return null;
         }
     }

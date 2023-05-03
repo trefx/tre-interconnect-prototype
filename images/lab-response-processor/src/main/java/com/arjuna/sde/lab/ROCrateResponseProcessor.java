@@ -29,22 +29,24 @@ public class ROCrateResponseProcessor
     Logger log;
 
     @Blocking
-    @Incoming("incoming-responses")
+    @Incoming("incoming")
     public void processResponse(Object responseObject)
     {
         try
         {
             ObjectMapper objectMapper = new ObjectMapper();
 
+            log.info("@@@@@@@@@@@@@@@@@@@@@@@@");
             log.infof("Class: %s\n", responseObject.getClass().getName());
+            log.info("@@@@@@@@@@@@@@@@@@@@@@@@");
         }
         catch (Error error)
         {
-            log.debug("Error while process response RO_Crate", error);
+            log.error("Error while process response RO_Crate", error);
         }
         catch (Exception exception)
         {
-            log.debug("Exception while process response RO_Crate", exception);
+            log.error("Exception while process response RO_Crate", exception);
         }
     }
 }

@@ -55,7 +55,7 @@ public class ROCrateRequestCreatorResource
     @Inject
     Logger log;
 
-    @Channel("outgoing-requests")
+    @Channel("outgoing")
     public Emitter<RoCrate> requestEmitter;
 
     @POST
@@ -65,12 +65,12 @@ public class ROCrateRequestCreatorResource
     {
         try
         {
-            log.debugf("DataSHIELD Platform Name:     %s\n", request.dataSHIELDPlatformName);
-            log.debugf("DataSHIELD Profile Name:      %s\n", request.dataSHIELDProfileName);
-            log.debugf("DataSHIELD Symbol Names List: %s\n", request.dataSHIELDSymbolNamesList);
-            log.debugf("DataSHIELD Table Names List:  %s\n", request.dataSHIELDTableNamesList);
-            log.debugf("DataSHIELD Workspace Name:    %s\n", request.dataSHIELDWorkspaceName);
-            log.debugf("DataSHIELD R Script:          %s\n", request.dataSHIELDRScript);
+            log.infof("DataSHIELD Platform Name:     %s", request.dataSHIELDPlatformName);
+            log.infof("DataSHIELD Profile Name:      %s", request.dataSHIELDProfileName);
+            log.infof("DataSHIELD Symbol Names List: %s", request.dataSHIELDSymbolNamesList);
+            log.infof("DataSHIELD Table Names List:  %s", request.dataSHIELDTableNamesList);
+            log.infof("DataSHIELD Workspace Name:    %s", request.dataSHIELDWorkspaceName);
+            log.infof("DataSHIELD R Script:          %s", request.dataSHIELDRScript);
 
             String dataSHIELDPlatformName    = validDataSHIELDPlatformName(request.dataSHIELDPlatformName);
             String dataSHIELDProfileName     = validDataSHIELDProfileName(request.dataSHIELDProfileName);
@@ -96,17 +96,17 @@ public class ROCrateRequestCreatorResource
 
             requestEmitter.send(roCrate);
 
-            return "Done";
+            return "{ \"outcome\": \"success\" }";
         }
         catch (Error error)
         {
-            log.debug("Error while creating request RO_Crate", error);
-            return "Error: " + error.getMessage();
+            log.error("Error while creating request RO_Crate", error);
+            return "{ \"outcome\": \"error\", \"message\": \"" + error.getMessage() + "\" }";
         }
         catch (Exception exception)
         {
-            log.debug("Exception while creating request RO_Crate", exception);
-            return "Exception: " + exception.getMessage();
+            log.error("Exception while creating request RO_Crate", exception);
+            return "{ \"outcome\": \"exception\", \"message\": \"" + exception.getMessage() + "\" }";
         }
     }
 
