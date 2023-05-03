@@ -13,6 +13,7 @@ import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
+import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
 import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
@@ -30,7 +31,7 @@ public class ROCrateRequestSender
     @Blocking
     @Incoming("incoming")
     @Outgoing("outgoing")
-    public RoCrate forwardRequest(Object requestObject)
+    public RoCrate forwardRequest(JsonObject requestObject)
     {
         try
         {

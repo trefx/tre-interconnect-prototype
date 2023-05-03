@@ -13,6 +13,7 @@ import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
+import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
 import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
@@ -32,7 +33,7 @@ public class ROCrateResponseRouter
     @Blocking
     @Incoming("outgoing-requests")
     @Outgoing("incoming-responses")
-    public RoCrate routeResponse(Object requestObject)
+    public RoCrate routeResponse(JsonObject requestObject)
     {
         try
         {

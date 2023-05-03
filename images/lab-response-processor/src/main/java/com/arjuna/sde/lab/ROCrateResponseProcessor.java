@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
 import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
@@ -30,7 +31,7 @@ public class ROCrateResponseProcessor
 
     @Blocking
     @Incoming("incoming")
-    public void processResponse(Object responseObject)
+    public void processResponse(JsonObject responseObject)
     {
         try
         {
