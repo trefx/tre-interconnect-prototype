@@ -94,7 +94,9 @@ public class ROCrateRequestCreatorResource
 
             roCrate.setRootDataEntity(rootDataEntity);
 
+            log.info("====== Emmitting request ======", request.dataSHIELDRScript);
             requestEmitter.send(roCrate);
+            log.info("====== Emmitted  request ======", request.dataSHIELDRScript);
 
             return "{ \"outcome\": \"success\" }";
         }
