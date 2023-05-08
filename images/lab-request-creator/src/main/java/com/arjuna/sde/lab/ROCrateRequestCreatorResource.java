@@ -25,6 +25,13 @@ import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
 import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import org.bson.Document;
+
+import io.minio.MinioClient;
+
 class Request
 {
     public String dataSHIELDPlatformName;
@@ -57,6 +64,12 @@ public class ROCrateRequestCreatorResource
 
     @Channel("outgoing")
     public Emitter<RoCrate> requestEmitter;
+
+    @Inject
+    public  MongoClient mongoClient;
+
+    @Inject
+    public MinioClient minioClient;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -95,7 +108,7 @@ public class ROCrateRequestCreatorResource
             roCrate.setRootDataEntity(rootDataEntity);
 
             log.info("====== Emmitting request ======");
-            requestEmitter.send(roCrate);
+//            requestEmitter.send(roCrate);
             log.info("====== Emmitted  request ======");
 
             return "{ \"outcome\": \"success\" }";
