@@ -68,8 +68,8 @@ public class ROCrateRequestCreatorResource
     @Inject
     public  MongoClient mongoClient;
 
-    @Inject
-    public MinioClient minioClient;
+//    @Inject
+//    public MinioClient minioClient;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
