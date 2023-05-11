@@ -33,6 +33,8 @@ public class ROCrateRequestSender
     @Outgoing("outgoing")
     public RoCrate forwardRequest(JsonObject requestObject)
     {
+        log.info("############ ROCrateRequestSender::forwardRequest  ############");
+
         try
         {
             ObjectMapper objectMapper = new ObjectMapper();

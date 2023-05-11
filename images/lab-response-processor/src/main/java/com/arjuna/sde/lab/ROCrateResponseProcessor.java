@@ -33,6 +33,8 @@ public class ROCrateResponseProcessor
     @Incoming("incoming")
     public void processResponse(JsonObject responseObject)
     {
+        log.info("@@@@@@@@@@@@ ROCrateResponseProcessor.responseObject @@@@@@@@@@@@");
+
         try
         {
             ObjectMapper objectMapper = new ObjectMapper();

@@ -24,8 +24,11 @@ import { AppComponent }            from './app.component';
 import { ROCrateComponent }        from './rocrate/rocrate.component';
 import { ROCrateListComponent }    from './rocrate-list/rocrate-list.component';
 import { RequestCreatorComponent } from './request-creator/request-creator.component';
+import { RequestListComponent }    from './request-list/request-list.component';
+import { RequestComponent }        from './request/request.component';
 
-import { RequestCreatorService }   from './request-creator.service';
+import { RequestCreatorService } from './request-creator.service';
+import { RequestFormService }    from './request-form.service';
 
 @NgModule
 ({
@@ -34,7 +37,9 @@ import { RequestCreatorService }   from './request-creator.service';
         AppComponent,
         ROCrateComponent,
         ROCrateListComponent,
-        RequestCreatorComponent
+        RequestCreatorComponent,
+        RequestListComponent,
+        RequestComponent
     ],
     imports:
     [
@@ -55,7 +60,8 @@ import { RequestCreatorService }   from './request-creator.service';
     ],
     providers:
     [
-        RequestCreatorService
+        RequestCreatorService,
+        RequestFormService
     ],
     bootstrap:
     [
