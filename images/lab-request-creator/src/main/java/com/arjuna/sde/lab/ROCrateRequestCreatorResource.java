@@ -108,7 +108,7 @@ public class ROCrateRequestCreatorResource
             roCrate.setRootDataEntity(rootDataEntity);
 
             log.info("====== Emmitting request ======");
-//            requestEmitter.send(roCrate);
+            requestEmitter.send(roCrate);
             log.info("====== Emmitted  request ======");
 
             return "{ \"outcome\": \"success\" }";
