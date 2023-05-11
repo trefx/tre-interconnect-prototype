@@ -8,6 +8,20 @@ metadata:
   name: demo-lab
 spec:
   containers:
+  - name: activemq
+    image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:latest
+    ports:
+    - containerPort: 61616
+      hostPort: 61616
+    - containerPort: 8161
+      hostPort: 8161
+    - containerPort: 5672
+      hostPort: 5672
+    env:
+      - name: AMQ_USER
+        value: "admin"
+      - name: AMQ_PASSWORD
+        value: "password"
   - name: mongo
     image: quay.io/domino/mongo
     volumeMounts:
@@ -31,22 +45,6 @@ spec:
       - name: MINIO_ROOT_PASSWORD
         value: "password"
     args: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
-  - name: activemq
-    image: quay.io/artemiscloud/activemq-artemis-broker
-    ports:
-    - containerPort: 61616
-      hostPort: 61616
-    - containerPort: 8161
-      hostPort: 8161
-    env:
-      - name: AMQ_USER
-        value: "admin"
-      - name: AMQ_PASSWORD
-        value: "password"
-#      - name: AMQ_HOST
-#        value: "localhost"
-      - name: AMQ_PORT
-        value: "61616"
   - name: webportal
     image: docker.io/risbic/lab-webportal:latest
     ports:
