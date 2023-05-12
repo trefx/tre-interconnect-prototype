@@ -56,8 +56,8 @@ class DataSHIELDRequest
     }
 }
 
-@Path("/datashield_request_creator")
-public class ROCrateDataSHIELDRequestCreatorResource
+@Path("/submit_datashield_request")
+public class ROCrateDataSHIELDRequestSubmitterResource
 {
     @Inject
     Logger log;
@@ -69,7 +69,7 @@ public class ROCrateDataSHIELDRequestCreatorResource
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postDataSHIELDRequest(DataSHIELDRequest dataSHIELDRequest)
+    public String postSubmitDataSHIELDRequest(DataSHIELDRequest dataSHIELDRequest)
     {
         try
         {

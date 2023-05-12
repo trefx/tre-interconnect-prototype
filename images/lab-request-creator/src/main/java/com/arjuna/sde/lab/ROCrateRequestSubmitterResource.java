@@ -70,7 +70,7 @@ class Request
 }
 
 @Path("/request_creator")
-public class ROCrateRequestCreatorResource
+public class ROCrateRequestSubmitterResource
 {
     @Inject
     Logger log;
