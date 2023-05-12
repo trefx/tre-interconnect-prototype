@@ -62,7 +62,8 @@ public class ROCrateRequestCreatorResource
     @Inject
     Logger log;
 
-    @Channel("outgoing")
+//    @Channel("outgoing")
+    @Channel("outgoing_requests")
     public Emitter<RoCrate> requestEmitter;
 
     @Inject

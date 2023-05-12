@@ -29,8 +29,10 @@ public class ROCrateRequestSender
     Logger log;
 
     @Blocking
-    @Incoming("incoming")
-    @Outgoing("outgoing")
+//    @Incoming("incoming")
+//    @Outgoing("outgoing")
+    @Incoming("outgoing_requests")
+    @Outgoing("incoming_responses")
     public RoCrate forwardRequest(JsonObject requestObject)
     {
         log.info("############ ROCrateRequestSender::forwardRequest  ############");
