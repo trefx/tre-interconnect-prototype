@@ -20,15 +20,17 @@ import { MatBadgeModule }     from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent }            from './app.component';
-import { ROCrateComponent }        from './rocrate/rocrate.component';
-import { ROCrateListComponent }    from './rocrate-list/rocrate-list.component';
-import { RequestCreatorComponent } from './request-creator/request-creator.component';
-import { RequestListComponent }    from './request-list/request-list.component';
-import { RequestComponent }        from './request/request.component';
+import { AppComponent }                      from './app.component';
+import { ROCrateComponent }                  from './rocrate/rocrate.component';
+import { ROCrateListComponent }              from './rocrate-list/rocrate-list.component';
+import { RequestCreatorComponent }           from './request-creator/request-creator.component';
+import { DataSHIELDRequestCreatorComponent } from './datashield-request-creator/datashield-request-creator.component';
+import { RequestListComponent }              from './request-list/request-list.component';
+import { RequestComponent }                  from './request/request.component';
 
-import { RequestCreatorService } from './request-creator.service';
-import { RequestFormService }    from './request-form.service';
+import { RequestFormService }                from './request-form.service';
+import { RequestSubmitterService }           from './request-submitter.service';
+import { DataSHIELDRequestSubmitterService } from './datashield-request-submitter.service';
 
 @NgModule
 ({
@@ -38,6 +40,7 @@ import { RequestFormService }    from './request-form.service';
         ROCrateComponent,
         ROCrateListComponent,
         RequestCreatorComponent,
+        DataSHIELDRequestCreatorComponent,
         RequestListComponent,
         RequestComponent
     ],
@@ -60,8 +63,8 @@ import { RequestFormService }    from './request-form.service';
     ],
     providers:
     [
-        RequestCreatorService,
-        RequestFormService
+        RequestSubmitterService,
+        DataSHIELDRequestSubmitterService
     ],
     bootstrap:
     [

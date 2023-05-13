@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 ({
     providedIn: 'root'
 })
-export class RequestSubmitterService
+export class DataSHIELDRequestSubmitterService
 {
     private serviceURL = "http://localhost:8080/service/request_submitter";
 
@@ -17,14 +17,19 @@ export class RequestSubmitterService
     {
     }
 
-    public createRequest(templateID: string): Observable<Object>
+    public createRequest(dataSHIELDPlatformName: string, dataSHIELDProfileName: string, dataSHIELDSymbolNamesList: string, dataSHIELDTableNamesList: string, dataSHIELDWorkspaceName: string, dataSHIELDRScript: string): Observable<Object>
     {
         let headers = new HttpHeaders({"Content-Type": "application/json"});
         let params  = new HttpParams();
 
         var body =
         {
-            "templateID": templateID
+            "dataSHIELDPlatformName":    dataSHIELDPlatformName,
+            "dataSHIELDProfileName":     dataSHIELDProfileName,
+            "dataSHIELDSymbolNamesList": dataSHIELDSymbolNamesList,
+            "dataSHIELDTableNamesList":  dataSHIELDTableNamesList,
+            "dataSHIELDWorkspaceName":   dataSHIELDWorkspaceName,
+            "dataSHIELDRScript":         dataSHIELDRScript
         }
 
         const outcomeObservable = this.httpClient.post<Object>(this.serviceURL, body, { headers: headers, params: params });
