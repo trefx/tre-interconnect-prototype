@@ -27,6 +27,7 @@ import { RequestCreatorComponent }           from './request-creator/request-cre
 import { DataSHIELDRequestCreatorComponent } from './datashield-request-creator/datashield-request-creator.component';
 import { RequestListComponent }              from './request-list/request-list.component';
 import { RequestComponent }                  from './request/request.component';
+import { ResponseListComponent }             from './response-list/response-list.component';
 
 import { RequestFormService }                from './request-form.service';
 import { RequestSubmitterService }           from './request-submitter.service';
@@ -42,7 +43,8 @@ import { DataSHIELDRequestSubmitterService } from './datashield-request-submitte
         RequestCreatorComponent,
         DataSHIELDRequestCreatorComponent,
         RequestListComponent,
-        RequestComponent
+        RequestComponent,
+        ResponseListComponent
     ],
     imports:
     [

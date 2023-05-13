@@ -3,11 +3,11 @@ server {
     server_name  ${SERVER_NAME};
 
     location /service/request_creator {
-        proxy_pass http://request_creator:7000/request_creator;
+        proxy_pass http://request_creator:7000;
     }
 
     location /service/response_processor {
-        proxy_pass http://response_processor:7010/response_processor;
+        proxy_pass http://response_processor:7010;
     }
 
     location / {
