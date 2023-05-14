@@ -35,26 +35,6 @@ import org.bson.Document;
 
 import io.minio.MinioClient;
 
-class TemplateSummary
-{
-    public String id;
-    public String name;
-    public String summary;
-    public String description;
-
-    public TemplateSummary()
-    {
-    }
-
-    public TemplateSummary(String id, String name, String summary, String description)
-    {
-        this.id          = id;
-        this.name        = name;
-        this.summary     = summary;
-        this.description = description;
-    }
-}
-
 class Request
 {
     public String templateID;
@@ -69,7 +49,7 @@ class Request
     }
 }
 
-@Path("/request_creator")
+@Path("/request_submitter")
 public class ROCrateRequestSubmitterResource
 {
     @Inject
@@ -84,86 +64,6 @@ public class ROCrateRequestSubmitterResource
 
     @Inject
     public MinioClient minioClient;
-
-    @GET
-    @Path("/template_summaries")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<TemplateSummary> getTemplateSummaries()
-    {
-        List<TemplateSummary> list = new ArrayList<TemplateSummary>();
-
-        try
-        {
-            MongoCursor<Document> cursor = mongoClient.getDatabase("tre").getCollection("templates").find().iterator();
-
-            try
-            {
-                while (cursor.hasNext())
-                {
-                    Document document = cursor.next();
-
-                    TemplateSummary templateSummary = new TemplateSummary();
-                    templateSummary.id          = document.getString("id");
-                    templateSummary.name        = document.getString("name");
-                    templateSummary.summary     = document.getString("summary");
-                    templateSummary.description = document.getString("description");
-
-                    list.add(templateSummary);
-                }
-            }
-            finally
-            {
-                cursor.close();
-            }
-        }
-        catch (Error error)
-        {
-            log.error("Error while creating request RO_Crate", error);
-            return new ArrayList<TemplateSummary>();
-        }
-        catch (Exception exception)
-        {
-            log.error("Exception while creating request RO_Crate", exception);
-            return new ArrayList<TemplateSummary>();
-        }
-
-        return list;
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<TemplateSummary> getTemplate(@QueryParam("template_id") String templateId)
-    {
-        List<TemplateSummary> list = new ArrayList<TemplateSummary>();
-
-        try
-        {
-            MongoCursor<Document> cursor = mongoClient.getDatabase("tre").getCollection("templates").find().iterator();
-
-            try
-            {
-                while (cursor.hasNext())
-                {
-                }
-            }
-            finally
-            {
-                cursor.close();
-            }
-        }
-        catch (Error error)
-        {
-            log.error("Error while creating request RO_Crate", error);
-            return new ArrayList<TemplateSummary>();
-        }
-        catch (Exception exception)
-        {
-            log.error("Exception while creating request RO_Crate", exception);
-            return new ArrayList<TemplateSummary>();
-        }
-
-        return list;
-    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

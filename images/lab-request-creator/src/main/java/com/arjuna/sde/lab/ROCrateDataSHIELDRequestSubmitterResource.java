@@ -56,7 +56,7 @@ class DataSHIELDRequest
     }
 }
 
-@Path("/submit_datashield_request")
+@Path("/datashield_request_submitter")
 public class ROCrateDataSHIELDRequestSubmitterResource
 {
     @Inject
