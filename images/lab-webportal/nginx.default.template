@@ -2,11 +2,17 @@ server {
     listen       ${LISTEN_PORT};
     server_name  ${SERVER_NAME};
 
-    location /service/request_creator {
-        proxy_pass http://request_creator:7000;
+    location /service/request-creator/request_submitter {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://request_creator:7000/request_submitter;
     }
 
-    location /service/response_processor {
+    location /service/response_processor/* {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_pass http://response_processor:7010;
     }
 
