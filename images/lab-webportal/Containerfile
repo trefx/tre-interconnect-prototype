@@ -5,7 +5,6 @@
 FROM quay.io/jitesoft/nginx
 
 COPY dist/sde /usr/local/nginx/html
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY nginx.default.template /usr/local/default.template
 
 EXPOSE 80
