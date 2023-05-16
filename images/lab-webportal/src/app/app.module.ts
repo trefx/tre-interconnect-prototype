@@ -23,14 +23,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent }                      from './app.component';
 import { ROCrateComponent }                  from './rocrate/rocrate.component';
 import { ROCrateListComponent }              from './rocrate-list/rocrate-list.component';
-import { RequestCreatorComponent }           from './request-creator/request-creator.component';
+import { TemplatedRequestCreatorComponent }  from './templated-request-creator/templated-request-creator.component';
 import { DataSHIELDRequestCreatorComponent } from './datashield-request-creator/datashield-request-creator.component';
 import { RequestListComponent }              from './request-list/request-list.component';
 import { RequestComponent }                  from './request/request.component';
 import { ResponseListComponent }             from './response-list/response-list.component';
 
 import { RequestFormService }                from './request-form.service';
-import { RequestSubmitterService }           from './request-submitter.service';
+import { TemplatedRequestSubmitterService }  from './templated-request-submitter.service';
 import { DataSHIELDRequestSubmitterService } from './datashield-request-submitter.service';
 
 @NgModule
@@ -40,7 +40,7 @@ import { DataSHIELDRequestSubmitterService } from './datashield-request-submitte
         AppComponent,
         ROCrateComponent,
         ROCrateListComponent,
-        RequestCreatorComponent,
+        TemplatedRequestCreatorComponent,
         DataSHIELDRequestCreatorComponent,
         RequestListComponent,
         RequestComponent,
@@ -65,7 +65,7 @@ import { DataSHIELDRequestSubmitterService } from './datashield-request-submitte
     ],
     providers:
     [
-        RequestSubmitterService,
+        TemplatedRequestSubmitterService,
         DataSHIELDRequestSubmitterService
     ],
     bootstrap:
