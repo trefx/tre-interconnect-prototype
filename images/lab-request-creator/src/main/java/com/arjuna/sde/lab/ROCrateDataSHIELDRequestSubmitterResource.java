@@ -62,8 +62,7 @@ public class ROCrateDataSHIELDRequestSubmitterResource
     @Inject
     Logger log;
 
-//    @Channel("outgoing")
-    @Channel("outgoing_requests")
+    @Channel("drs_outgoing")
     public Emitter<RoCrate> requestEmitter;
 
     @POST

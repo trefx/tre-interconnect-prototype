@@ -49,14 +49,13 @@ class Request
     }
 }
 
-@Path("/request_submitter")
-public class ROCrateRequestSubmitterResource
+@Path("/template_request_submitter")
+public class ROCrateTemplateRequestSubmitterResource
 {
     @Inject
     Logger log;
 
-//    @Channel("outgoing")
-    @Channel("outgoing_requests")
+    @Channel("trs_outgoing")
     public Emitter<RoCrate> requestEmitter;
 
     @Inject
@@ -68,7 +67,7 @@ public class ROCrateRequestSubmitterResource
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postRequest(Request request)
+    public String postTemplateRequest(Request request)
     {
         try
         {
