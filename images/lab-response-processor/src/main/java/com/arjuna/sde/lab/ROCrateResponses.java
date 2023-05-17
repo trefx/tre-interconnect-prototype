@@ -1,13 +1,18 @@
 package com.arjuna.sde.lab;
 
-import java.util.UUID;
 import java.lang.Error;
 import java.lang.Exception;
+import java.util.UUID;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
 
 import jakarta.inject.Inject;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -25,14 +30,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import io.minio.MinioClient;
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.PutObjectArgs;
+import io.minio.Result;
+import io.minio.ListObjectsArgs;
+import io.minio.messages.Item;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
-@ApplicationScoped
-public class ROCrateResponseProcessor
+@Path("/responses")
+public class ROCrateResponses
 {
     @Inject
     Logger log;
@@ -40,28 +45,29 @@ public class ROCrateResponseProcessor
     @Inject
     public MinioClient minioClient;
 
-    @Blocking
-    @Incoming("rp_incoming")
-    public void processResponse(JsonObject responseObject)
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> getResponseIds()
     {
-        log.info("@@@@@@@@@@@@ Lab - ROCrateResponseProcessor.processResponce @@@@@@@@@@@@");
+        log.info("@@@@@@@@@@@@ Lab - ROCrateResponses.getResponseIds @@@@@@@@@@@@");
 
+        List<String> results = new ArrayList();
         try
         {
-            if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("responces").build()))
-                minioClient.makeBucket(MakeBucketArgs.builder().bucket("responces").build());
-
-            InputStream inputStream = new StringBufferInputStream("Test Text");
-            minioClient.putObject(PutObjectArgs.builder().bucket("responces").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
-            inputStream.close();
+            Iterable<Result<Item>> responseInfos = minioClient.listObjects(ListObjectsArgs.builder().bucket("responses").build());
+            responseInfos.forEach((result) -> { try { results.add(result.get().objectName()); } catch (Throwable throwable) { log.error("Error while ..."); } } );
         }
         catch (Error error)
         {
             log.error("Error while processing response RO_Crate", error);
+            results.clear();
         }
         catch (Exception exception)
         {
             log.error("Exception while processing response RO_Crate", exception);
+            results.clear();
         }
+
+        return results;
     }
 }

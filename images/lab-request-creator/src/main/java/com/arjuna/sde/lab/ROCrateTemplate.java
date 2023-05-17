@@ -62,7 +62,7 @@ public class ROCrateTemplate
     Logger log;
 
     @Inject
-    public  MongoClient mongoClient;
+    public MongoClient mongoClient;
 
     @Inject
     public MinioClient minioClient;
