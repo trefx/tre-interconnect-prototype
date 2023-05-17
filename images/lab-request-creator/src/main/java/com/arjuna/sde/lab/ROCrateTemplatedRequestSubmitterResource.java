@@ -49,8 +49,8 @@ class Request
     }
 }
 
-@Path("/template_request_submitter")
-public class ROCrateTemplateRequestSubmitterResource
+@Path("/templated_request_submitter")
+public class ROCrateTemplatedRequestSubmitterResource
 {
     @Inject
     Logger log;
