@@ -32,6 +32,7 @@ import { ResponseListComponent }             from './response-list/response-list
 import { RequestFormService }                from './request-form.service';
 import { TemplatedRequestSubmitterService }  from './templated-request-submitter.service';
 import { DataSHIELDRequestSubmitterService } from './datashield-request-submitter.service';
+import { InteractionLogService }             from './interaction-log.service';
 
 @NgModule
 ({
@@ -66,7 +67,8 @@ import { DataSHIELDRequestSubmitterService } from './datashield-request-submitte
     providers:
     [
         TemplatedRequestSubmitterService,
-        DataSHIELDRequestSubmitterService
+        DataSHIELDRequestSubmitterService,
+        InteractionLogService
     ],
     bootstrap:
     [
