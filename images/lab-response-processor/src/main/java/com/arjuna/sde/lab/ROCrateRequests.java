@@ -36,8 +36,8 @@ import io.minio.messages.Item;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
-@Path("/responses")
-public class ROCrateResponses
+@Path("/requests")
+public class ROCrateRequests
 {
     @Inject
     Logger log;
@@ -47,24 +47,24 @@ public class ROCrateResponses
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getResponseIds()
+    public List<String> getRequestIds()
     {
-        log.info("############ Lab - ROCrateResponses.getResponseIds ############");
+        log.info("############ Lab - ROCrateRequests.getRequestIds ############");
 
         List<String> results = new ArrayList();
         try
         {
-            Iterable<Result<Item>> responseInfos = minioClient.listObjects(ListObjectsArgs.builder().bucket("responses").build());
-            responseInfos.forEach((result) -> { try { results.add(result.get().objectName()); } catch (Throwable throwable) { log.error("Error while ..."); } } );
+            Iterable<Result<Item>> requestInfos = minioClient.listObjects(ListObjectsArgs.builder().bucket("requests").build());
+            requestInfos.forEach((result) -> { try { results.add(result.get().objectName()); } catch (Throwable throwable) { log.error("Error while ..."); } } );
         }
         catch (Error error)
         {
-            log.error("Error while obtaining response RO_Crates", error);
+            log.error("Error while obtaining request RO_Crates", error);
             results.clear();
         }
         catch (Exception exception)
         {
-            log.error("Exception while obtaining response RO_Crates", exception);
+            log.error("Exception while obtaining request RO_Crates", exception);
             results.clear();
         }
 
