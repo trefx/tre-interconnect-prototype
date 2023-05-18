@@ -44,15 +44,15 @@ public class ROCrateResponseProcessor
     @Incoming("rp_incoming")
     public void processResponse(JsonObject responseObject)
     {
-        log.info("@@@@@@@@@@@@ Lab - ROCrateResponseProcessor.processResponce @@@@@@@@@@@@");
+        log.info("############ Lab - ROCrateResponseProcessor::processResponse ############");
 
         try
         {
-            if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("responces").build()))
-                minioClient.makeBucket(MakeBucketArgs.builder().bucket("responces").build());
+            if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("responses").build()))
+                minioClient.makeBucket(MakeBucketArgs.builder().bucket("responses").build());
 
-            InputStream inputStream = new StringBufferInputStream("Test Text");
-            minioClient.putObject(PutObjectArgs.builder().bucket("responces").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
+            InputStream inputStream = new StringBufferInputStream(responseObject.encode());
+            minioClient.putObject(PutObjectArgs.builder().bucket("responses").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
             inputStream.close();
         }
         catch (Error error)

@@ -67,8 +67,10 @@ public class ROCrateTemplatedRequestSubmitterResource
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postTemplateRequest(Request request)
+    public String postSubmitTemplatedRequest(Request request)
     {
+        log.info("############ Lab - ROCrateTemplatedRequestSubmitterResource::postSubmitTemplatedRequest ############");
+
         try
         {
             log.infof("Template ID: %s", request.templateID);

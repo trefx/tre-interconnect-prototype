@@ -70,6 +70,8 @@ public class ROCrateDataSHIELDRequestSubmitterResource
     @Produces(MediaType.APPLICATION_JSON)
     public String postSubmitDataSHIELDRequest(DataSHIELDRequest dataSHIELDRequest)
     {
+        log.info("############ Lab - ROCrateDataSHIELDRequestSubmitterResource::postSubmitDataSHIELDRequest ############");
+
         try
         {
             log.debugf("DataSHIELD Platform Name:     %s", dataSHIELDRequest.platformName);

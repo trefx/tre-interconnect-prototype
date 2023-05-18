@@ -49,7 +49,7 @@ public class ROCrateResponses
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getResponseIds()
     {
-        log.info("@@@@@@@@@@@@ Lab - ROCrateResponses.getResponseIds @@@@@@@@@@@@");
+        log.info("############ Lab - ROCrateResponses.getResponseIds ############");
 
         List<String> results = new ArrayList();
         try

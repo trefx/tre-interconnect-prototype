@@ -72,6 +72,8 @@ public class ROCrateTemplate
     @Produces(MediaType.APPLICATION_JSON)
     public List<TemplateSummary> getTemplateSummaries()
     {
+        log.info("############ Lab - ROCrateTemplate::getTemplateSummaries ############");
+
         List<TemplateSummary> list = new ArrayList<TemplateSummary>();
 
         try
