@@ -12,13 +12,19 @@ export class TemplatedRequestCreatorComponent
 {
     public templateID: string;
 
+    public isSubmitting: boolean;
+
     public constructor(private templatedRequestSubmitterService: TemplatedRequestSubmitterService)
     {
         this.templateID = "";
+
+        this.isSubmitting = false;
     }
 
     public doCreateRequest(): void
     {
+        this.isSubmitting = true;
         let outcome = this.templatedRequestSubmitterService.createRequest(this.templateID);
+        outcome.subscribe(() => { this.isSubmitting = false });
     }
 }

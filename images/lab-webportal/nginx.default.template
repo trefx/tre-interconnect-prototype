@@ -37,11 +37,25 @@ server {
         proxy_pass http://response_processor:7010/responses;
     }
 
+    location /service/response_processor/response {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://response_processor:7010/response;
+    }
+
     location /service/response_processor/requests {
         proxy_set_header X-Forwarded-Host $host:$server_port;
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_pass http://response_processor:7010/requests;
+    }
+
+    location /service/response_processor/request {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://response_processor:7010/request;
     }
 
     location / {

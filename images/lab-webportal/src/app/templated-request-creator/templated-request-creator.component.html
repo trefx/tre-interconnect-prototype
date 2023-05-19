@@ -12,6 +12,7 @@
                 </mat-form-field>
             </mat-grid-tile>
         </mat-grid-list>
+        <mat-progress-bar mode="indeterminate" *ngIf="isSubmitting"></mat-progress-bar>
     </mat-card-content>
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="doCreateRequest()">Submit Request</button>

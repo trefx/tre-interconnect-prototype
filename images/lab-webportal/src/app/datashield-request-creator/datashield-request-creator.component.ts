@@ -17,6 +17,8 @@ export class DataSHIELDRequestCreatorComponent
     public dataSHIELDWorkspaceName:   string;
     public dataSHIELDRScript:         string;
 
+    public isSubmitting: boolean;
+
     public constructor(private requestDataSHIELDSubmitterService: DataSHIELDRequestSubmitterService)
     {
         this.dataSHIELDPlatformName    = "caravan";
@@ -25,10 +27,14 @@ export class DataSHIELDRequestCreatorComponent
         this.dataSHIELDTableNamesList  = "datashield/cnsim/CNSIM1";
         this.dataSHIELDWorkspaceName   = "workspace-1";
         this.dataSHIELDRScript         = "lsDS(NULL,1L)";
+
+        this.isSubmitting = false;
     }
 
     public doCreateRequest(): void
     {
+        this.isSubmitting = true;
         let outcome = this.requestDataSHIELDSubmitterService.createRequest(this.dataSHIELDPlatformName, this.dataSHIELDProfileName, this.dataSHIELDSymbolNamesList, this.dataSHIELDTableNamesList, this.dataSHIELDWorkspaceName, this.dataSHIELDRScript);
+        outcome.subscribe(() => { this.isSubmitting = false });
     }
 }
