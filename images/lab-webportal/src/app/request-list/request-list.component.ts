@@ -46,6 +46,6 @@ export class RequestListComponent implements OnInit
         this.selectedRequestId = selectedRequestId;
 
         this.isLoadingRequestText = true;
-        this.interactionLogService.listRequests().subscribe((data: any) => { this.requestText = data; this.isLoadingRequestText = false });
+        this.interactionLogService.getRequest(selectedRequestId).subscribe((data: any) => { this.requestText = data; this.isLoadingRequestText = false });
     }
 }

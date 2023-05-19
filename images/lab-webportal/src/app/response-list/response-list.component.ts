@@ -46,6 +46,6 @@ export class ResponseListComponent implements OnInit
         this.selectedResponseId = selectedResponseId;
 
         this.isLoadingResponseText = true;
-        this.interactionLogService.listResponses().subscribe((data: any) => { this.responseText = data; this.isLoadingResponseText = false });
+        this.interactionLogService.getResponse(selectedResponseId).subscribe((data: any) => { this.responseText = data; this.isLoadingResponseText = false });
     }
 }

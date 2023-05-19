@@ -4,7 +4,7 @@
     </mat-card-header>
     <mat-card-content>
         <ul *ngFor="let requestId of requestIds">
-            <li><button mat-button (click)="doSelectRequest({{requestId}})">{{requestId}}</button></li>
+            <li><button mat-button (click)="doSelectRequest(requestId)">{{requestId}}</button></li>
         </ul>
         <mat-progress-bar mode="indeterminate" *ngIf="isLoadingRequestIds"></mat-progress-bar>
     </mat-card-content>

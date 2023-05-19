@@ -4,7 +4,7 @@
     </mat-card-header>
     <mat-card-content>
         <ul *ngFor="let responseId of responseIds">
-            <li><button mat-button (click)="doSelectResponse({{responseId}})">{{responseId}}</button></li>
+            <li><button mat-button (click)="doSelectResponse(responseId)">{{responseId}}</button></li>
         </ul>
         <mat-progress-bar mode="indeterminate" *ngIf="isLoadingResponseIds"></mat-progress-bar>
     </mat-card-content>
