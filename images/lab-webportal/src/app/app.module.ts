@@ -8,8 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule }        from '@angular/common/http';
 
 import { MatToolbarModule }     from '@angular/material/toolbar';
-import { MatGridListModule }    from '@angular/material/grid-list'; 
 import { MatTabsModule }        from '@angular/material/tabs';
+import { MatGridListModule }    from '@angular/material/grid-list';
 import { MatCardModule }        from '@angular/material/card';
 import { MatListModule }        from '@angular/material/list';
 import { MatFormFieldModule }   from '@angular/material/form-field';

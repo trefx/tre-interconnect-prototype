@@ -44,18 +44,22 @@ public class ROCrateResponse
     public MinioClient minioClient;
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getResponse(@QueryParam("responseid") String responseId)
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonNode getResponse(@QueryParam("responseid") String responseId)
     {
         log.info("############ Lab - ROCrateResponse.getResponse ############");
 
-        StringBuilder results = new StringBuilder();
+        ObjectMapper  mapper       = new ObjectMapper();
+        JsonNode      results      = mapper.createObjectNode();
+        StringBuilder stringBuffer = new StringBuilder();
         try
         {
             InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("responses").object(responseId).build());
 
             for (int ch; (ch = inputStream.read()) != -1;)
-                results.append((char) ch);
+                stringBuffer.append((char) ch);
+
+            results = mapper.readTree(stringBuffer.toString());
         }
         catch (Error error)
         {
@@ -66,6 +70,6 @@ public class ROCrateResponse
             log.error("Exception while obtaining response RO_Crate", exception);
         }
 
-        return results.toString();
+        return results;
     }
 }

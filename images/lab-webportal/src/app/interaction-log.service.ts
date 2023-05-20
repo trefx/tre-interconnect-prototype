@@ -30,9 +30,9 @@ export class InteractionLogService
 
     public getRequest(requestId: string): Observable<string>
     {
-        let headers = new HttpHeaders({"Accept": "text/plain"});
+        let headers = new HttpHeaders({"Accept": "application/json"});
         let params  = new HttpParams();
-        params.set("requestid", requestId)
+        params = params.append("requestid", requestId)
 
         return this.httpClient.get<string>(this.requestServiceURL, { headers: headers, params: params });
     }
@@ -47,9 +47,9 @@ export class InteractionLogService
 
     public getResponse(responseId: string): Observable<string>
     {
-        let headers = new HttpHeaders({"Accept": "text/plain"});
+        let headers = new HttpHeaders({"Accept": "application/json"});
         let params  = new HttpParams();
-        params.set("responseid", responseId)
+        params = params.append("responseid", responseId)
 
         return this.httpClient.get<string>(this.responseServiceURL, { headers: headers, params: params });
     }
