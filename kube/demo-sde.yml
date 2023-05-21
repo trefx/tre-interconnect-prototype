@@ -9,7 +9,7 @@ metadata:
 spec:
   containers:
   - name: activemq
-    image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:gt
+    image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:latest
     ports:
     - containerPort: 8161
       hostPort: 8361
