@@ -31,17 +31,21 @@ public class ROCrateResponseRouter
     Logger log;
 
     @Blocking
-    @Incoming("outgoing-requests")
-    @Outgoing("incoming-responses")
+    @Incoming("rr-incoming")
+    @Outgoing("rr-outgoing")
     public RoCrate routeResponse(JsonObject requestObject)
     {
         try
         {
+            log.info("############ DMZ - ROCrateResponseRouter::routeResponse ############");
+
             ObjectMapper objectMapper = new ObjectMapper();
 
             log.infof("Class: %s\n", requestObject.getClass().getName());
 
-            return null;
+            RoCrate response = objectMapper.convertValue(requestObject, RoCrate.class);
+
+            return response;
         }
         catch (Error error)
         {
