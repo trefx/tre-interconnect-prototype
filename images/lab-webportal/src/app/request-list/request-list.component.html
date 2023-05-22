@@ -1,18 +1,19 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Request List</mat-card-title>
+        <mat-card-title><h1>Request List</h1></mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <div class="row">
             <div class="column">
+                <p>Request Ids</p>
                 <ul *ngFor="let requestId of requestIds">
                     <li><button mat-button (click)="doSelectRequest(requestId)">{{requestId}}</button></li>
                 </ul>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingRequestIds"></mat-progress-bar>
             </div>
             <div class="column">
-                <p>{{selectedRequestId}}</p>
-                <pre>{{requestText | json}}</pre>
+                <p>Request: {{selectedRequestId}}</p>
+                <pre class="text">{{requestText | json}}</pre>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingRequestText"></mat-progress-bar>
             </div>
         </div>
