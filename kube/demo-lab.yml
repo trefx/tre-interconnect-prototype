@@ -64,6 +64,8 @@ spec:
     image: docker.io/risbic/lab-response-processor:latest
   - name: request_sender
     image: docker.io/risbic/lab-request-sender:latest
+  - name: devel
+    image: docker.io/risbic/lab-devel:latest
   volumes:
     - name: mongo-data
       hostPath:
