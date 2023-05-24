@@ -32,10 +32,6 @@ export class DataSHIELDRequestSubmitterService
             "dataSHIELDRScript":         dataSHIELDRScript
         }
 
-        const outcomeObservable = this.httpClient.post<Object>(this.serviceURL, body, { headers: headers, params: params });
-
-        outcomeObservable.subscribe(data => { console.log("** " + data + " **") });
-
-        return outcomeObservable;
+        return this.httpClient.post<Object>(this.serviceURL, body, { headers: headers, params: params });
     }
 }
