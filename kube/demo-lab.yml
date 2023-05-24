@@ -23,7 +23,7 @@ spec:
       - name: AMQ_PASSWORD
         value: "password"
   - name: mongo
-    image: quay.io/domino/mongo
+    image: docker.io/library/mongo:latest
     volumeMounts:
       - mountPath: /data/db
         name: mongo-data
