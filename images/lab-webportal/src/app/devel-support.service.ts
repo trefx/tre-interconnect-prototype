@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class DevelSupportService
 {
-    private develServiceURL = "http://localhost:8080/service/devel/devel/stores_reset";
+    private develServiceURL = "http://localhost:8080/service/devel/stores_reset";
 
     public constructor(private httpClient: HttpClient)
     {
