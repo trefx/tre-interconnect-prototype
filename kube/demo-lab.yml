@@ -11,8 +11,6 @@ spec:
   - name: activemq
     image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:latest
     ports:
-    - containerPort: 61616
-      hostPort: 61616
     - containerPort: 8161
       hostPort: 8161
     - containerPort: 5672
@@ -66,12 +64,19 @@ spec:
     image: docker.io/risbic/lab-request-sender:latest
   - name: devel
     image: docker.io/risbic/lab-devel:latest
+    volumeMounts:
+      - mountPath: /data
+        name: devel-data
   volumes:
+    - name: devel-data
+      hostPath:
+        path: ./devel-data/lab
+        type: Directory
     - name: mongo-data
       hostPath:
-        path: /home/swheater/sde-demo/data/lab/mongo
+        path: ./lab-data/mongo
         type: DirectoryOrCreate
     - name: minio-data
       hostPath:
-        path: /home/swheater/sde-demo/data/lab/minio
+        path: ./lab-data/minio
         type: DirectoryOrCreate

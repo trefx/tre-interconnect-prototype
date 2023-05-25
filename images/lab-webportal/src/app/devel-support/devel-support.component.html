@@ -1,0 +1,9 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title><h1>Development Support</h1></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <button mat-button (click)="doResetStorage()">Reset Storage</button>
+        <mat-progress-bar mode="indeterminate" *ngIf="isResettingStorage"></mat-progress-bar>
+    </mat-card-content>
+</mat-card>

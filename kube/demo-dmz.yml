@@ -11,8 +11,6 @@ spec:
   - name: activemq
     image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:latest
     ports:
-    - containerPort: 61616
-      hostPort: 61616
     - containerPort: 8161
       hostPort: 8161
     - containerPort: 5672
