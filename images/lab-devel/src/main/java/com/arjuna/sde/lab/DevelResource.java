@@ -1,15 +1,14 @@
 package com.arjuna.sde.lab;
 
-import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.lang.Error;
-import java.lang.Exception;
+import java.nio.file.Path;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.DirectoryStream;
 
 import jakarta.inject.Inject;
 
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
+// import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
@@ -24,7 +23,7 @@ import org.bson.Document;
 
 import io.minio.MinioClient;
 
-@Path("/devel")
+@jakarta.ws.rs.Path("/stores_reset")
 @ApplicationScoped
 public class DevelResource
 {
@@ -38,7 +37,6 @@ public class DevelResource
     public MinioClient minioClient;
 
     @POST
-    @Path("/stores_reset")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String postStoresReset()
@@ -47,6 +45,7 @@ public class DevelResource
 
         try
         {
+            loadTemplates(minioClient, FileSystems.getDefault().getPath("/data/templates"));
         }
         catch (Error error)
         {
@@ -60,5 +59,27 @@ public class DevelResource
         }
 
         return "Done";
+    }
+
+    private void loadTemplates(MinioClient minioClient, Path templateFilesPath)
+    {
+        log.info("#### loadTemplates");
+        log.info(templateFilesPath.getFileName());
+
+        try (DirectoryStream<Path> templateFileStream = Files.newDirectoryStream(templateFilesPath))
+        {
+            for (Path templateFile: templateFileStream)
+                log.info(templateFile.getFileName());
+        }
+        catch (Error error)
+        {
+            log.error("Error while loading Templates", error);
+        }
+        catch (Exception exception)
+        {
+            log.error("Exception while loading Templates", exception);
+        }
+
+        log.info("#### loadTemplates - end");
     }
 }
