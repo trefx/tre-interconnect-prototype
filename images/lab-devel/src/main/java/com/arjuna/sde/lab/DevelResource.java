@@ -23,7 +23,7 @@ import org.bson.Document;
 
 import io.minio.MinioClient;
 
-@jakarta.ws.rs.Path("/devel")
+@jakarta.ws.rs.Path("/stores_reset")
 @ApplicationScoped
 public class DevelResource
 {
@@ -37,7 +37,6 @@ public class DevelResource
     public MinioClient minioClient;
 
     @POST
-    @jakarta.ws.rs.Path("/stores_reset")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String postStoresReset()
