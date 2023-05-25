@@ -7,7 +7,7 @@ MVN     = mvn
 PODMAN  = podman
 
 IMAGE_NAME = docker.io/risbic/lab-response-processor
-IMAGE_TAG  = latest
+IMAGE_TAG  = gt
 
 all:
 	$(QUARKUS) build
