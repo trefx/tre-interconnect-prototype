@@ -71,7 +71,7 @@ spec:
     - name: devel-data
       hostPath:
         path: ./devel-data/lab
-        type: Directory
+        type: DirectoryOrCreate
     - name: mongo-data
       hostPath:
         path: ./lab-data/mongo
