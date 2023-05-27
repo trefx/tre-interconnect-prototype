@@ -5,6 +5,9 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.DirectoryStream;
 
+import java.io.InputStream;
+import java.io.FileInputStream;
+
 import jakarta.inject.Inject;
 
 import jakarta.ws.rs.POST;
@@ -22,10 +25,14 @@ import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 
 import io.minio.MinioClient;
+import io.minio.PutObjectArgs;
+import io.minio.BucketExistsArgs;
+import io.minio.RemoveBucketArgs;
+import io.minio.MakeBucketArgs;
 
 @jakarta.ws.rs.Path("/stores_reset")
 @ApplicationScoped
-public class DevelResource
+public class StoresResetResource
 {
     @Inject
     Logger log;
@@ -41,7 +48,7 @@ public class DevelResource
     @Produces(MediaType.APPLICATION_JSON)
     public String postStoresReset()
     {
-        log.info("############ Lab - DevelResource::postStoresReset ############");
+        log.info("############ Lab - StoresResetResource::postStoresReset ############");
 
         try
         {
@@ -66,10 +73,21 @@ public class DevelResource
         log.info("#### loadTemplates");
         log.info(templateFilesPath.getFileName());
 
-        try (DirectoryStream<Path> templateFileStream = Files.newDirectoryStream(templateFilesPath))
+        try (DirectoryStream<Path> templatePathsStream = Files.newDirectoryStream(templateFilesPath))
         {
-            for (Path templateFile: templateFileStream)
-                log.info(templateFile.getFileName());
+            for (Path templatePath: templatePathsStream)
+            {
+                log.info(templatePath.getFileName());
+
+                if (minioClient.bucketExists(BucketExistsArgs.builder().bucket("templates").build()))
+                    minioClient.removeBucket(RemoveBucketArgs.builder().bucket("templates").build());
+
+                minioClient.makeBucket(MakeBucketArgs.builder().bucket("templates").build());
+
+                InputStream inputStream = new FileInputStream(templatePath.toFile());
+                minioClient.putObject(PutObjectArgs.builder().bucket("templates").object(templatePath.toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
+                inputStream.close();
+            }
         }
         catch (Error error)
         {
