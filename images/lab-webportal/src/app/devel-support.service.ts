@@ -20,6 +20,8 @@ export class DevelSupportService
     public storesReset(): Observable<Object>
     {
         let headers = new HttpHeaders({"Accept": "application/json"});
+        headers = headers.append("Accept", "application/json");
+        headers = headers.append("Content-Type", "application/json");
         let params  = new HttpParams();
         let body    = { };
 

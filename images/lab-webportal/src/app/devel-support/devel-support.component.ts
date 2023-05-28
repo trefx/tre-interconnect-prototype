@@ -10,16 +10,18 @@ import { DevelSupportService } from '../devel-support.service';
 })
 export class DevelSupportComponent
 {
+    public storesResetMessage: string | null;
     public isResettingStorage: boolean;
 
     public constructor(private develSupportService: DevelSupportService)
     {
+        this.storesResetMessage = null;
         this.isResettingStorage = false;
     }
 
     public doResetStorage(): void
     {
         this.isResettingStorage = true;
-        this.develSupportService.storesReset().subscribe((data: any) => { this.isResettingStorage = false });
+        this.develSupportService.storesReset().subscribe((data: Object) => { this.storesResetMessage = (data as any).outcome; this.isResettingStorage = false });
     }
 }
