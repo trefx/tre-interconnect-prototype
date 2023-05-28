@@ -7,17 +7,18 @@ import { BrowserModule }           from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule }        from '@angular/common/http';
 
-import { MatToolbarModule }     from '@angular/material/toolbar';
-import { MatTabsModule }        from '@angular/material/tabs';
-import { MatGridListModule }    from '@angular/material/grid-list';
-import { MatCardModule }        from '@angular/material/card';
-import { MatListModule }        from '@angular/material/list';
-import { MatFormFieldModule }   from '@angular/material/form-field';
-import { MatInputModule }       from '@angular/material/input';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatButtonModule }      from '@angular/material/button';
-import { MatIconModule }        from '@angular/material/icon';
-import { MatBadgeModule }       from '@angular/material/badge';
+import { MatToolbarModule }         from '@angular/material/toolbar';
+import { MatTabsModule }            from '@angular/material/tabs';
+import { MatGridListModule }        from '@angular/material/grid-list';
+import { MatCardModule }            from '@angular/material/card';
+import { MatListModule }            from '@angular/material/list';
+import { MatFormFieldModule }       from '@angular/material/form-field';
+import { MatInputModule }           from '@angular/material/input';
+import { MatProgressBarModule }     from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule }          from '@angular/material/button';
+import { MatIconModule }            from '@angular/material/icon';
+import { MatBadgeModule }           from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -29,11 +30,13 @@ import { DataSHIELDRequestCreatorComponent } from './datashield-request-creator/
 import { RequestListComponent }              from './request-list/request-list.component';
 import { RequestComponent }                  from './request/request.component';
 import { ResponseListComponent }             from './response-list/response-list.component';
+import { DevelSupportComponent }             from './devel-support/devel-support.component';
 
 import { RequestFormService }                from './request-form.service';
 import { TemplatedRequestSubmitterService }  from './templated-request-submitter.service';
 import { DataSHIELDRequestSubmitterService } from './datashield-request-submitter.service';
 import { InteractionLogService }             from './interaction-log.service';
+import { DevelSupportService }               from './devel-support.service';
 
 @NgModule
 ({
@@ -46,7 +49,8 @@ import { InteractionLogService }             from './interaction-log.service';
         DataSHIELDRequestCreatorComponent,
         RequestListComponent,
         RequestComponent,
-        ResponseListComponent
+        ResponseListComponent,
+        DevelSupportComponent
     ],
     imports:
     [
@@ -61,6 +65,7 @@ import { InteractionLogService }             from './interaction-log.service';
         MatFormFieldModule,
         MatInputModule,
         MatProgressBarModule,
+        MatProgressSpinnerModule,
         MatButtonModule,
         MatIconModule,
         MatBadgeModule,
@@ -70,7 +75,8 @@ import { InteractionLogService }             from './interaction-log.service';
     [
         TemplatedRequestSubmitterService,
         DataSHIELDRequestSubmitterService,
-        InteractionLogService
+        InteractionLogService,
+        DevelSupportService
     ],
     bootstrap:
     [

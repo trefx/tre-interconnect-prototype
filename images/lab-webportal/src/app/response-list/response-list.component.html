@@ -1,18 +1,19 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Response List</mat-card-title>
+        <mat-card-title><h1>Response List</h1></mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <div class="row">
             <div class="column">
+                <p>Response Ids</p>
                 <ul *ngFor="let responseId of responseIds">
                     <li><button mat-button (click)="doSelectResponse(responseId)">{{responseId}}</button></li>
                 </ul>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingResponseIds"></mat-progress-bar>
             </div>
             <div class="column">
-                <p>{{selectedResponseId}}</p>
-                <pre>{{responseText | json}}</pre>
+                <p>Response: {{selectedResponseId}}</p>
+                <pre class="text">{{responseText | json}}</pre>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingResponseText"></mat-progress-bar>
             </div>
         </div>

@@ -59,7 +59,7 @@ public class ROCrateTemplatedRequestSubmitterResource
     public Emitter<RoCrate> requestEmitter;
 
     @Inject
-    public  MongoClient mongoClient;
+    public MongoClient mongoClient;
 
     @Inject
     public MinioClient minioClient;

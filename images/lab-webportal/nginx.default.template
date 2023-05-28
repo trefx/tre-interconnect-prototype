@@ -58,6 +58,13 @@ server {
         proxy_pass http://response_processor:7010/request;
     }
 
+    location /service/devel/stores_reset {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://devel:7090/stores_reset;
+    }
+
     location / {
         root   /usr/local/nginx/html;
         index  index.html;

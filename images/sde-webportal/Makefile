@@ -31,3 +31,4 @@ clean:
 purge: clean
 	$(RMDIR) node_modules
 	$(NG) cache clean
+	$(PODMAN) image rm -i $(IMAGE_NAME):$(IMAGE_TAG)

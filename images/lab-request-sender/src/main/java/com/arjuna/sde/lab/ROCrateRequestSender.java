@@ -51,8 +51,7 @@ public class ROCrateRequestSender
         {
             ObjectMapper objectMapper = new ObjectMapper();
 
-            RoCrate roCrate = new RoCrate.RoCrateBuilder("Request", UUID.randomUUID().toString())
-                .build();
+            RoCrate request = objectMapper.convertValue(requestObject, RoCrate.class);
 
             if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("requests").build()))
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket("requests").build());
@@ -61,7 +60,7 @@ public class ROCrateRequestSender
             minioClient.putObject(PutObjectArgs.builder().bucket("requests").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
             inputStream.close();
 
-            return roCrate;
+            return request;
         }
         catch (Error error)
         {

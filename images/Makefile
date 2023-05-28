@@ -9,6 +9,7 @@ all:
 	$(MAKE) -C lab-request-sender all
 	$(MAKE) -C lab-response-processor all
 	$(MAKE) -C lab-webportal all
+	$(MAKE) -C lab-devel all
 	$(MAKE) -C dmz-response-router all
 	$(MAKE) -C sde-analysis-adaptor all
 	$(MAKE) -C sde-control all
@@ -23,6 +24,7 @@ all-lab:
 	$(MAKE) -C lab-request-sender all
 	$(MAKE) -C lab-response-processor all
 	$(MAKE) -C lab-webportal all
+	$(MAKE) -C lab-devel all
 
 all-dmz:
 	$(MAKE) -C dmz-response-router all
@@ -41,12 +43,14 @@ push-lab:
 	$(MAKE) -C lab-request-sender push
 	$(MAKE) -C lab-response-processor push
 	$(MAKE) -C lab-webportal push
+	$(MAKE) -C lab-devel push
 
 push:
 	$(MAKE) -C lab-request-creator push
 	$(MAKE) -C lab-request-sender push
 	$(MAKE) -C lab-response-processor push
 	$(MAKE) -C lab-webportal push
+	$(MAKE) -C lab-devel push
 	$(MAKE) -C dmz-response-router push
 	$(MAKE) -C sde-analysis-adaptor push
 	$(MAKE) -C sde-control push
@@ -61,6 +65,7 @@ clean:
 	$(MAKE) -C lab-request-sender clean
 	$(MAKE) -C lab-response-processor clean
 	$(MAKE) -C lab-webportal clean
+	$(MAKE) -C lab-devel clean
 	$(MAKE) -C dmz-response-router clean
 	$(MAKE) -C sde-analysis-adaptor clean
 	$(MAKE) -C sde-control clean
@@ -75,6 +80,7 @@ purge:
 	$(MAKE) -C lab-request-sender purge
 	$(MAKE) -C lab-response-processor purge
 	$(MAKE) -C lab-webportal purge
+	$(MAKE) -C lab-devel purge
 	$(MAKE) -C dmz-response-router purge
 	$(MAKE) -C sde-analysis-adaptor purge
 	$(MAKE) -C sde-control purge

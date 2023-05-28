@@ -21,7 +21,7 @@ spec:
       - name: AMQ_PASSWORD
         value: "password"
   - name: mongo
-    image: quay.io/domino/mongo
+    image: docker.io/library/mongo:latest
     volumeMounts:
       - mountPath: /data/db
         name: mongo-data
@@ -60,12 +60,21 @@ spec:
     image: docker.io/risbic/lab-response-processor:gt
   - name: request_sender
     image: docker.io/risbic/lab-request-sender:gt
+  - name: devel
+    image: docker.io/risbic/lab-devel:gt
+    volumeMounts:
+      - mountPath: /data
+        name: devel-data
   volumes:
+    - name: devel-data
+      hostPath:
+        path: ./devel-data/lab
+        type: DirectoryOrCreate
     - name: mongo-data
       hostPath:
-        path: /home/swheater/sde-demo/data/lab/mongo
+        path: ./lab-data/mongo
         type: DirectoryOrCreate
     - name: minio-data
       hostPath:
-        path: /home/swheater/sde-demo/data/lab/minio
+        path: ./lab-data/minio
         type: DirectoryOrCreate
