@@ -4,6 +4,7 @@
     </mat-card-header>
     <mat-card-content>
         <mat-progress-spinner mode="indeterminate" *ngIf="isResettingStorage"></mat-progress-spinner>
-        <button mat-button color="primary" (click)="doResetStorage()">Reset Storage</button>
+        <button mat-raised-button color="primary" (click)="doResetStorage()">Reset Storage</button>
+        <p *ngIf="storesResetMessage">Outcome: {{storesResetMessage}}</p>
     </mat-card-content>
 </mat-card>

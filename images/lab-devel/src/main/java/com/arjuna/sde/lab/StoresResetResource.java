@@ -63,15 +63,17 @@ public class StoresResetResource
         catch (Error error)
         {
             log.error("Error while creating request RO_Crate", error);
-            return "Error while creating request RO_Crate";
+            return "{\"outcome\": \"Error while creating request RO_Crate\"}";
         }
         catch (Exception exception)
         {
             log.error("Exception while creating request RO_Crate", exception);
-            return "Exception while creating request RO_Crate";
+            return "{\"outcome\": \"Exception while creating request RO_Crate\"}";
         }
 
-        return "Done";
+        log.info("############ Lab - StoresResetResource::postStoresReset - Done");
+
+        return "{\"outcome\": \"Done\"}";
     }
 
     private void loadTemplates(MinioClient minioClient, Path templateFilesPath)
@@ -85,8 +87,8 @@ public class StoresResetResource
                   Iterable<Result<Item>> bucketObjects = minioClient.listObjects(ListObjectsArgs.builder().bucket("templates").build());
                   for (Result<Item> bucketObject: bucketObjects)
                   {
-                      log.infof("Template File name: %s", bucketObject.get().objectName());
-                      minioClient.removeObject(RemoveObjectArgs.builder().bucket("templates").object(bucketObject.get().objectName()).build());
+                      log.infof("Object name: %s", bucketObject.get().objectName());
+                      minioClient.removeObject(RemoveObjectArgs.builder().bucket("templates").object(bucketObject.get().objectName()).versionId(bucketObject.get().versionId()).build());
                   }
 
                   minioClient.removeBucket(RemoveBucketArgs.builder().bucket("templates").build());
@@ -140,8 +142,10 @@ public class StoresResetResource
                 {
                     log.infof("Template Info File name: %s", templateInfoPath.getFileName());
 
-                    InputStream inputStream = new FileInputStream(templateInfoPath.toFile());
-                    inputStream.close();
+                    String   templateInfoContent = Files.readString(templateInfoPath);
+                    Document document            = Document.parse(templateInfoContent);
+
+                    sde.getCollection("template_infos").insertOne(document);
                 }
             }
             catch (Error error)
