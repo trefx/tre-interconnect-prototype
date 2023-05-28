@@ -12,13 +12,13 @@ spec:
     image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:latest
     ports:
     - containerPort: 8161
-      hostPort: 8161
+      hostPort: 8261
     - containerPort: 5672
-      hostPort: 5672
+      hostPort: 5772
     env:
       - name: AMQ_USER
         value: "admin"
       - name: AMQ_PASSWORD
         value: "password"
   - name: request_creator
-    image: docker.io/risbic/dmz-response-router:latest
+    image: docker.io/risbic/dmz-response-router:gt
