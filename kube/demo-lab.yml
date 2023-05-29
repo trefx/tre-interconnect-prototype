@@ -12,9 +12,9 @@ spec:
     image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:latest
     ports:
     - containerPort: 8161
-      hostPort: 8161
+      hostPort: 8261
     - containerPort: 5672
-      hostPort: 5672
+      hostPort: 5772
     env:
       - name: AMQ_USER
         value: "admin"
@@ -37,7 +37,7 @@ spec:
         name: minio-data
     ports:
     - containerPort: 9001
-      hostPort: 9003
+      hostPort: 9101
     env:
       - name: MINIO_ROOT_USER
         value: "admin"
@@ -48,7 +48,7 @@ spec:
     image: docker.io/risbic/lab-webportal:gt
     ports:
     - containerPort: 80
-      hostPort: 8082
+      hostPort: 8180
     env:
       - name: NGINX_HOST
         value: "localhost"

@@ -31,8 +31,8 @@ public class ROCrateResponseRouter
     Logger log;
 
     @Blocking
-    @Incoming("rr-incoming")
-    @Outgoing("rr-outgoing")
+    @Incoming("rr_incoming")
+    @Outgoing("rr_outgoing")
     public RoCrate routeResponse(JsonObject requestObject)
     {
         try

@@ -31,12 +31,14 @@ public class ROCrateRequestChecker
     Logger log;
 
     @Blocking
-    @Incoming("outgoing-requests")
-    @Outgoing("incoming-responses")
+    @Incoming("rc_incoming")
+    @Outgoing("rc_outgoing")
     public RoCrate checkRequest(JsonObject requestObject)
     {
         try
         {
+            log.info("############ SDE - ROCrateRequestChecker::checkRequest ############");
+
             ObjectMapper objectMapper = new ObjectMapper();
 
             log.infof("Class: %s\n", requestObject.getClass().getName());
