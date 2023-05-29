@@ -78,7 +78,7 @@ public class ROCrateTemplate
 
         try
         {
-            MongoCursor<Document> cursor = mongoClient.getDatabase("tre").getCollection("templates").find().iterator();
+            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("template_infos").find().iterator();
 
             try
             {
