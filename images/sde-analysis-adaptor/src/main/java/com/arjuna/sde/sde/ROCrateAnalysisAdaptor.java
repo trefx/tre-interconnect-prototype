@@ -31,10 +31,12 @@ public class ROCrateAnalysisAdaptor
     Logger log;
 
     @Blocking
-    @Incoming("outgoing-requests")
-    @Outgoing("incoming-responses")
+    @Incoming("aa_incoming")
+    @Outgoing("aa_outgoing")
     public RoCrate doAnalysis(JsonObject requestObject)
     {
+        log.info("############ SDE - ROCrateAnalysisAdaptor::doAnalysis ############");
+
         try
         {
             ObjectMapper objectMapper = new ObjectMapper();

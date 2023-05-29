@@ -20,7 +20,7 @@ import io.vertx.core.json.JsonObject;
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
 @ApplicationScoped
-public class DataSHIELDAdapter
+public class DataSHIELDAnalysisAdapter
 {
     private static final Logger LOG = Logger.getLogger(DataSHIELDAdapter.class);
 
@@ -28,19 +28,19 @@ public class DataSHIELDAdapter
     @RestClient
     public ArmadilloService armadilloService;
 
-    @Incoming("datashield-requests")
-    @Outgoing("datashield-responses")
     @Blocking
+    @Incoming("daa_incoming")
+    @Outgoing("daa_outgoing")
 //    public RoCrate processDataSHIELDRequest(RoCrate datashieldRequest)
     public RoCrate processDataSHIELDRequest(JsonObject datashieldRequest)
     {
         String responce     = null;
         String errorMessage = null;
 
-        LOG.infof("%s\n", datashieldRequest.encode());
-
         try
         {
+              log.info("############ SDE - DataSHIELDAnalysisAdapter::processDataSHIELDRequest ############");
+
 //            RootDataEntity rootDataEntity = datashieldRequest.getRootDataEntity();
 
 //            String dataSHIELDPlatformName    = rootDataEntity.getProperty("datashield-platform-name").asText();
