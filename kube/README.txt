@@ -6,9 +6,9 @@ podman network create sde
 
 # Play deployments
 
-podman play kube --network podman:ip=10.88.0.2 demo-lab.yml
-podman play kube --network podman:ip=10.88.0.3 demo-dmz.yml
-podman play kube --network podman:ip=10.88.0.4 demo-sde.yml
+podman kube play --network podman:ip=10.88.0.2 demo-lab.yml
+podman kube play --network podman:ip=10.88.0.3 demo-dmz.yml
+podman kube play --network podman:ip=10.88.0.4 demo-sde.yml
 
 # Monitor logging output
 
