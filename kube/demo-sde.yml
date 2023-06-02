@@ -21,7 +21,7 @@ spec:
       - name: AMQ_PASSWORD
         value: "password"
   - name: webportal
-    image: docker.io/risbic/sde-webportal:gt
+    image: docker.io/risbic/sde-webportal:latest
     ports:
       - containerPort: 80
         hostPort: 8090
@@ -47,17 +47,17 @@ spec:
         value: "password"
     args: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
   - name: request_receiver
-    image: docker.io/risbic/sde-request-receiver:gt
+    image: docker.io/risbic/sde-request-receiver:latest
   - name: request_checker
-    image: docker.io/risbic/sde-request-checker:gt
+    image: docker.io/risbic/sde-request-checker:latest
   - name: analysis-adaptor
-    image: docker.io/risbic/sde-analysis-adaptor:gt
+    image: docker.io/risbic/sde-analysis-adaptor:latest
   - name: response-checker
-    image: docker.io/risbic/sde-response-checker:gt
+    image: docker.io/risbic/sde-response-checker:latest
   - name: response-sender
-    image: docker.io/risbic/sde-response-sender:gt
+    image: docker.io/risbic/sde-response-sender:latest
   - name: control
-    image: docker.io/risbic/sde-control:gt
+    image: docker.io/risbic/sde-control:latest
   volumes:
     - name: mongo-data
       hostPath:

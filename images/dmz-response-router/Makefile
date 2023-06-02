@@ -7,7 +7,7 @@ MVN     = mvn
 PODMAN  = podman
 
 IMAGE_NAME = docker.io/risbic/dmz-response-router
-IMAGE_TAG  = gt
+IMAGE_TAG  = latest
 
 all:
 	$(QUARKUS) build
