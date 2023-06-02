@@ -6,9 +6,9 @@ podman network create sde
 
 # Play deployments
 
-podman play kube --network lab demo-lab.yml
-podman play kube --network dmz demo-dmz.yml
-podman play kube --network sde demo-sde.yml
+podman kube play --network podman:ip=10.88.0.2 demo-lab.yml
+podman kube play --network podman:ip=10.88.0.3 demo-dmz.yml
+podman kube play --network podman:ip=10.88.0.4 demo-sde.yml
 
 # Monitor logging output
 
@@ -28,4 +28,4 @@ podman pod rm demo-sde
 ----
 
 Webportal for Reseachers to submitting Analysis Requests, and view Analysis Responses - Port 8080.
-Webportal for SDE Admins to check Analysis Requests and Analysis Responses - Port 8082.
+Webportal for SDE Admins to check Analysis Requests and Analysis Responses - Port 8090.
