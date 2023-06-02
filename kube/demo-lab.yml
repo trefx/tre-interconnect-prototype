@@ -42,7 +42,7 @@ spec:
         value: "password"
     args: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
   - name: webportal
-    image: docker.io/risbic/lab-webportal:gt
+    image: docker.io/risbic/lab-webportal:latest
     ports:
       - containerPort: 80
         hostPort: 8080
@@ -52,13 +52,13 @@ spec:
       - name: NGINX_PORT
         value: "80"
   - name: request_creator
-    image: docker.io/risbic/lab-request-creator:gt
+    image: docker.io/risbic/lab-request-creator:latest
   - name: response_processor
-    image: docker.io/risbic/lab-response-processor:gt
+    image: docker.io/risbic/lab-response-processor:latest
   - name: request_sender
-    image: docker.io/risbic/lab-request-sender:gt
+    image: docker.io/risbic/lab-request-sender:latest
   - name: devel
-    image: docker.io/risbic/lab-devel:gt
+    image: docker.io/risbic/lab-devel:latest
     volumeMounts:
       - mountPath: /data
         name: devel-data

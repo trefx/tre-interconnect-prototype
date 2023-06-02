@@ -11,7 +11,7 @@ NG     = ng
 PODMAN = podman
 
 IMAGE_NAME = docker.io/risbic/sde-webportal
-IMAGE_TAG  = gt
+IMAGE_TAG  = latest
 
 all: dist
 	$(PODMAN) build -t $(IMAGE_NAME):$(IMAGE_TAG) -f Containerfile .
