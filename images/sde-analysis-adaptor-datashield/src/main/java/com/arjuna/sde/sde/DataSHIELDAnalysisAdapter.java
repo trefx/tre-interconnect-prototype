@@ -22,7 +22,8 @@ import io.smallrye.reactive.messaging.annotations.Blocking;
 @ApplicationScoped
 public class DataSHIELDAnalysisAdapter
 {
-    private static final Logger LOG = Logger.getLogger(DataSHIELDAdapter.class);
+    @Inject
+    Logger log;
 
     @Inject
     @RestClient
@@ -39,7 +40,7 @@ public class DataSHIELDAnalysisAdapter
 
         try
         {
-              log.info("############ SDE - DataSHIELDAnalysisAdapter::processDataSHIELDRequest ############");
+            log.info("############ SDE - DataSHIELDAnalysisAdapter::processDataSHIELDRequest ############");
 
 //            RootDataEntity rootDataEntity = datashieldRequest.getRootDataEntity();
 
@@ -59,12 +60,12 @@ public class DataSHIELDAnalysisAdapter
             String dataSHIELDWorkspaceName   = rootDataEntity.getString("datashield-workspace-name");
             String dataSHIELDRScript         = rootDataEntity.getString("datashield-r-script");
 
-            LOG.infof("DataSHIELD Platform Name     %s", dataSHIELDPlatformName);
-            LOG.infof("DataSHIELD Profile Name      %s", dataSHIELDProfileName);
-            LOG.infof("DataSHIELD Symbol Names List %s", dataSHIELDSymbolNamesList);
-            LOG.infof("DataSHIELD Table Names List  %s", dataSHIELDTableNamesList);
-            LOG.infof("DataSHIELD Workspace Name    %s", dataSHIELDWorkspaceName);
-            LOG.infof("DataSHIELD R Script          %s", dataSHIELDRScript);
+            log.infof("DataSHIELD Platform Name     %s", dataSHIELDPlatformName);
+            log.infof("DataSHIELD Profile Name      %s", dataSHIELDProfileName);
+            log.infof("DataSHIELD Symbol Names List %s", dataSHIELDSymbolNamesList);
+            log.infof("DataSHIELD Table Names List  %s", dataSHIELDTableNamesList);
+            log.infof("DataSHIELD Workspace Name    %s", dataSHIELDWorkspaceName);
+            log.infof("DataSHIELD R Script          %s", dataSHIELDRScript);
 
             // Load Workspace
             armadilloService.postSelectProfile(dataSHIELDProfileName, false);
@@ -76,16 +77,16 @@ public class DataSHIELDAnalysisAdapter
         catch(Error error)
         {
             errorMessage = "Error processing of DataSHIELD request";
-            LOG.warn(errorMessage, error);
+            log.warn(errorMessage, error);
         }
         catch(Exception exception)
         {
             errorMessage = "Exception processing of DataSHIELD request";
-            LOG.warn(errorMessage, exception);
+            log.warn(errorMessage, exception);
         }
 
-        LOG.infof("Responce:      %s\n", responce);
-        LOG.infof("Error message: %s\n", errorMessage);
+        log.infof("Responce:      %s\n", responce);
+        log.infof("Error message: %s\n", errorMessage);
 
         RoCrate datashieldResponse = new RoCrate.RoCrateBuilder("Request", UUID.randomUUID().toString()).build();
 
