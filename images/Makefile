@@ -12,6 +12,7 @@ all:
 	$(MAKE) -C lab-devel all
 	$(MAKE) -C dmz-response-router all
 	$(MAKE) -C sde-analysis-adaptor all
+	$(MAKE) -C sde-analysis-adaptor-datashield all
 	$(MAKE) -C sde-control all
 	$(MAKE) -C sde-request-checker all
 	$(MAKE) -C sde-request-receiver all
@@ -31,6 +32,7 @@ all-dmz:
 
 all-sde:
 	$(MAKE) -C sde-analysis-adaptor all
+	$(MAKE) -C sde-analysis-adaptor-datashield all
 	$(MAKE) -C sde-control all
 	$(MAKE) -C sde-request-checker all
 	$(MAKE) -C sde-request-receiver all
@@ -53,6 +55,7 @@ push:
 	$(MAKE) -C lab-devel push
 	$(MAKE) -C dmz-response-router push
 	$(MAKE) -C sde-analysis-adaptor push
+	$(MAKE) -C sde-analysis-adaptor-datashield push
 	$(MAKE) -C sde-control push
 	$(MAKE) -C sde-request-checker push
 	$(MAKE) -C sde-request-receiver push
@@ -68,6 +71,7 @@ clean:
 	$(MAKE) -C lab-devel clean
 	$(MAKE) -C dmz-response-router clean
 	$(MAKE) -C sde-analysis-adaptor clean
+	$(MAKE) -C sde-analysis-adaptor-datashield clean
 	$(MAKE) -C sde-control clean
 	$(MAKE) -C sde-request-checker clean
 	$(MAKE) -C sde-request-receiver clean
@@ -83,6 +87,7 @@ purge:
 	$(MAKE) -C lab-devel purge
 	$(MAKE) -C dmz-response-router purge
 	$(MAKE) -C sde-analysis-adaptor purge
+	$(MAKE) -C sde-analysis-adaptor-datashield purge
 	$(MAKE) -C sde-control purge
 	$(MAKE) -C sde-request-checker purge
 	$(MAKE) -C sde-request-receiver purge
