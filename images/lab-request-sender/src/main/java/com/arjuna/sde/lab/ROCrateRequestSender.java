@@ -35,7 +35,10 @@ import io.smallrye.reactive.messaging.annotations.Blocking;
 public class ROCrateRequestSender
 {
     @Inject
-    Logger log;
+    public Logger log;
+
+    @Inject
+    public ObjectMapper objectMapper;
 
     @Inject
     public MinioClient minioClient;
@@ -43,20 +46,18 @@ public class ROCrateRequestSender
     @Blocking
     @Incoming("rs_incoming")
     @Outgoing("rs_outgoing")
-    public RoCrate forwardRequest(JsonObject requestObject)
+    public RoCrate forwardRequest(RoCrate request)
     {
         log.info("############ Lab - ROCrateRequestSender::forwardRequest ############");
 
         try
         {
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            RoCrate request = objectMapper.convertValue(requestObject, RoCrate.class);
+//            RoCrate request = objectMapper.convertValue(requestObject, RoCrate.class);
 
             if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("requests").build()))
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket("requests").build());
 
-            InputStream inputStream = new StringBufferInputStream(requestObject.encode());
+            InputStream inputStream = new StringBufferInputStream(objectMapper.writeValueAsString(request));
             minioClient.putObject(PutObjectArgs.builder().bucket("requests").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
             inputStream.close();
 
