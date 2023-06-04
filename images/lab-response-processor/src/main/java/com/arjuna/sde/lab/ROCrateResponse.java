@@ -41,6 +41,9 @@ public class ROCrateResponse
     Logger log;
 
     @Inject
+    public ObjectMapper objectMapper;
+
+    @Inject
     public MinioClient minioClient;
 
     @GET
@@ -49,8 +52,7 @@ public class ROCrateResponse
     {
         log.info("############ Lab - ROCrateResponse.getResponse ############");
 
-        ObjectMapper  mapper       = new ObjectMapper();
-        JsonNode      results      = mapper.createObjectNode();
+        JsonNode      results      = objectMapper.createObjectNode();
         StringBuilder stringBuffer = new StringBuilder();
         try
         {
@@ -59,7 +61,7 @@ public class ROCrateResponse
             for (int ch; (ch = inputStream.read()) != -1;)
                 stringBuffer.append((char) ch);
 
-            results = mapper.readTree(stringBuffer.toString());
+            results = objectMapper.readTree(stringBuffer.toString());
         }
         catch (Error error)
         {

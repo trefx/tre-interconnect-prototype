@@ -35,14 +35,17 @@ import io.smallrye.reactive.messaging.annotations.Blocking;
 public class ROCrateResponseProcessor
 {
     @Inject
-    Logger log;
+    public Logger log;
+
+    @Inject
+    public ObjectMapper objectMapper;
 
     @Inject
     public MinioClient minioClient;
 
     @Blocking
     @Incoming("rp_incoming")
-    public void processResponse(JsonObject responseObject)
+    public void processResponse(RoCrate response)
     {
         log.info("############ Lab - ROCrateResponseProcessor::processResponse ############");
 
@@ -51,7 +54,7 @@ public class ROCrateResponseProcessor
             if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("responses").build()))
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket("responses").build());
 
-            InputStream inputStream = new StringBufferInputStream(responseObject.encode());
+            InputStream inputStream = new StringBufferInputStream(objectMapper.writeValueAsString(response));
             minioClient.putObject(PutObjectArgs.builder().bucket("responses").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
             inputStream.close();
         }

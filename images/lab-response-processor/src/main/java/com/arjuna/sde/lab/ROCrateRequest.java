@@ -38,7 +38,10 @@ import io.smallrye.reactive.messaging.annotations.Blocking;
 public class ROCrateRequest
 {
     @Inject
-    Logger log;
+    public Logger log;
+
+    @Inject
+    public ObjectMapper objectMapper;
 
     @Inject
     public MinioClient minioClient;
@@ -49,8 +52,7 @@ public class ROCrateRequest
     {
         log.info("############ Lab - ROCrateRequest.getRequest ############");
 
-        ObjectMapper  mapper       = new ObjectMapper();
-        JsonNode      results      = mapper.createObjectNode();
+        JsonNode      results      = objectMapper.createObjectNode();
         StringBuilder stringBuffer = new StringBuilder();
         try
         {
@@ -59,7 +61,7 @@ public class ROCrateRequest
             for (int ch; (ch = inputStream.read()) != -1;)
                 stringBuffer.append((char) ch);
 
-            results = mapper.readTree(stringBuffer.toString());
+            results = objectMapper.readTree(stringBuffer.toString());
         }
         catch (Error error)
         {
