@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { of, delay } from 'rxjs';
+
 import { DataSHIELDRequestSubmitterService } from '../datashield-request-submitter.service';
 
 @Component
@@ -18,6 +20,7 @@ export class DataSHIELDRequestCreatorComponent
     public dataSHIELDRScript:         string;
 
     public isSubmitting: boolean;
+    public submissionOutcome: string | null;
 
     public constructor(private requestDataSHIELDSubmitterService: DataSHIELDRequestSubmitterService)
     {
@@ -28,13 +31,14 @@ export class DataSHIELDRequestCreatorComponent
         this.dataSHIELDWorkspaceName   = "workspace-1";
         this.dataSHIELDRScript         = "lsDS(NULL,1L)";
 
-        this.isSubmitting = false;
+        this.isSubmitting      = false;
+        this.submissionOutcome = null;
     }
 
     public doCreateRequest(): void
     {
         this.isSubmitting = true;
         let outcome = this.requestDataSHIELDSubmitterService.createRequest(this.dataSHIELDPlatformName, this.dataSHIELDProfileName, this.dataSHIELDSymbolNamesList, this.dataSHIELDTableNamesList, this.dataSHIELDWorkspaceName, this.dataSHIELDRScript);
-        outcome.subscribe(() => { this.isSubmitting = false });
+        outcome.subscribe((data: Object) => { this.submissionOutcome = (data as any).outcome; of([1]).pipe(delay(6000)).subscribe((data: Object) => { this.submissionOutcome = null }); this.isSubmitting = false });
     }
 }
