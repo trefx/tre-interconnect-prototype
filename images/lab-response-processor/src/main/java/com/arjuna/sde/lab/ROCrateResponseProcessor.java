@@ -22,7 +22,6 @@ import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import io.minio.MinioClient;
 import io.minio.BucketExistsArgs;
@@ -45,12 +44,16 @@ public class ROCrateResponseProcessor
 
     @Blocking
     @Incoming("rp_incoming")
-    public void processResponse(RoCrate response)
+    public void processResponse(JsonObject response)
     {
         log.info("############ Lab - ROCrateResponseProcessor::processResponse ############");
 
         try
         {
+            System.out.println("@@@@@@");
+            System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(response));
+            System.out.println("@@@@@@");
+
             if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("responses").build()))
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket("responses").build());
 

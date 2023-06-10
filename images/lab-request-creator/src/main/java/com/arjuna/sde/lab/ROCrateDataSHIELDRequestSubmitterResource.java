@@ -19,6 +19,7 @@ import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
+import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
 import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
@@ -61,6 +62,9 @@ public class ROCrateDataSHIELDRequestSubmitterResource
 {
     @Inject
     Logger log;
+
+    @Inject
+    public ObjectMapper objectMapper;
 
     @Channel("drs_outgoing")
     public Emitter<RoCrate> requestEmitter;

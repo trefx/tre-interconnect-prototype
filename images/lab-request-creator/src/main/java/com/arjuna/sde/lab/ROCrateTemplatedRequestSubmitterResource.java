@@ -55,6 +55,9 @@ public class ROCrateTemplatedRequestSubmitterResource
     @Inject
     Logger log;
 
+    @Inject
+    public ObjectMapper objectMapper;
+
     @Channel("trs_outgoing")
     public Emitter<RoCrate> requestEmitter;
 
@@ -73,9 +76,8 @@ public class ROCrateTemplatedRequestSubmitterResource
 
         try
         {
-            log.infof("Template ID: %s", request.templateID);
-
             RootDataEntity rootDataEntity = new RootDataEntity.RootDataEntityBuilder()
+                .addProperty("template-id", request.templateID)
                 .build();
 
             RoCrate roCrate = new RoCrate.RoCrateBuilder("Request", UUID.randomUUID().toString())

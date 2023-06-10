@@ -21,7 +21,6 @@ import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
 import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
-import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import io.minio.MinioClient;
@@ -46,13 +45,13 @@ public class ROCrateRequestSender
     @Blocking
     @Incoming("rs_incoming")
     @Outgoing("rs_outgoing")
-    public RoCrate forwardRequest(RoCrate request)
+    public RoCrate forwardRequest(JsonObject requestJson)
     {
         log.info("############ Lab - ROCrateRequestSender::forwardRequest ############");
 
         try
         {
-//            RoCrate request = objectMapper.convertValue(requestObject, RoCrate.class);
+            RoCrate request = objectMapper.convertValue(requestJson, RoCrate.class);
 
             if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("requests").build()))
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket("requests").build());
