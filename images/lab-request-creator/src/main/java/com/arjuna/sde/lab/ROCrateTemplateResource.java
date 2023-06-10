@@ -56,7 +56,7 @@ class TemplateSummary
 }
 
 @Path("/template")
-public class ROCrateTemplate
+public class ROCrateTemplateResource
 {
     @Inject
     Logger log;
@@ -72,7 +72,7 @@ public class ROCrateTemplate
     @Produces(MediaType.APPLICATION_JSON)
     public List<TemplateSummary> getTemplateSummaries()
     {
-        log.info("############ Lab - ROCrateTemplate::getTemplateSummaries ############");
+        log.info("############ Lab - ROCrateTemplateResource::getTemplateSummaries ############");
 
         List<TemplateSummary> list = new ArrayList<TemplateSummary>();
 
