@@ -28,7 +28,10 @@ import io.smallrye.reactive.messaging.annotations.Blocking;
 public class ROCrateRequestChecker
 {
     @Inject
-    Logger log;
+    public Logger log;
+
+    @Inject
+    public ObjectMapper objectMapper;
 
     @Blocking
     @Incoming("rc_incoming")
@@ -39,11 +42,9 @@ public class ROCrateRequestChecker
         {
             log.info("############ SDE - ROCrateRequestChecker::checkRequest ############");
 
-            ObjectMapper objectMapper = new ObjectMapper();
+            RoCrate request = objectMapper.convertValue(requestObject, RoCrate.class);
 
-            log.infof("Class: %s\n", requestObject.getClass().getName());
-
-            return null;
+            return request;
         }
         catch (Error error)
         {

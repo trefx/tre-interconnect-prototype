@@ -28,22 +28,23 @@ import io.smallrye.reactive.messaging.annotations.Blocking;
 public class ROCrateResponseSender
 {
     @Inject
-    Logger log;
+    public Logger log;
+
+    @Inject
+    public ObjectMapper objectMapper;
 
     @Blocking
     @Incoming("rs_incoming")
     @Outgoing("rs_outgoing")
-    public RoCrate sendResponse(JsonObject requestObject)
+    public RoCrate sendResponse(JsonObject responseObject)
     {
         try
         {
             log.info("############ SDE - ROCrateResponseSender::sendResponse ############");
 
-            ObjectMapper objectMapper = new ObjectMapper();
+            RoCrate response = objectMapper.convertValue(responseObject, RoCrate.class);
 
-            log.infof("Class: %s\n", requestObject.getClass().getName());
-
-            return null;
+            return response;
         }
         catch (Error error)
         {
