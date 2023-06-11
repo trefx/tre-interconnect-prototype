@@ -1,4 +1,4 @@
-package com.arjuna.sde.lab;
+package com.arjuna.sde.sde;
 
 import java.util.UUID;
 import java.lang.Error;
@@ -20,30 +20,29 @@ import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
 import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
 @ApplicationScoped
 public class ROCrateResponseChecker
 {
     @Inject
-    Logger log;
+    public Logger log;
+
+    @Inject
+    public ObjectMapper objectMapper;
 
     @Blocking
     @Incoming("rc_incoming")
     @Outgoing("rc_outgoing")
-    public RoCrate checkResponse(JsonObject requestObject)
+    public RoCrate checkResponse(JsonObject responseObject)
     {
         try
         {
             log.info("############ SDE - ROCrateResponseChecker::checkResponse ############");
 
-            ObjectMapper objectMapper = new ObjectMapper();
+            RoCrate response = objectMapper.convertValue(responseObject, RoCrate.class);
 
-            log.infof("Class: %s\n", requestObject.getClass().getName());
-
-            return null;
+            return response;
         }
         catch (Error error)
         {

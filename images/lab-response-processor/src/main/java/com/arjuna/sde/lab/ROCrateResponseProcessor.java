@@ -50,10 +50,6 @@ public class ROCrateResponseProcessor
 
         try
         {
-            System.out.println("@@@@@@");
-            System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(response));
-            System.out.println("@@@@@@");
-
             if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("responses").build()))
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket("responses").build());
 

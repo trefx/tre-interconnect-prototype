@@ -20,15 +20,16 @@ import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
 import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
 @ApplicationScoped
 public class ROCrateRequestReceiver
 {
     @Inject
-    Logger log;
+    public Logger log;
+
+    @Inject
+    public ObjectMapper objectMapper;
 
     @Blocking
     @Incoming("rr_incoming")
@@ -39,11 +40,9 @@ public class ROCrateRequestReceiver
         {
             log.info("############ SDE - ROCrateRequestReceiver::receiveRequest ############");
 
-            ObjectMapper objectMapper = new ObjectMapper();
+            RoCrate request = objectMapper.convertValue(requestObject, RoCrate.class);
 
-            log.infof("Class: %s\n", requestObject.getClass().getName());
-
-            return null;
+            return request;
         }
         catch (Error error)
         {

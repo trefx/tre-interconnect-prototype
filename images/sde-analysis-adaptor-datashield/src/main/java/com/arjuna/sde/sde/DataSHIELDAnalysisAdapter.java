@@ -7,6 +7,8 @@ import java.util.UUID;
 import jakarta.inject.Inject;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.jboss.logging.Logger;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
@@ -23,7 +25,10 @@ import io.smallrye.reactive.messaging.annotations.Blocking;
 public class DataSHIELDAnalysisAdapter
 {
     @Inject
-    Logger log;
+    public Logger log;
+
+    @Inject
+    public ObjectMapper objectMapper;
 
     @Inject
     @RestClient
