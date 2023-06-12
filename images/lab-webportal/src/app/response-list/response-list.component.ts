@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit }    from '@angular/core';
 
+import { ResponseMetadata }      from '../response-metadata';
 import { InteractionLogService } from '../interaction-log.service';
 
 @Component
@@ -13,21 +14,23 @@ export class ResponseListComponent implements OnInit
 {
     public selectedResponseId: string | null;
 
-    public responseIds: string[];
-    public responseText: string;
+    public responseMetadatas: ResponseMetadata[];
+    public responseText:      string;
 
-    public isLoadingResponseIds:  boolean;
-    public isLoadingResponseText: boolean;
+    public displayedColumns: string[] = [ 'id' ];
+
+    public isLoadingResponseMetadatas: boolean;
+    public isLoadingResponseText:      boolean;
 
     public constructor(private interactionLogService: InteractionLogService)
     {
         this.selectedResponseId = null;
 
-        this.responseIds  = [];
-        this.responseText = "";
+        this.responseMetadatas = [];
+        this.responseText      = "";
 
-        this.isLoadingResponseIds  = false;
-        this.isLoadingResponseText = false;
+        this.isLoadingResponseMetadatas = false;
+        this.isLoadingResponseText      = false;
     }
 
     public ngOnInit(): void
@@ -37,15 +40,26 @@ export class ResponseListComponent implements OnInit
 
     public doReloadList(): void
     {
-        this.isLoadingResponseIds = true;
-        this.interactionLogService.listResponses().subscribe((data: any) => { this.responseIds = data; this.isLoadingResponseIds = false });
+        this.isLoadingResponseMetadatas = true;
+        this.interactionLogService.listResponses().subscribe((data: any) => { this.responseMetadatas = this.extractResponseMetadatas(data); this.isLoadingResponseMetadatas = false });
     }
 
-    public doSelectResponse(selectedResponseId: string): void
+    public doSelectResponse(selectedResponse: any): void
     {
-        this.selectedResponseId = selectedResponseId;
+        this.selectedResponseId = selectedResponse.id;
 
         this.isLoadingResponseText = true;
-        this.interactionLogService.getResponse(selectedResponseId).subscribe((data: any) => { this.responseText = data; this.isLoadingResponseText = false });
+        if (this.selectedResponseId != null)
+            this.interactionLogService.getResponse(this.selectedResponseId).subscribe((data: any) => { this.responseText = data; this.isLoadingResponseText = false });
+    }
+
+    private extractResponseMetadatas(data: any): ResponseMetadata[]
+    {
+        var responseMetadatas: ResponseMetadata[] = [];
+
+        for (let id of data)
+           responseMetadatas.push(new ResponseMetadata(id));
+
+        return responseMetadatas;
     }
 }
