@@ -9,6 +9,8 @@ import { HttpClientModule }        from '@angular/common/http';
 
 import { MatToolbarModule }         from '@angular/material/toolbar';
 import { MatTabsModule }            from '@angular/material/tabs';
+import { MatTableModule }           from '@angular/material/table';
+import { MatPaginatorModule }       from '@angular/material/paginator';
 import { MatGridListModule }        from '@angular/material/grid-list';
 import { MatCardModule }            from '@angular/material/card';
 import { MatListModule }            from '@angular/material/list';
@@ -58,8 +60,10 @@ import { DevelSupportService }               from './devel-support.service';
         BrowserAnimationsModule,
         HttpClientModule,
         MatToolbarModule,
-        MatGridListModule,
         MatTabsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatGridListModule,
         MatCardModule,
         MatListModule,
         MatFormFieldModule,

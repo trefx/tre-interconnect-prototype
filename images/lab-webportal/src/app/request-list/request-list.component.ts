@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit }    from '@angular/core';
 
+import { RequestMetadata }       from '../request-metadata';
 import { InteractionLogService } from '../interaction-log.service';
 
 @Component
@@ -13,21 +14,23 @@ export class RequestListComponent implements OnInit
 {
     public selectedRequestId: string | null;
 
-    public requestIds:  string[];
-    public requestText: string;
+    public requestMetadatas: RequestMetadata[];
+    public requestText:      string;
 
-    public isLoadingRequestIds:  boolean;
-    public isLoadingRequestText: boolean;
+    public displayedColumns: string[] = [ 'id' ];
+
+    public isLoadingRequestMetadatas: boolean;
+    public isLoadingRequestText:      boolean;
 
     public constructor(private interactionLogService: InteractionLogService)
     {
         this.selectedRequestId = null;
 
-        this.requestIds  = [];
-        this.requestText = "";
+        this.requestMetadatas = [];
+        this.requestText      = "";
 
-        this.isLoadingRequestIds  = false;
-        this.isLoadingRequestText = false;
+        this.isLoadingRequestMetadatas = false;
+        this.isLoadingRequestText      = false;
     }
 
     public ngOnInit(): void
@@ -37,15 +40,26 @@ export class RequestListComponent implements OnInit
 
     public doReloadList(): void
     {
-        this.isLoadingRequestIds = true;
-        this.interactionLogService.listRequests().subscribe((data: any) => { this.requestIds = data; this.isLoadingRequestIds = false });
+        this.isLoadingRequestMetadatas = true;
+        this.interactionLogService.listRequests().subscribe((data: any) => { this.requestMetadatas = this.extractRequestMetadatas(data); this.isLoadingRequestMetadatas = false });
     }
 
-    public doSelectRequest(selectedRequestId: string): void
+    public doSelectRequest(selectedRequest: any): void
     {
-        this.selectedRequestId = selectedRequestId;
+        this.selectedRequestId = selectedRequest.id;
 
         this.isLoadingRequestText = true;
-        this.interactionLogService.getRequest(selectedRequestId).subscribe((data: any) => { this.requestText = data; this.isLoadingRequestText = false });
+        if (this.selectedRequestId != null)
+            this.interactionLogService.getRequest(this.selectedRequestId).subscribe((data: any) => { this.requestText = data; this.isLoadingRequestText = false });
+    }
+
+    private extractRequestMetadatas(data: any): RequestMetadata[]
+    {
+        var requestMetadatas: RequestMetadata[] = [];
+
+        for (let id of data)
+           requestMetadatas.push(new RequestMetadata(id));
+
+        return requestMetadatas;
     }
 }

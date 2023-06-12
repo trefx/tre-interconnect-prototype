@@ -1,10 +1,15 @@
 package com.arjuna.sde.sde;
 
-import java.util.UUID;
 import java.lang.Error;
 import java.lang.Exception;
+import java.util.UUID;
+import java.util.List;
+
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
 
 import jakarta.inject.Inject;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,12 +20,15 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
 import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
 import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
+
+import io.quarkus.arc.All;
+
+import io.vertx.core.json.JsonObject;
 
 import io.minio.MinioClient;
 import io.minio.BucketExistsArgs;
@@ -44,6 +52,10 @@ public class ROCrateResponseChecker
     @Inject
     public MinioClient minioClient;
 
+    @All
+    @Inject
+    public List<ResponseChecker> responseCheckers;
+
     @Blocking
     @Incoming("rc_incoming")
     public void checkResponse(JsonObject responseObject)
@@ -54,7 +66,29 @@ public class ROCrateResponseChecker
 
             RoCrate response = objectMapper.convertValue(responseObject, RoCrate.class);
 
-            responseEmitter.send(response);
+            Boolean needsManualChecking = null;
+            for (ResponseChecker responseChecker : responseCheckers)
+            {
+                Boolean checkManually = responseChecker.check(response);
+                if (needsManualChecking == null)
+                    needsManualChecking = checkManually;
+                else if ((checkManually != null) && checkManually.booleanValue())
+                    needsManualChecking = Boolean.TRUE;
+            }
+
+            log.info("############ SDE - ROCrateResponseChecker::needsManualChecking " + needsManualChecking);
+
+            if ((needsManualChecking == null) || needsManualChecking.booleanValue())
+            {
+                if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("unchecked_response").build()))
+                    minioClient.makeBucket(MakeBucketArgs.builder().bucket("unchecked_response").build());
+
+                InputStream inputStream = new StringBufferInputStream(objectMapper.writeValueAsString(response));
+                minioClient.putObject(PutObjectArgs.builder().bucket("unchecked_response").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
+                inputStream.close();
+            }
+            else
+                responseEmitter.send(response);
         }
         catch (Error error)
         {
