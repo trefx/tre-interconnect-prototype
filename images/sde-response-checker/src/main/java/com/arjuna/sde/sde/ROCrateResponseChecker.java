@@ -11,7 +11,6 @@ import java.io.StringBufferInputStream;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.enterprise.context.ApplicationScoped;
-import io.quarkus.arc.All;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,12 +20,15 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
 import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
 import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
+
+import io.quarkus.arc.All;
+
+import io.vertx.core.json.JsonObject;
 
 import io.minio.MinioClient;
 import io.minio.BucketExistsArgs;
@@ -74,7 +76,7 @@ public class ROCrateResponseChecker
                     needsManualChecking = Boolean.TRUE;
             }
 
-            log.info("############ needsManualChecking " + needsManualChecking);
+            log.info("############ SDE - ROCrateResponseChecker::needsManualChecking " + needsManualChecking);
 
             if ((needsManualChecking == null) || needsManualChecking.booleanValue())
             {
