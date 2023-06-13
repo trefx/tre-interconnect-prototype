@@ -7,12 +7,17 @@ import edu.kit.datamanager.ro_crate.RoCrate;
 @ApplicationScoped
 public class DummyResponseChecker implements ResponseChecker
 {
+    private Boolean needManualCheck;
+
     public DummyResponseChecker()
     {
+        needManualCheck = Boolean.TRUE;
     }
 
     public Boolean check(RoCrate response)
     {
-        return Boolean.TRUE;
+        needManualCheck = Boolean.logicalXor(needManualCheck, Boolean.TRUE);
+
+        return needManualCheck;
     }
 }
