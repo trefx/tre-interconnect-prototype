@@ -61,7 +61,7 @@ class DataSHIELDRequest
 public class ROCrateDataSHIELDRequestSubmitterResource
 {
     @Inject
-    Logger log;
+    public Logger log;
 
     @Inject
     public ObjectMapper objectMapper;

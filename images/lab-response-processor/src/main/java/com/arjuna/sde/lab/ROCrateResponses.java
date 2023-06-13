@@ -40,7 +40,7 @@ import io.smallrye.reactive.messaging.annotations.Blocking;
 public class ROCrateResponses
 {
     @Inject
-    Logger log;
+    public Logger log;
 
     @Inject
     public MinioClient minioClient;

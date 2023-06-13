@@ -59,7 +59,7 @@ class TemplateSummary
 public class ROCrateTemplateResource
 {
     @Inject
-    Logger log;
+    public Logger log;
 
     @Inject
     public MongoClient mongoClient;

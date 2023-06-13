@@ -53,7 +53,7 @@ class Request
 public class ROCrateTemplatedRequestSubmitterResource
 {
     @Inject
-    Logger log;
+    public Logger log;
 
     @Inject
     public ObjectMapper objectMapper;

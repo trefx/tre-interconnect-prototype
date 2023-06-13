@@ -38,7 +38,7 @@ import io.smallrye.reactive.messaging.annotations.Blocking;
 public class ROCrateResponse
 {
     @Inject
-    Logger log;
+    public Logger log;
 
     @Inject
     public ObjectMapper objectMapper;

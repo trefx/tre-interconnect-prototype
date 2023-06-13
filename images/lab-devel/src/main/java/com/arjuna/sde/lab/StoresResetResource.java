@@ -40,7 +40,7 @@ import io.minio.MakeBucketArgs;
 public class StoresResetResource
 {
     @Inject
-    Logger log;
+    public Logger log;
 
     @Inject
     public MongoClient mongoClient;
