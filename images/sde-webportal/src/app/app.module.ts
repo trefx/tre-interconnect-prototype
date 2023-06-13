@@ -23,8 +23,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent }                from './app.component';
 import { AgreementDataComponent }      from './agreement-data/agreement-data.component';
 import { InteractionHistoryComponent } from './interaction-history/interaction-history.component';
-import { RequestCheckerComponent }     from './request-checker/request-checker.component';
-import { ResponseCheckerComponent }    from './response-checker/response-checker.component';
+import { UncheckedRequestComponent }   from './unchecked-request/unchecked-request.component';
+import { UncheckedResponseComponent }  from './unchecked-response/unchecked-response.component';
+
+import { UncheckedInteractionLogService } from './unchecked-interaction-log.service';
 
 @NgModule
 ({
@@ -33,8 +35,8 @@ import { ResponseCheckerComponent }    from './response-checker/response-checker
         AppComponent,
         AgreementDataComponent,
         InteractionHistoryComponent,
-        RequestCheckerComponent,
-        ResponseCheckerComponent
+        UncheckedRequestComponent,
+        UncheckedResponseComponent
     ],
     imports:
     [
@@ -55,6 +57,7 @@ import { ResponseCheckerComponent }    from './response-checker/response-checker
     ],
     providers:
     [
+        UncheckedInteractionLogService
     ],
     bootstrap:
     [
