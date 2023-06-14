@@ -20,5 +20,5 @@ spec:
         value: "admin"
       - name: AMQ_PASSWORD
         value: "password"
-  - name: response-router
+  - name: response_router
     image: docker.io/risbic/dmz-response-router:latest
