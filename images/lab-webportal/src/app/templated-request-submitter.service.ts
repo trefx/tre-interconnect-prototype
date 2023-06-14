@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class TemplatedRequestSubmitterService
 {
-    private serviceURL = "http://localhost:8080/service/request-creator/templated_request_submitter";
+    private serviceURL = "http://localhost:8080/service/request_creator/templated_request_submitter";
 
     public constructor(private httpClient: HttpClient)
     {

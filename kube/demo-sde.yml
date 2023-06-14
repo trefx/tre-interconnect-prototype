@@ -50,11 +50,11 @@ spec:
     image: docker.io/risbic/sde-request-receiver:latest
   - name: request_checker
     image: docker.io/risbic/sde-request-checker:latest
-  - name: analysis-adaptor
+  - name: analysis_adaptor
     image: docker.io/risbic/sde-analysis-adaptor:latest
-  - name: response-checker
+  - name: response_checker
     image: docker.io/risbic/sde-response-checker:latest
-  - name: response-sender
+  - name: response_sender
     image: docker.io/risbic/sde-response-sender:latest
   - name: control
     image: docker.io/risbic/sde-control:latest

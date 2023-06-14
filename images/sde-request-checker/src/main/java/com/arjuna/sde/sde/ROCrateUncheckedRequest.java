@@ -1,4 +1,4 @@
-package com.arjuna.sde.lab;
+package com.arjuna.sde.sde;
 
 import java.lang.Error;
 import java.lang.Exception;
@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.core.MediaType;
@@ -30,42 +30,46 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import io.minio.MinioClient;
-import io.minio.Result;
-import io.minio.ListObjectsArgs;
-import io.minio.messages.Item;
+import io.minio.GetObjectArgs;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
-@Path("/responses")
-public class ROCrateResponses
+@Path("/unchecked_request")
+public class ROCrateUncheckedRequest
 {
     @Inject
     public Logger log;
+
+    @Inject
+    public ObjectMapper objectMapper;
 
     @Inject
     public MinioClient minioClient;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getResponseIds()
+    public JsonNode getUncheckedRequest(@QueryParam("requestid") String requestId)
     {
-        log.info("############ Lab - ROCrateResponses.getResponseIds ############");
+        log.info("############ SDE - ROCrateUncheckedRequest.getUncheckedRequest ############");
 
-        List<String> results = new ArrayList();
+        JsonNode      results      = objectMapper.createObjectNode();
+        StringBuilder stringBuffer = new StringBuilder();
         try
         {
-            Iterable<Result<Item>> responseInfos = minioClient.listObjects(ListObjectsArgs.builder().bucket("responses").build());
-            responseInfos.forEach((result) -> { try { results.add(result.get().objectName()); } catch (Throwable throwable) { log.error("Error while ..."); } } );
+            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
+
+            for (int ch; (ch = inputStream.read()) != -1;)
+                stringBuffer.append((char) ch);
+
+            results = objectMapper.readTree(stringBuffer.toString());
         }
         catch (Error error)
         {
-            log.error("Error while obtaining response RO_Crates", error);
-            results.clear();
+            log.error("Error while obtaining unchecked request RO_Crate", error);
         }
         catch (Exception exception)
         {
-            log.error("Exception while obtaining response RO_Crates", exception);
-            results.clear();
+            log.error("Exception while obtaining unchecked request RO_Crate", exception);
         }
 
         return results;

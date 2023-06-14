@@ -1,0 +1,49 @@
+server {
+    listen      ${LISTEN_PORT};
+    server_name ${SERVER_NAME};
+
+    location /service/control {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7050/control/;
+    }
+
+    location /service/request_checker/unchecked_requests {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7010/unchecked_requests;
+    }
+
+    location /service/request_checker/unchecked_request {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7010/unchecked_request;
+    }
+
+    location /service/response_checker/unchecked_responses {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7030/unchecked_responses;
+    }
+
+    location /service/response_checker/unchecked_response {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7030/unchecked_response;
+    }
+
+    location / {
+        root  /usr/local/nginx/html;
+        index index.html;
+    }
+
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root ${SERVER_ROOT};
+    }
+}

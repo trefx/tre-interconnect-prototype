@@ -1,0 +1,13 @@
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+}
+
+.text {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    width:      100em;
+}
