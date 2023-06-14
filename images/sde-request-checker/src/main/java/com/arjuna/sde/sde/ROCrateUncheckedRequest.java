@@ -56,7 +56,7 @@ public class ROCrateUncheckedRequest
         StringBuilder stringBuffer = new StringBuilder();
         try
         {
-            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked_requests").object(requestId).build());
+            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
 
             for (int ch; (ch = inputStream.read()) != -1;)
                 stringBuffer.append((char) ch);

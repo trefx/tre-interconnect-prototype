@@ -54,7 +54,7 @@ public class ROCrateUncheckedRequests
         List<String> results = new ArrayList();
         try
         {
-            Iterable<Result<Item>> requestInfos = minioClient.listObjects(ListObjectsArgs.builder().bucket("unchecked_requests").build());
+            Iterable<Result<Item>> requestInfos = minioClient.listObjects(ListObjectsArgs.builder().bucket("unchecked-requests").build());
             requestInfos.forEach((result) -> { try { results.add(result.get().objectName()); } catch (Throwable throwable) { log.error("Error while ..."); } } );
         }
         catch (Error error)

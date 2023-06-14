@@ -11,10 +11,10 @@ import { Observable } from 'rxjs';
 })
 export class UncheckedInteractionLogService
 {
-    private uncheckedRequestsServiceURL  = "http://localhost:8080/service/response_checker/unchecked_requests";
-    private uncheckedRequestServiceURL   = "http://localhost:8080/service/response_checker/unchecked_request";
-    private uncheckedResponsesServiceURL = "http://localhost:8080/service/response_checker/unchecked_responses";
-    private uncheckedResponseServiceURL  = "http://localhost:8080/service/response_checker/unchecked_response";
+    private uncheckedRequestsServiceURL  = "http://localhost:8090/service/request_checker/unchecked_requests";
+    private uncheckedRequestServiceURL   = "http://localhost:8090/service/request_checker/unchecked_request";
+    private uncheckedResponsesServiceURL = "http://localhost:8090/service/response_checker/unchecked_responses";
+    private uncheckedResponseServiceURL  = "http://localhost:8090/service/response_checker/unchecked_response";
 
     public constructor(private httpClient: HttpClient)
     {

@@ -54,7 +54,7 @@ public class ROCrateUncheckedResponses
         List<String> results = new ArrayList();
         try
         {
-            Iterable<Result<Item>> responseInfos = minioClient.listObjects(ListObjectsArgs.builder().bucket("unchecked_responses").build());
+            Iterable<Result<Item>> responseInfos = minioClient.listObjects(ListObjectsArgs.builder().bucket("unchecked-responses").build());
             responseInfos.forEach((result) -> { try { results.add(result.get().objectName()); } catch (Throwable throwable) { log.error("Error while ..."); } } );
         }
         catch (Error error)

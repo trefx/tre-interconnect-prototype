@@ -7,24 +7,28 @@ import { BrowserModule }           from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule }        from '@angular/common/http';
 
-import { MatToolbarModule }   from '@angular/material/toolbar';
-import { MatGridListModule }  from '@angular/material/grid-list'; 
-import { MatTabsModule }      from '@angular/material/tabs';
-import { MatCardModule }      from '@angular/material/card';
-import { MatListModule }      from '@angular/material/list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule }     from '@angular/material/input';
-import { MatButtonModule }    from '@angular/material/button';
-import { MatIconModule }      from '@angular/material/icon';
-import { MatBadgeModule }     from '@angular/material/badge';
+import { MatToolbarModule }         from '@angular/material/toolbar';
+import { MatGridListModule }        from '@angular/material/grid-list';
+import { MatTabsModule }            from '@angular/material/tabs';
+import { MatTableModule }           from '@angular/material/table';
+import { MatPaginatorModule }       from '@angular/material/paginator';
+import { MatCardModule }            from '@angular/material/card';
+import { MatListModule }            from '@angular/material/list';
+import { MatFormFieldModule }       from '@angular/material/form-field';
+import { MatInputModule }           from '@angular/material/input';
+import { MatProgressBarModule }     from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule }          from '@angular/material/button';
+import { MatIconModule }            from '@angular/material/icon';
+import { MatBadgeModule }           from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent }                from './app.component';
-import { AgreementDataComponent }      from './agreement-data/agreement-data.component';
-import { InteractionHistoryComponent } from './interaction-history/interaction-history.component';
-import { UncheckedRequestComponent }   from './unchecked-request/unchecked-request.component';
-import { UncheckedResponseComponent }  from './unchecked-response/unchecked-response.component';
+import { AppComponent }                   from './app.component';
+import { AgreementDataComponent }         from './agreement-data/agreement-data.component';
+import { InteractionHistoryComponent }    from './interaction-history/interaction-history.component';
+import { UncheckedRequestListComponent }  from './unchecked-request-list/unchecked-request-list.component';
+import { UncheckedResponseListComponent } from './unchecked-response-list/unchecked-response-list.component';
 
 import { UncheckedInteractionLogService } from './unchecked-interaction-log.service';
 
@@ -35,8 +39,8 @@ import { UncheckedInteractionLogService } from './unchecked-interaction-log.serv
         AppComponent,
         AgreementDataComponent,
         InteractionHistoryComponent,
-        UncheckedRequestComponent,
-        UncheckedResponseComponent
+        UncheckedRequestListComponent,
+        UncheckedResponseListComponent
     ],
     imports:
     [
@@ -46,10 +50,14 @@ import { UncheckedInteractionLogService } from './unchecked-interaction-log.serv
         MatToolbarModule,
         MatGridListModule,
         MatTabsModule,
+        MatTableModule,
+        MatPaginatorModule,
         MatCardModule,
         MatListModule,
         MatFormFieldModule,
         MatInputModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
         MatButtonModule,
         MatIconModule,
         MatBadgeModule,
