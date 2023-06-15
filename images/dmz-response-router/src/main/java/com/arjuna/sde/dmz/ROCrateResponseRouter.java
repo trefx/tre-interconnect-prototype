@@ -46,12 +46,12 @@ public class ROCrateResponseRouter
         }
         catch (Error error)
         {
-            log.debug("Error while routing response RO_Crate", error);
+            log.error("Error while routing response RO_Crate", error);
             return null;
         }
         catch (Exception exception)
         {
-            log.debug("Exception while routing response RO_Crate", exception);
+            log.error("Exception while routing response RO_Crate", exception);
             return null;
         }
     }
