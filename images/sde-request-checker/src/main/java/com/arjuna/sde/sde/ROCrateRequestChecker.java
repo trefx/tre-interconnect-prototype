@@ -92,11 +92,11 @@ public class ROCrateRequestChecker
         }
         catch (Error error)
         {
-            log.debug("Error while forwarding request RO_Crate", error);
+            log.error("Error while forwarding request RO_Crate", error);
         }
         catch (Exception exception)
         {
-            log.debug("Exception while forwarding request RO_Crate", exception);
+            log.error("Exception while forwarding request RO_Crate", exception);
         }
     }
 }

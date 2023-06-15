@@ -46,12 +46,12 @@ public class ROCrateAnalysisAdaptor
         }
         catch (Error error)
         {
-            log.debug("Error while forwarding request RO_Crate", error);
+            log.error("Error while forwarding request RO_Crate", error);
             return null;
         }
         catch (Exception exception)
         {
-            log.debug("Exception while forwarding request RO_Crate", exception);
+            log.error("Exception while forwarding request RO_Crate", exception);
             return null;
         }
     }
