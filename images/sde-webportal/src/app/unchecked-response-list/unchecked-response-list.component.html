@@ -17,8 +17,15 @@
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingUncheckedResponseMetadatas"></mat-progress-bar>
             </div>
             <div class="column">
-                <p>Response: {{selectedUncheckedResponseId}}</p>
-                <pre *ngIf="uncheckedResponseText" class="text">{{uncheckedResponseText | json}}</pre>
+                <div *ngIf="uncheckedResponseText">
+                    <p>Response: {{selectedUncheckedResponseId}}</p>
+                    <pre class="text">{{uncheckedResponseText | json}}</pre>
+                    <div>
+                        <button mat-raised-button color="primary"> Block Response </button>
+                        <span>&nbsp;</span>
+                        <button mat-raised-button color="warn"> Permit Response </button>
+                   </div>
+                </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingUncheckedResponseText"></mat-progress-bar>
             </div>
         </div>

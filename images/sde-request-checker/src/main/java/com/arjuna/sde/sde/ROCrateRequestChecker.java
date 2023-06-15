@@ -80,11 +80,11 @@ public class ROCrateRequestChecker
 
             if ((needsManualChecking == null) || needsManualChecking.booleanValue())
             {
-                if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("unchecked-request").build()))
-                    minioClient.makeBucket(MakeBucketArgs.builder().bucket("unchecked-request").build());
+                if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("unchecked-requests").build()))
+                    minioClient.makeBucket(MakeBucketArgs.builder().bucket("unchecked-requests").build());
 
                 InputStream inputStream = new StringBufferInputStream(objectMapper.writeValueAsString(request));
-                minioClient.putObject(PutObjectArgs.builder().bucket("unchecked-request").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
+                minioClient.putObject(PutObjectArgs.builder().bucket("unchecked-requests").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
                 inputStream.close();
             }
             else

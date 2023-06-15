@@ -80,11 +80,11 @@ public class ROCrateResponseChecker
 
             if ((needsManualChecking == null) || needsManualChecking.booleanValue())
             {
-                if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("unchecked-response").build()))
-                    minioClient.makeBucket(MakeBucketArgs.builder().bucket("unchecked-response").build());
+                if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("unchecked-responses").build()))
+                    minioClient.makeBucket(MakeBucketArgs.builder().bucket("unchecked-responses").build());
 
                 InputStream inputStream = new StringBufferInputStream(objectMapper.writeValueAsString(response));
-                minioClient.putObject(PutObjectArgs.builder().bucket("unchecked-response").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
+                minioClient.putObject(PutObjectArgs.builder().bucket("unchecked-responses").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
                 inputStream.close();
             }
             else
