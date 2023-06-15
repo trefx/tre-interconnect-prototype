@@ -27,12 +27,12 @@ import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import io.minio.MinioClient;
 import io.minio.Result;
 import io.minio.ListObjectsArgs;
 import io.minio.messages.Item;
+import io.minio.errors.ErrorResponseException;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
@@ -46,6 +46,7 @@ public class ROCrateUncheckedResponses
     public MinioClient minioClient;
 
     @GET
+    @Blocking
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getUncheckedResponseIds()
     {
@@ -55,7 +56,7 @@ public class ROCrateUncheckedResponses
         try
         {
             Iterable<Result<Item>> responseInfos = minioClient.listObjects(ListObjectsArgs.builder().bucket("unchecked-responses").build());
-            responseInfos.forEach((result) -> { try { results.add(result.get().objectName()); } catch (Throwable throwable) { log.error("Error while ..."); } } );
+            responseInfos.forEach((result) -> { try { results.add(result.get().objectName()); } catch (ErrorResponseException errorResponseException) { } catch (Throwable throwable) { log.error("Error while ...", throwable); } } );
         }
         catch (Error error)
         {

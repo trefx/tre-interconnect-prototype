@@ -27,7 +27,6 @@ import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import io.minio.MinioClient;
 import io.minio.GetObjectArgs;
@@ -48,11 +47,11 @@ public class ROCrateUncheckedRequest
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonNode getUncheckedRequest(@QueryParam("requestid") String requestId)
+    public JsonObject getUncheckedRequest(@QueryParam("requestid") String requestId)
     {
         log.info("############ SDE - ROCrateUncheckedRequest.getUncheckedRequest ############");
 
-        JsonNode      results      = objectMapper.createObjectNode();
+        JsonObject    results      = new JsonObject();
         StringBuilder stringBuffer = new StringBuilder();
         try
         {
@@ -61,7 +60,7 @@ public class ROCrateUncheckedRequest
             for (int ch; (ch = inputStream.read()) != -1;)
                 stringBuffer.append((char) ch);
 
-            results = objectMapper.readTree(stringBuffer.toString());
+            results = new JsonObject(stringBuffer.toString());
         }
         catch (Error error)
         {
