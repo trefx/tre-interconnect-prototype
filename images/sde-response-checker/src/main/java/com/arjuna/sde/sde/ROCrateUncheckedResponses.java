@@ -34,8 +34,6 @@ import io.minio.ListObjectsArgs;
 import io.minio.messages.Item;
 import io.minio.errors.ErrorResponseException;
 
-import io.smallrye.reactive.messaging.annotations.Blocking;
-
 @Path("/unchecked_responses")
 public class ROCrateUncheckedResponses
 {
@@ -46,7 +44,6 @@ public class ROCrateUncheckedResponses
     public MinioClient minioClient;
 
     @GET
-    @Blocking
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getUncheckedResponseIds()
     {
