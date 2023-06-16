@@ -27,7 +27,6 @@ import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
 
 import io.minio.MinioClient;
 import io.minio.GetObjectArgs;
@@ -48,11 +47,11 @@ public class ROCrateResponse
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonNode getResponse(@QueryParam("responseid") String responseId)
+    public JsonObject getResponse(@QueryParam("responseid") String responseId)
     {
         log.info("############ Lab - ROCrateResponse.getResponse ############");
 
-        JsonNode      results      = objectMapper.createObjectNode();
+        JsonObject    results      = new JsonObject();
         StringBuilder stringBuffer = new StringBuilder();
         try
         {
@@ -61,7 +60,7 @@ public class ROCrateResponse
             for (int ch; (ch = inputStream.read()) != -1;)
                 stringBuffer.append((char) ch);
 
-            results = objectMapper.readTree(stringBuffer.toString());
+            results = new JsonObject(stringBuffer.toString());
         }
         catch (Error error)
         {
