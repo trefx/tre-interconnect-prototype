@@ -31,8 +31,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.minio.MinioClient;
 import io.minio.GetObjectArgs;
 
-import io.smallrye.reactive.messaging.annotations.Blocking;
-
 @Path("/unchecked_request")
 public class ROCrateUncheckedRequest
 {
