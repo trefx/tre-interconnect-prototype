@@ -5,15 +5,17 @@ import { HttpParams }  from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+import { ConfigService } from './config.service';
+
 @Injectable
 ({
     providedIn: 'root'
 })
 export class DataSHIELDRequestSubmitterService
 {
-    private serviceURL = "http://localhost:8080/service/request_creator/datashield_request_submitter";
+    private servicePath = "/service/request_creator/datashield_request_submitter";
 
-    public constructor(private httpClient: HttpClient)
+    public constructor(private configService: ConfigService, private httpClient: HttpClient)
     {
     }
 
@@ -32,6 +34,6 @@ export class DataSHIELDRequestSubmitterService
             "dataSHIELDRScript":         dataSHIELDRScript
         }
 
-        return this.httpClient.post<Object>(this.serviceURL, body, { headers: headers, params: params });
+        return this.httpClient.post<Object>(this.configService.serverURL + this.servicePath, body, { headers: headers, params: params });
     }
 }

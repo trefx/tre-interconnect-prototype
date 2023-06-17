@@ -6,6 +6,8 @@ import { HttpParams }  from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
+import { ConfigService } from './config.service';
+
 import { RequestFormTemplate } from './request-form-template';
 import { RequestFormSummary }  from './request-form-summary';
 
@@ -15,9 +17,9 @@ import { RequestFormSummary }  from './request-form-summary';
 })
 export class RequestFormService
 {
-    private serviceURL = "http://localhost:8080/service/request_form";
+    private servicePath = "/service/request_form";
 
-    public constructor(private httpClient: HttpClient)
+    public constructor(private configService: ConfigService, private httpClient: HttpClient)
     {
     }
 
@@ -26,7 +28,7 @@ export class RequestFormService
         let headers = new HttpHeaders({"Content-Type": "application/json"});
         let params  = new HttpParams();
 
-//        const outcomeObservable = this.httpClient.get<Object>(this.serviceURL, { headers: headers, params: params });
+//        const outcomeObservable = this.httpClient.get<Object>(configService.serverURL + this.service, { headers: headers, params: params });
 
         const requestFormSummaries: RequestFormSummary[] = [];
         requestFormSummaries.push(new RequestFormSummary("0001", "A", "Summany of A", "Description A"));
@@ -46,7 +48,7 @@ export class RequestFormService
         let headers = new HttpHeaders({"Content-Type": "application/json"});
         let params  = new HttpParams();
 
-//        const outcomeObservable = this.httpClient.get<Object>(this.serviceURL, { headers: headers, params: params });
+//        const outcomeObservable = this.httpClient.get<Object>(configService.serverURL + this.service, { headers: headers, params: params });
 
         const requestFormTemplate: RequestFormTemplate = new RequestFormTemplate(requestFormTemplateID, "@Template@");
 

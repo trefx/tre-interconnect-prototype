@@ -5,18 +5,20 @@ import { HttpParams }  from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+import { ConfigService } from './config.service';
+
 @Injectable
 ({
     providedIn: 'root'
 })
 export class UncheckedInteractionLogService
 {
-    private uncheckedRequestsServiceURL  = "http://localhost:8090/service/request_checker/unchecked_requests";
-    private uncheckedRequestServiceURL   = "http://localhost:8090/service/request_checker/unchecked_request";
-    private uncheckedResponsesServiceURL = "http://localhost:8090/service/response_checker/unchecked_responses";
-    private uncheckedResponseServiceURL  = "http://localhost:8090/service/response_checker/unchecked_response";
+    private uncheckedRequestsServicePath  = "/service/request_checker/unchecked_requests";
+    private uncheckedRequestServicePath   = "/service/request_checker/unchecked_request";
+    private uncheckedResponsesServicePath = "/service/response_checker/unchecked_responses";
+    private uncheckedResponseServicePath  = "/service/response_checker/unchecked_response";
 
-    public constructor(private httpClient: HttpClient)
+    public constructor(private configService: ConfigService, private httpClient: HttpClient)
     {
     }
 
@@ -25,7 +27,7 @@ export class UncheckedInteractionLogService
         let headers = new HttpHeaders({"Accept": "application/json"});
         let params  = new HttpParams();
 
-        return this.httpClient.get<Object>(this.uncheckedRequestsServiceURL, { headers: headers, params: params });
+        return this.httpClient.get<Object>(this.configService.serverURL + this.uncheckedRequestsServicePath, { headers: headers, params: params });
     }
 
     public getUncheckedRequest(requestId: string): Observable<string>
@@ -34,7 +36,7 @@ export class UncheckedInteractionLogService
         let params  = new HttpParams();
         params = params.append("requestid", requestId)
 
-        return this.httpClient.get<string>(this.uncheckedRequestServiceURL, { headers: headers, params: params });
+        return this.httpClient.get<string>(this.configService.serverURL + this.uncheckedRequestServicePath, { headers: headers, params: params });
     }
 
     public listUncheckedResponses(): Observable<Object>
@@ -42,7 +44,7 @@ export class UncheckedInteractionLogService
         let headers = new HttpHeaders({"Accept": "application/json"});
         let params  = new HttpParams();
 
-        return this.httpClient.get<Object>(this.uncheckedResponsesServiceURL, { headers: headers, params: params });
+        return this.httpClient.get<Object>(this.configService.serverURL + this.uncheckedResponsesServicePath, { headers: headers, params: params });
     }
 
     public getUncheckedResponse(responseId: string): Observable<string>
@@ -51,6 +53,6 @@ export class UncheckedInteractionLogService
         let params  = new HttpParams();
         params = params.append("responseid", responseId)
 
-        return this.httpClient.get<string>(this.uncheckedResponseServiceURL, { headers: headers, params: params });
+        return this.httpClient.get<string>(this.configService.serverURL + this.uncheckedResponseServicePath, { headers: headers, params: params });
     }
 }

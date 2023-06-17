@@ -30,6 +30,7 @@ import { InteractionHistoryComponent }    from './interaction-history/interactio
 import { UncheckedRequestListComponent }  from './unchecked-request-list/unchecked-request-list.component';
 import { UncheckedResponseListComponent } from './unchecked-response-list/unchecked-response-list.component';
 
+import { ConfigService }                  from './config.service';
 import { UncheckedInteractionLogService } from './unchecked-interaction-log.service';
 
 @NgModule
@@ -65,6 +66,7 @@ import { UncheckedInteractionLogService } from './unchecked-interaction-log.serv
     ],
     providers:
     [
+        ConfigService,
         UncheckedInteractionLogService
     ],
     bootstrap:

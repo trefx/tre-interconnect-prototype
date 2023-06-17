@@ -5,18 +5,20 @@ import { HttpParams }  from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+import { ConfigService } from './config.service';
+
 @Injectable
 ({
     providedIn: 'root'
 })
 export class InteractionLogService
 {
-    private requestsServiceURL  = "http://localhost:8080/service/response_processor/requests";
-    private requestServiceURL   = "http://localhost:8080/service/response_processor/request";
-    private responsesServiceURL = "http://localhost:8080/service/response_processor/responses";
-    private responseServiceURL  = "http://localhost:8080/service/response_processor/response";
+    private requestsServicePath  = "/service/response_processor/requests";
+    private requestServicePath   = "/service/response_processor/request";
+    private responsesServicePath = "/service/response_processor/responses";
+    private responseServicePath  = "/service/response_processor/response";
 
-    public constructor(private httpClient: HttpClient)
+    public constructor(private configService: ConfigService, private httpClient: HttpClient)
     {
     }
 
@@ -25,7 +27,7 @@ export class InteractionLogService
         let headers = new HttpHeaders({"Accept": "application/json"});
         let params  = new HttpParams();
 
-        return this.httpClient.get<Object>(this.requestsServiceURL, { headers: headers, params: params });
+        return this.httpClient.get<Object>(this.configService.serverURL + this.requestsServicePath, { headers: headers, params: params });
     }
 
     public getRequest(requestId: string): Observable<string>
@@ -34,7 +36,7 @@ export class InteractionLogService
         let params  = new HttpParams();
         params = params.append("requestid", requestId)
 
-        return this.httpClient.get<string>(this.requestServiceURL, { headers: headers, params: params });
+        return this.httpClient.get<string>(this.configService.serverURL + this.requestServicePath, { headers: headers, params: params });
     }
 
     public listResponses(): Observable<Object>
@@ -42,7 +44,7 @@ export class InteractionLogService
         let headers = new HttpHeaders({"Accept": "application/json"});
         let params  = new HttpParams();
 
-        return this.httpClient.get<Object>(this.responsesServiceURL, { headers: headers, params: params });
+        return this.httpClient.get<Object>(this.configService.serverURL + this.responsesServicePath, { headers: headers, params: params });
     }
 
     public getResponse(responseId: string): Observable<string>
@@ -51,6 +53,6 @@ export class InteractionLogService
         let params  = new HttpParams();
         params = params.append("responseid", responseId)
 
-        return this.httpClient.get<string>(this.responseServiceURL, { headers: headers, params: params });
+        return this.httpClient.get<string>(this.configService.serverURL + this.responseServicePath, { headers: headers, params: params });
     }
 }
