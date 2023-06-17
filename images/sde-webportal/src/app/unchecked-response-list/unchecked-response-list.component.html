@@ -18,13 +18,21 @@
             </div>
             <div class="column">
                 <div *ngIf="uncheckedResponseText">
-                    <p>Response: {{selectedUncheckedResponseId}}</p>
-                    <pre class="text">{{uncheckedResponseText | json}}</pre>
+                    <h2>Response: {{selectedUncheckedResponseId}}</h2>
+                    <mat-tab-group>
+                        <mat-tab label="Text">
+                            <pre class="text">{{uncheckedResponseText | json}}</pre>
+                        </mat-tab>
+                        <mat-tab label="JSON">
+                        </mat-tab>
+                        <mat-tab label="Table">
+                        </mat-tab>
+                    </mat-tab-group>
                     <div>
                         <button mat-raised-button color="primary"> Block Response </button>
                         <span>&nbsp;</span>
                         <button mat-raised-button color="warn"> Permit Response </button>
-                   </div>
+                    </div>
                 </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingUncheckedResponseText"></mat-progress-bar>
             </div>

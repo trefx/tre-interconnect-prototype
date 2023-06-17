@@ -18,8 +18,16 @@
             </div>
             <div class="column">
                 <div *ngIf="uncheckedRequestText">
-                    <p>Request: {{selectedUncheckedRequestId}}</p>
-                    <pre class="text">{{uncheckedRequestText | json}}</pre>
+                    <h2>Request: {{selectedUncheckedRequestId}}</h2>
+                    <mat-tab-group>
+                        <mat-tab label="Text">
+                            <pre class="text">{{uncheckedRequestText | json}}</pre>
+                        </mat-tab>
+                        <mat-tab label="JSON">
+                        </mat-tab>
+                        <mat-tab label="Table">
+                        </mat-tab>
+                    </mat-tab-group>
                     <div>
                         <button mat-raised-button color="primary"> Block Request </button>
                         <span>&nbsp;</span>
