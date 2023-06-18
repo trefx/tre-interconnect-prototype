@@ -15,12 +15,14 @@ export class UncheckedResponseListComponent implements OnInit
     public selectedUncheckedResponseId: string | null;
 
     public uncheckedResponseMetadatas: UncheckedResponseMetadata[];
-    public uncheckedResponseText:      string;
+    public uncheckedResponseText:      string | null;
+    public operationOutcome:           string | null;
 
     public displayedColumns: string[] = [ 'id' ];
 
     public isLoadingUncheckedResponseMetadatas: boolean;
     public isLoadingUncheckedResponseText:      boolean;
+    public isPerformingUncheckedOperation:      boolean;
 
     public constructor(private uncheckedInteractionLogService: UncheckedInteractionLogService)
     {
@@ -28,9 +30,11 @@ export class UncheckedResponseListComponent implements OnInit
 
         this.uncheckedResponseMetadatas = [];
         this.uncheckedResponseText      = "";
+        this.operationOutcome           = "";
 
         this.isLoadingUncheckedResponseMetadatas = false;
         this.isLoadingUncheckedResponseText      = false;
+        this.isPerformingUncheckedOperation      = false;
     }
 
     public ngOnInit(): void
@@ -46,11 +50,24 @@ export class UncheckedResponseListComponent implements OnInit
 
     public doSelectUncheckedResponse(selectedUncheckedResponse: any): void
     {
+        this.operationOutcome            = "";
         this.selectedUncheckedResponseId = selectedUncheckedResponse.id;
 
         this.isLoadingUncheckedResponseText = true;
         if (this.selectedUncheckedResponseId != null)
             this.uncheckedInteractionLogService.getUncheckedResponse(this.selectedUncheckedResponseId).subscribe((data: any) => { this.uncheckedResponseText = data; this.isLoadingUncheckedResponseText = false });
+    }
+
+    public doBlockResponse(responseId: string): void
+    {
+        this.isPerformingUncheckedOperation = true
+        this.uncheckedInteractionLogService.blockResponse(responseId).subscribe((data: any) => { this.operationOutcome = data; this.isPerformingUncheckedOperation = false });
+    }
+
+    public doPermitResponse(responseId: string): void
+    {
+        this.isPerformingUncheckedOperation = true
+        this.uncheckedInteractionLogService.permitResponse(responseId).subscribe((data: any) => { this.operationOutcome = data; this.isPerformingUncheckedOperation = false });
     }
 
     private extractUncheckedResponseMetadatas(data: any): UncheckedResponseMetadata[]
