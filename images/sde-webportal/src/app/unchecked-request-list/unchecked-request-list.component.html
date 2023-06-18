@@ -17,9 +17,9 @@
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingUncheckedRequestMetadatas"></mat-progress-bar>
             </div>
             <div class="column">
-                <div *ngIf="uncheckedRequestText">
+                <div *ngIf="selectedUncheckedRequestId">
                     <h2>Request: {{selectedUncheckedRequestId}}</h2>
-                    <mat-tab-group>
+                    <mat-tab-group *ngIf="uncheckedRequestText">
                         <mat-tab label="Text">
                             <pre class="text">{{uncheckedRequestText | json}}</pre>
                         </mat-tab>
@@ -29,9 +29,11 @@
                         </mat-tab>
                     </mat-tab-group>
                     <div>
-                        <button mat-raised-button color="primary"> Block Request </button>
+                        <button mat-raised-button (click)="doBlockRequest(selectedUncheckedRequestId)" color="primary"> Block Request </button>
                         <span>&nbsp;</span>
-                        <button mat-raised-button color="warn"> Permit Request </button>
+                        <button mat-raised-button (click)="doPermitRequest(selectedUncheckedRequestId)" color="warn"> Permit Request </button>
+                        <mat-progress-bar mode="indeterminate" *ngIf="isPerformingUncheckedOperation"></mat-progress-bar>
+                        <p *ngIf="operationOutcome">{{operationOutcome}}</p>
                     </div>
                 </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingUncheckedRequestText"></mat-progress-bar>

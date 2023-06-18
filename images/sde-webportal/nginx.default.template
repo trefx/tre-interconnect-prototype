@@ -1,3 +1,4 @@
+
 server {
     listen      ${LISTEN_PORT};
     server_name ${SERVER_NAME};
@@ -23,6 +24,20 @@ server {
         proxy_pass http://localhost:7010/unchecked_request;
     }
 
+    location /service/request_checker/block_request {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7010/block_request;
+    }
+
+    location /service/request_checker/permit_request {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7010/permit_request;
+    }
+
     location /service/response_checker/unchecked_responses {
         proxy_set_header X-Forwarded-Host $host:$server_port;
         proxy_set_header X-Forwarded-Server $host;
@@ -35,6 +50,20 @@ server {
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_pass http://localhost:7030/unchecked_response;
+    }
+
+    location /service/response_checker/block_response {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7030/block_response;
+    }
+
+    location /service/response_checker/permit_response {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7030/permit_response;
     }
 
     location / {

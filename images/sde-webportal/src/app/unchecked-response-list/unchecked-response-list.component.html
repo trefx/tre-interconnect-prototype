@@ -17,9 +17,9 @@
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingUncheckedResponseMetadatas"></mat-progress-bar>
             </div>
             <div class="column">
-                <div *ngIf="uncheckedResponseText">
+                <div *ngIf="selectedUncheckedResponseId">
                     <h2>Response: {{selectedUncheckedResponseId}}</h2>
-                    <mat-tab-group>
+                    <mat-tab-group *ngIf="uncheckedResponseText">
                         <mat-tab label="Text">
                             <pre class="text">{{uncheckedResponseText | json}}</pre>
                         </mat-tab>
@@ -29,9 +29,11 @@
                         </mat-tab>
                     </mat-tab-group>
                     <div>
-                        <button mat-raised-button color="primary"> Block Response </button>
+                        <button mat-raised-button (click)="doBlockResponse(selectedUncheckedResponseId)" color="primary"> Block Response </button>
                         <span>&nbsp;</span>
-                        <button mat-raised-button color="warn"> Permit Response </button>
+                        <button mat-raised-button (click)="doPermitResponse(selectedUncheckedResponseId)" color="warn"> Permit Response </button>
+                        <mat-progress-bar mode="indeterminate" *ngIf="isPerformingUncheckedOperation"></mat-progress-bar>
+                        <p *ngIf="operationOutcome">{{operationOutcome}}</p>
                     </div>
                 </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingUncheckedResponseText"></mat-progress-bar>

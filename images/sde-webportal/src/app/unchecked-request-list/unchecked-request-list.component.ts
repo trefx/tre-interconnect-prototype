@@ -16,11 +16,13 @@ export class UncheckedRequestListComponent implements OnInit
 
     public uncheckedRequestMetadatas: UncheckedRequestMetadata[];
     public uncheckedRequestText:      string;
+    public operationOutcome:          string;
 
     public displayedColumns: string[] = [ 'id' ];
 
     public isLoadingUncheckedRequestMetadatas: boolean;
     public isLoadingUncheckedRequestText:      boolean;
+    public isPerformingUncheckedOperation:     boolean;
 
     public constructor(private uncheckedInteractionLogService: UncheckedInteractionLogService)
     {
@@ -28,9 +30,11 @@ export class UncheckedRequestListComponent implements OnInit
 
         this.uncheckedRequestMetadatas = [];
         this.uncheckedRequestText      = "";
+        this.operationOutcome          = "";
 
         this.isLoadingUncheckedRequestMetadatas = false;
         this.isLoadingUncheckedRequestText      = false;
+        this.isPerformingUncheckedOperation     = false;
     }
 
     public ngOnInit(): void
@@ -46,11 +50,24 @@ export class UncheckedRequestListComponent implements OnInit
 
     public doSelectUncheckedRequest(selectedUncheckedRequest: any): void
     {
+        this.operationOutcome            = "";
         this.selectedUncheckedRequestId = selectedUncheckedRequest.id;
 
         this.isLoadingUncheckedRequestText = true;
         if (this.selectedUncheckedRequestId != null)
             this.uncheckedInteractionLogService.getUncheckedRequest(this.selectedUncheckedRequestId).subscribe((data: any) => { this.uncheckedRequestText = data; this.isLoadingUncheckedRequestText = false });
+    }
+
+    public doBlockRequest(requestId: string): void
+    {
+        this.isPerformingUncheckedOperation = true
+        this.uncheckedInteractionLogService.blockRequest(requestId).subscribe((data: any) => { this.operationOutcome = data; this.isPerformingUncheckedOperation = false });
+    }
+
+    public doPermitRequest(requestId: string): void
+    {
+        this.isPerformingUncheckedOperation = true
+        this.uncheckedInteractionLogService.permitRequest(requestId).subscribe((data: any) => { this.operationOutcome = data; this.isPerformingUncheckedOperation = false });
     }
 
     private extractUncheckedRequestMetadatas(data: any): UncheckedRequestMetadata[]

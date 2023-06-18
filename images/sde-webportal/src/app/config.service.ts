@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService
 {
-    public serverURL: string = "http://trefx:8080";
+    public serverURL: string = "http://trefx:8090";
 
     public constructor()
     {
