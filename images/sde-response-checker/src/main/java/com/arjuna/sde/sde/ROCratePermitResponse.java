@@ -20,6 +20,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
@@ -31,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.minio.MinioClient;
 import io.minio.GetObjectArgs;
+import io.minio.RemoveObjectArgs;
 
 @Path("/permit_response")
 public class ROCratePermitResponse
@@ -41,36 +44,40 @@ public class ROCratePermitResponse
     @Inject
     public ObjectMapper objectMapper;
 
+    @Channel("pr_outgoing")
+    public Emitter<RoCrate> responseEmitter;
+
     @Inject
     public MinioClient minioClient;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject postPermitResponse(@QueryParam("responseid") String responseId)
+    public String postPermitResponse(@QueryParam("responseid") String responseId)
     {
         log.info("############ SDE - ROCratePermitResponse.postPermitResponse ############");
 
-        JsonObject    results      = new JsonObject();
-        StringBuilder stringBuffer = new StringBuilder();
         try
         {
-//            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-responses").object(responseId).build());
+            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-responses").object(responseId).build());
+            RoCrate     response    = objectMapper.readValue(inputStream, RoCrate.class);
+            inputStream.close();
 
-//            for (int ch; (ch = inputStream.read()) != -1;)
-//                stringBuffer.append((char) ch);
+            responseEmitter.send(response);
 
-//            results = new JsonObject(stringBuffer.toString());
+            minioClient.removeObject(RemoveObjectArgs.builder().bucket("unchecked-responses").object(responseId).build());
         }
         catch (Error error)
         {
-            log.error("Error while obtaining permit response RO_Crate", error);
+            log.error("Error while permiting response RO_Crate", error);
+            return "{\"outcome\": \"Error while permiting response RO_Crate\"}";
         }
         catch (Exception exception)
         {
-            log.error("Exception while obtaining permit response RO_Crate", exception);
+            log.error("Exception while permiting response RO_Crate", exception);
+            return "{\"outcome\": \"Exception while permiting response RO_Crate\"}";
         }
 
-        return results;
+        return "{\"outcome\": \"Done\"}";
     }
 }
