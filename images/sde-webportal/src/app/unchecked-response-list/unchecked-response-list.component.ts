@@ -61,13 +61,13 @@ export class UncheckedResponseListComponent implements OnInit
     public doBlockResponse(responseId: string): void
     {
         this.isPerformingUncheckedOperation = true
-        this.uncheckedInteractionLogService.blockResponse(responseId).subscribe((data: any) => { this.operationOutcome = data; this.isPerformingUncheckedOperation = false });
+        this.uncheckedInteractionLogService.blockResponse(responseId).subscribe((data: any) => { this.operationOutcome = data; this.selectedUncheckedResponseId = null; this.uncheckedResponseText = ""; this.isPerformingUncheckedOperation = false; this.doReloadUncheckedList() });
     }
 
     public doPermitResponse(responseId: string): void
     {
         this.isPerformingUncheckedOperation = true
-        this.uncheckedInteractionLogService.permitResponse(responseId).subscribe((data: any) => { this.operationOutcome = data; this.isPerformingUncheckedOperation = false });
+        this.uncheckedInteractionLogService.permitResponse(responseId).subscribe((data: any) => { this.operationOutcome = data; this.selectedUncheckedResponseId = null; this.uncheckedResponseText = ""; this.isPerformingUncheckedOperation = false; this.doReloadUncheckedList() });
     }
 
     private extractUncheckedResponseMetadatas(data: any): UncheckedResponseMetadata[]

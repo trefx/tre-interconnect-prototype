@@ -15,8 +15,8 @@ export class UncheckedRequestListComponent implements OnInit
     public selectedUncheckedRequestId: string | null;
 
     public uncheckedRequestMetadatas: UncheckedRequestMetadata[];
-    public uncheckedRequestText:      string;
-    public operationOutcome:          string;
+    public uncheckedRequestText:      string | null;
+    public operationOutcome:          string | null;
 
     public displayedColumns: string[] = [ 'id' ];
 
@@ -50,7 +50,7 @@ export class UncheckedRequestListComponent implements OnInit
 
     public doSelectUncheckedRequest(selectedUncheckedRequest: any): void
     {
-        this.operationOutcome            = "";
+        this.operationOutcome           = "";
         this.selectedUncheckedRequestId = selectedUncheckedRequest.id;
 
         this.isLoadingUncheckedRequestText = true;
@@ -61,13 +61,13 @@ export class UncheckedRequestListComponent implements OnInit
     public doBlockRequest(requestId: string): void
     {
         this.isPerformingUncheckedOperation = true
-        this.uncheckedInteractionLogService.blockRequest(requestId).subscribe((data: any) => { this.operationOutcome = data; this.isPerformingUncheckedOperation = false });
+        this.uncheckedInteractionLogService.blockRequest(requestId).subscribe((data: any) => { this.operationOutcome = data; this.selectedUncheckedRequestId = null; this.uncheckedRequestText = ""; this.isPerformingUncheckedOperation = false; this.doReloadUncheckedList() });
     }
 
     public doPermitRequest(requestId: string): void
     {
         this.isPerformingUncheckedOperation = true
-        this.uncheckedInteractionLogService.permitRequest(requestId).subscribe((data: any) => { this.operationOutcome = data; this.isPerformingUncheckedOperation = false });
+        this.uncheckedInteractionLogService.permitRequest(requestId).subscribe((data: any) => { this.operationOutcome = data; this.selectedUncheckedRequestId = null; this.uncheckedRequestText = ""; this.isPerformingUncheckedOperation = false; this.doReloadUncheckedList() });
     }
 
     private extractUncheckedRequestMetadatas(data: any): UncheckedRequestMetadata[]
