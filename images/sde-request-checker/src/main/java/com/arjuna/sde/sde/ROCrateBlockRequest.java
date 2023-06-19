@@ -59,9 +59,14 @@ public class ROCrateBlockRequest
 
         try
         {
-            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
-            RoCrate     request     = objectMapper.readValue(inputStream, RoCrate.class);
+            StringBuilder stringBuffer = new StringBuilder();
+            InputStream   inputStream  = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
+            for (int ch; (ch = inputStream.read()) != -1;)
+                stringBuffer.append((char) ch);
             inputStream.close();
+
+            JsonObject requestJSON = new JsonObject(stringBuffer.toString());
+            RoCrate    request     = objectMapper.convertValue(requestJSON, RoCrate.class);
 
             requestEmitter.send(request);
 

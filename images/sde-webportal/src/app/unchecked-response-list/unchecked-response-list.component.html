@@ -29,11 +29,11 @@
                         </mat-tab>
                     </mat-tab-group>
                     <div>
+                        <mat-progress-bar mode="indeterminate" *ngIf="isPerformingUncheckedOperation"></mat-progress-bar>
                         <button mat-raised-button (click)="doBlockResponse(selectedUncheckedResponseId)" color="primary"> Block Response </button>
                         <span>&nbsp;</span>
                         <button mat-raised-button (click)="doPermitResponse(selectedUncheckedResponseId)" color="warn"> Permit Response </button>
-                        <mat-progress-bar mode="indeterminate" *ngIf="isPerformingUncheckedOperation"></mat-progress-bar>
-                        <p *ngIf="operationOutcome">{{operationOutcome}}</p>
+                        <p *ngIf="operationOutcome">{{operationOutcome | json}}</p>
                     </div>
                 </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingUncheckedResponseText"></mat-progress-bar>

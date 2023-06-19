@@ -59,9 +59,14 @@ public class ROCratePermitRequest
 
         try
         {
-            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
-            RoCrate     request     = objectMapper.readValue(inputStream, RoCrate.class);
+            StringBuilder stringBuffer = new StringBuilder();
+            InputStream   inputStream  = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
+            for (int ch; (ch = inputStream.read()) != -1;)
+                stringBuffer.append((char) ch);
             inputStream.close();
+
+            JsonObject requestJSON = new JsonObject(stringBuffer.toString());
+            RoCrate    request     = objectMapper.convertValue(requestJSON, RoCrate.class);
 
             requestEmitter.send(request);
 
@@ -69,13 +74,13 @@ public class ROCratePermitRequest
         }
         catch (Error error)
         {
-            log.error("Error while permiting request RO_Crate", error);
-            return "{\"outcome\": \"Error while permiting request RO_Crate\"}";
+            log.error("Error while permitting request RO_Crate", error);
+            return "{\"outcome\": \"Error while permitting request RO_Crate\"}";
         }
         catch (Exception exception)
         {
-            log.error("Exception while permiting request RO_Crate", exception);
-            return "{\"outcome\": \"Exception while permiting request RO_Crate\"}";
+            log.error("Exception while permitting request RO_Crate", exception);
+            return "{\"outcome\": \"Exception while permitting request RO_Crate\"}";
         }
 
         return "{\"outcome\": \"Done\"}";
