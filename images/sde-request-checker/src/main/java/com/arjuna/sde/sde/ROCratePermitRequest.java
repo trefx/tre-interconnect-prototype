@@ -20,6 +20,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
@@ -31,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.minio.MinioClient;
 import io.minio.GetObjectArgs;
+import io.minio.RemoveObjectArgs;
 
 @Path("/permit_request")
 public class ROCratePermitRequest
@@ -41,36 +44,45 @@ public class ROCratePermitRequest
     @Inject
     public ObjectMapper objectMapper;
 
+    @Channel("pr_outgoing")
+    public Emitter<RoCrate> requestEmitter;
+
     @Inject
     public MinioClient minioClient;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject postPermitRequest(@QueryParam("requestid") String requestId)
+    public String postPermitRequest(@QueryParam("requestid") String requestId)
     {
         log.info("############ SDE - ROCratePermitRequest.postPermitRequest ############");
 
-        JsonObject    results      = new JsonObject();
-        StringBuilder stringBuffer = new StringBuilder();
         try
         {
-//            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
+            StringBuilder stringBuffer = new StringBuilder();
+            InputStream   inputStream  = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
+            for (int ch; (ch = inputStream.read()) != -1;)
+                stringBuffer.append((char) ch);
+            inputStream.close();
 
-//            for (int ch; (ch = inputStream.read()) != -1;)
-//                stringBuffer.append((char) ch);
+            JsonObject requestJSON = new JsonObject(stringBuffer.toString());
+            RoCrate    request     = objectMapper.convertValue(requestJSON, RoCrate.class);
 
-//            results = new JsonObject(stringBuffer.toString());
+            requestEmitter.send(request);
+
+            minioClient.removeObject(RemoveObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
         }
         catch (Error error)
         {
-            log.error("Error while obtaining permit request RO_Crate", error);
+            log.error("Error while permitting request RO_Crate", error);
+            return "{\"outcome\": \"Error while permitting request RO_Crate\"}";
         }
         catch (Exception exception)
         {
-            log.error("Exception while obtaining permit request RO_Crate", exception);
+            log.error("Exception while permitting request RO_Crate", exception);
+            return "{\"outcome\": \"Exception while permitting request RO_Crate\"}";
         }
 
-        return results;
+        return "{\"outcome\": \"Done\"}";
     }
 }

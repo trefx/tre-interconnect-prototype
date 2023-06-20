@@ -20,6 +20,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
@@ -31,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.minio.MinioClient;
 import io.minio.GetObjectArgs;
+import io.minio.RemoveObjectArgs;
 
 @Path("/block_response")
 public class ROCrateBlockResponse
@@ -41,36 +44,45 @@ public class ROCrateBlockResponse
     @Inject
     public ObjectMapper objectMapper;
 
+    @Channel("br_outgoing")
+    public Emitter<RoCrate> responseEmitter;
+
     @Inject
     public MinioClient minioClient;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject postBlockResponse(@QueryParam("responseid") String responseId)
+    public String postBlockResponse(@QueryParam("responseid") String responseId)
     {
         log.info("############ SDE - ROCrateBlockResponse.postBlockResponse ############");
 
-        JsonObject    results      = new JsonObject();
-        StringBuilder stringBuffer = new StringBuilder();
         try
         {
-//            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-responses").object(responseId).build());
+            StringBuilder stringBuffer = new StringBuilder();
+            InputStream   inputStream  = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-responses").object(responseId).build());
+            for (int ch; (ch = inputStream.read()) != -1;)
+                stringBuffer.append((char) ch);
+            inputStream.close();
 
-//            for (int ch; (ch = inputStream.read()) != -1;)
-//                stringBuffer.append((char) ch);
+            JsonObject responseJSON = new JsonObject(stringBuffer.toString());
+            RoCrate    response     = objectMapper.convertValue(responseJSON, RoCrate.class);
 
-//            results = new JsonObject(stringBuffer.toString());
+            responseEmitter.send(response);
+
+            minioClient.removeObject(RemoveObjectArgs.builder().bucket("unchecked-responses").object(responseId).build());
         }
         catch (Error error)
         {
-            log.error("Error while obtaining block response RO_Crate", error);
+            log.error("Error while blocking response RO_Crate", error);
+            return "{\"outcome\": \"Error while blocking response RO_Crate\"}";
         }
         catch (Exception exception)
         {
-            log.error("Exception while obtaining block response RO_Crate", exception);
+            log.error("Exception while blocking response RO_Crate", exception);
+            return "{\"outcome\": \"Exception while blocking response RO_Crate\"}";
         }
 
-        return results;
+        return "{\"outcome\": \"Done\"}";
     }
 }
