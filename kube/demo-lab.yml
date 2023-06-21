@@ -57,6 +57,12 @@ spec:
     image: docker.io/risbic/lab-response-processor:latest
   - name: request_sender
     image: docker.io/risbic/lab-request-sender:latest
+    env:
+      - name: DMZ_AMQPBROKER_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: demo-config
+            key: dmz_amqpbroker_host
   - name: devel
     image: docker.io/risbic/lab-devel:latest
     volumeMounts:
