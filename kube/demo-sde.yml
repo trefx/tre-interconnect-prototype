@@ -48,6 +48,12 @@ spec:
     args: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
   - name: request_receiver
     image: docker.io/risbic/sde-request-receiver:latest
+    env:
+      - name: DMZ_AMQPBROKER_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: demo-config
+            key: dmz_amqpbroker_host
   - name: request_checker
     image: docker.io/risbic/sde-request-checker:latest
   - name: analysis_adaptor
@@ -56,6 +62,12 @@ spec:
     image: docker.io/risbic/sde-response-checker:latest
   - name: response_sender
     image: docker.io/risbic/sde-response-sender:latest
+    env:
+      - name: DMZ_AMQPBROKER_HOST
+        valueFrom:
+          configMapKeyRef:
+            name: demo-config
+            key: dmz_amqpbroker_host
   - name: control
     image: docker.io/risbic/sde-control:latest
   volumes:
