@@ -1,0 +1,84 @@
+---
+openapi: 3.0.3
+info:
+  title: lab-response-processor API
+  version: 1.0.0-SNAPSHOT
+servers:
+- url: http://localhost:7010
+  description: Auto generated value
+- url: http://0.0.0.0:7010
+  description: Auto generated value
+paths:
+  /request:
+    get:
+      tags:
+      - RO Crate Request
+      parameters:
+      - name: requestid
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonObject'
+  /requests:
+    get:
+      tags:
+      - RO Crate Requests
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /response:
+    get:
+      tags:
+      - RO Crate Response
+      parameters:
+      - name: responseid
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonObject'
+  /responses:
+    get:
+      tags:
+      - RO Crate Responses
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+components:
+  schemas:
+    JsonObject:
+      type: array
+      items:
+        type: object
+        properties:
+          key:
+            type: string
+          value: {}
+  securitySchemes:
+    SecurityScheme:
+      type: http
+      description: Authentication
+      scheme: basic

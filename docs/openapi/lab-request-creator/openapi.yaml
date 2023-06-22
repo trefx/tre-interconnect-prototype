@@ -1,0 +1,112 @@
+---
+openapi: 3.0.3
+info:
+  title: lab-request-creator API
+  version: 1.0.0-SNAPSHOT
+servers:
+- url: http://localhost:7000
+  description: Auto generated value
+- url: http://0.0.0.0:7000
+  description: Auto generated value
+paths:
+  /datashield_request_submitter:
+    post:
+      tags:
+      - RO Crate Data SHIELD Request Submitter Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataSHIELDRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /template:
+    get:
+      tags:
+      - RO Crate Template Resource
+      parameters:
+      - name: template_id
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TemplateSummary'
+  /template/summaries:
+    get:
+      tags:
+      - RO Crate Template Resource
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TemplateSummary'
+  /templated_request_submitter:
+    post:
+      tags:
+      - RO Crate Templated Request Submitter Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    DataSHIELDRequest:
+      type: object
+      properties:
+        platformName:
+          type: string
+        profileName:
+          type: string
+        symbolNamesList:
+          type: string
+        tableNamesList:
+          type: string
+        workspaceName:
+          type: string
+        rScript:
+          type: string
+    Request:
+      type: object
+      properties:
+        templateID:
+          type: string
+    TemplateSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        summary:
+          type: string
+        description:
+          type: string
+  securitySchemes:
+    SecurityScheme:
+      type: http
+      description: Authentication
+      scheme: basic

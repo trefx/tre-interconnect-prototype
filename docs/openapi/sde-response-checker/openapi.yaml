@@ -1,0 +1,87 @@
+---
+openapi: 3.0.3
+info:
+  title: sde-response-checker API
+  version: 1.0.0-SNAPSHOT
+servers:
+- url: http://localhost:7030
+  description: Auto generated value
+- url: http://0.0.0.0:7030
+  description: Auto generated value
+paths:
+  /block_response:
+    post:
+      tags:
+      - RO Crate Block Response
+      parameters:
+      - name: responseid
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /permit_response:
+    post:
+      tags:
+      - RO Crate Permit Response
+      parameters:
+      - name: responseid
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /unchecked_response:
+    get:
+      tags:
+      - RO Crate Unchecked Response
+      parameters:
+      - name: responseid
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonObject'
+  /unchecked_responses:
+    get:
+      tags:
+      - RO Crate Unchecked Responses
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+components:
+  schemas:
+    JsonObject:
+      type: array
+      items:
+        type: object
+        properties:
+          key:
+            type: string
+          value: {}
+  securitySchemes:
+    SecurityScheme:
+      type: http
+      description: Authentication
+      scheme: basic
