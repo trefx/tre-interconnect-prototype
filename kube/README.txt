@@ -6,9 +6,9 @@ podman network create sde
 
 # Play deployments
 
-podman kube play demo-lab.yml
-podman kube play demo-dmz.yml
-podman kube play demo-sde.yml
+podman kube play --configmap demo-config.yml demo-lab.yml
+podman kube play --configmap demo-config.yml demo-dmz.yml
+podman kube play --configmap demo-config.yml demo-sde.yml
 
 # Monitor logging output
 

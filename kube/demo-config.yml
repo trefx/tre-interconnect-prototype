@@ -1,0 +1,12 @@
+#
+# Copyright (c) 2023, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
+#
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-config
+data:
+  lab_amqpbroker_host: "192.168.1.205"
+  dmz_amqpbroker_host: "192.168.1.205"
+  sde_amqpbroker_host: "192.168.1.205"
