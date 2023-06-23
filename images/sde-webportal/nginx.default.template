@@ -38,6 +38,13 @@ server {
         proxy_pass http://localhost:7010/permit_request;
     }
 
+    location /service/request_checker/list_request_checkers {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7010/request_checkers;
+    }
+
     location /service/response_checker/unchecked_responses {
         proxy_set_header X-Forwarded-Host $host:$server_port;
         proxy_set_header X-Forwarded-Server $host;
@@ -64,6 +71,13 @@ server {
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_pass http://localhost:7030/permit_response;
+    }
+
+    location /service/response_checker/list_response_checkers {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7030/response_checkers;
     }
 
     location / {
