@@ -14,6 +14,16 @@ public class DummyRequestChecker implements RequestChecker
         needManualCheck = Boolean.TRUE;
     }
 
+    public String getName()
+    {
+        return "Dummy Request Checker";
+    }
+
+    public String getDescription()
+    {
+       return "Does not augment requests, but cause alternate requests to be manualy checked.";
+    }
+
     public Boolean check(RoCrate request)
     {
         needManualCheck = Boolean.logicalXor(needManualCheck, Boolean.TRUE);
