@@ -63,6 +63,11 @@ spec:
           configMapKeyRef:
             name: demo-config
             key: dmz_amqpbroker_host
+      - name: DMZ_AMQPBROKER_PORT
+        valueFrom:
+          configMapKeyRef:
+            name: demo-config
+            key: dmz_amqpbroker_port
   - name: devel
     image: docker.io/risbic/lab-devel:latest
     volumeMounts:
