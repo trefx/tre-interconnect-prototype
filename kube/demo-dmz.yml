@@ -28,3 +28,8 @@ spec:
           configMapKeyRef:
             name: demo-config
             key: lab_amqpbroker_host
+      - name: LAB_AMQPBROKER_PORT
+        valueFrom:
+          configMapKeyRef:
+            name: demo-config
+            key: lab_amqpbroker_port

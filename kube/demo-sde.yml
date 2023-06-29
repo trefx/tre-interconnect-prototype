@@ -54,6 +54,11 @@ spec:
           configMapKeyRef:
             name: demo-config
             key: dmz_amqpbroker_host
+      - name: DMZ_AMQPBROKER_PORT
+        valueFrom:
+          configMapKeyRef:
+            name: demo-config
+            key: dmz_amqpbroker_port
   - name: request_checker
     image: docker.io/risbic/sde-request-checker:latest
   - name: analysis_adaptor
@@ -68,6 +73,11 @@ spec:
           configMapKeyRef:
             name: demo-config
             key: dmz_amqpbroker_host
+      - name: DMZ_AMQPBROKER_PORT
+        valueFrom:
+          configMapKeyRef:
+            name: demo-config
+            key: dmz_amqpbroker_port
   - name: control
     image: docker.io/risbic/sde-control:latest
   volumes:
