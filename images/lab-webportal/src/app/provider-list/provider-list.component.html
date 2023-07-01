@@ -1,1 +1,13 @@
-<p>provider-list works!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title><h1>Provider List</h1></mat-card-title>
+        <mat-card-subtitle><h2>Provider parameters</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <pre>{{providers | json}}</pre>
+        <mat-progress-bar mode="indeterminate" *ngIf="isRequesting"></mat-progress-bar>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="doGetProviders()">Reload Providers</button>
+    </mat-card-actions>
+</mat-card>

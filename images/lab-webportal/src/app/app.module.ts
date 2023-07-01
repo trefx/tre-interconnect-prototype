@@ -36,6 +36,7 @@ import { ResponseListComponent }             from './response-list/response-list
 import { DevelSupportComponent }             from './devel-support/devel-support.component';
 
 import { ConfigService }                     from './config.service';
+import { ProviderListService }               from './provider-list.service';
 import { RequestFormService }                from './request-form.service';
 import { TemplatedRequestSubmitterService }  from './templated-request-submitter.service';
 import { DataSHIELDRequestSubmitterService } from './datashield-request-submitter.service';
@@ -81,6 +82,7 @@ import { DevelSupportService }               from './devel-support.service';
     providers:
     [
         ConfigService,
+        ProviderListService,
         TemplatedRequestSubmitterService,
         DataSHIELDRequestSubmitterService,
         InteractionLogService,
