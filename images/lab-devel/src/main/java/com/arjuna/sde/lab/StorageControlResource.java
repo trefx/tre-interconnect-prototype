@@ -36,6 +36,7 @@ import io.minio.ListObjectsArgs;
 import io.minio.MakeBucketArgs;
 
 @ApplicationScoped
+@jakarta.ws.rs.Path("/")
 public class StorageControlResource
 {
     @Inject
