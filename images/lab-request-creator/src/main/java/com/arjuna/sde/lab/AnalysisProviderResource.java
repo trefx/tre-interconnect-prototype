@@ -60,7 +60,7 @@ public class AnalysisProviderResource
 
         try
         {
-            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("analysisprovider_infos").find().iterator();
+            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("provider_infos").find().iterator();
 
             try
             {
