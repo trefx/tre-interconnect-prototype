@@ -5,7 +5,7 @@
     <mat-card-content>
         <div class="row">
             <div class="column">
-                <table mat-table [dataSource]="responseMetadatas">
+                <table mat-table [dataSource]="displayedResponseMetadatas">
                     <ng-container matColumnDef="id">
                         <th mat-header-cell *matHeaderCellDef> Response Id </th>
                         <td mat-cell *matCellDef="let response"> {{response.id}} </td>
@@ -13,12 +13,22 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="doSelectResponse(row)"></tr>
                 </table>
-                <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>
+                <mat-paginator [length]="responseMetadatas.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [showFirstLastButtons]="true" (page)="handleResponseMetadatas($event)" aria-label="Select page"></mat-paginator>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingResponseMetadatas"></mat-progress-bar>
             </div>
             <div class="column">
-                <p>Response: {{selectedResponseId}}</p>
-                <pre *ngIf="responseText" class="text">{{responseText | json}}</pre>
+                <div *ngIf="selectedResponseId">
+                    <h3>Response: {{selectedResponseId}}</h3>
+                    <mat-tab-group *ngIf="responseText">
+                        <mat-tab label="Text">
+                            <pre class="text">{{responseText | json}}</pre>
+                        </mat-tab>
+                        <mat-tab label="JSON">
+                        </mat-tab>
+                        <mat-tab label="Table">
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingResponseText"></mat-progress-bar>
             </div>
         </div>
