@@ -3,25 +3,27 @@
         <mat-card-title><h1>Development Support</h1></mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div>
-            <mat-progress-spinner mode="indeterminate" *ngIf="isReloadingTemplates"></mat-progress-spinner>
-            <button mat-raised-button color="primary" (click)="doReloadTemplates()">Reload Templates</button>
-            <p *ngIf="reloadTemplatesMessage">Outcome: {{reloadTemplatesMessage}}</p>
-        </div>
-        <div>
-            <mat-progress-spinner mode="indeterminate" *ngIf="isEmptyingRequests"></mat-progress-spinner>
-            <button mat-raised-button color="primary" (click)="doEmptyRequests()">Empty Requests</button>
-            <p *ngIf="emptyRequestsMessage">Outcome: {{emptyRequestsMessage}}</p>
-        </div>
-        <div>
-            <mat-progress-spinner mode="indeterminate" *ngIf="isEmptyingResponses"></mat-progress-spinner>
-            <button mat-raised-button color="primary" (click)="doEmptyResponses()">Empty Responses</button>
-            <p *ngIf="emptyResponsesMessage">Outcome: {{emptyResponsesMessage}}</p>
-        </div>
-        <div>
-            <mat-progress-spinner mode="indeterminate" *ngIf="isReloadingProviders"></mat-progress-spinner>
-            <button mat-raised-button color="primary" (click)="doReloadProviders()">Reload Providers</button>
-            <p *ngIf="reloadProvidersMessage">Outcome: {{reloadProvidersMessage}}</p>
-        </div>
+        <mat-grid-list cols="3" rowHeight="8em">
+            <mat-grid-tile>
+                <mat-progress-spinner mode="indeterminate" *ngIf="isReloadingTemplates"></mat-progress-spinner>
+                <button mat-raised-button color="primary" (click)="doReloadTemplates()">Reload Templates</button>
+                <p *ngIf="reloadTemplatesMessage">Outcome: {{reloadTemplatesMessage}}</p>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-progress-spinner mode="indeterminate" *ngIf="isEmptyingRequests"></mat-progress-spinner>
+                <button mat-raised-button color="primary" (click)="doEmptyRequests()">Empty Requests</button>
+                <p *ngIf="emptyRequestsMessage">Outcome: {{emptyRequestsMessage}}</p>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-progress-spinner mode="indeterminate" *ngIf="isEmptyingResponses"></mat-progress-spinner>
+                <button mat-raised-button color="primary" (click)="doEmptyResponses()">Empty Responses</button>
+                <p *ngIf="emptyResponsesMessage">Outcome: {{emptyResponsesMessage}}</p>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-progress-spinner mode="indeterminate" *ngIf="isReloadingProviders"></mat-progress-spinner>
+                <button mat-raised-button color="primary" (click)="doReloadProviders()">Reload Providers</button>
+                <p *ngIf="reloadProvidersMessage">Outcome: {{reloadProvidersMessage}}</p>
+            </mat-grid-tile>
+        </mat-grid-list>
     </mat-card-content>
 </mat-card>

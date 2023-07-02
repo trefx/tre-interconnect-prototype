@@ -10,13 +10,17 @@ import { ProviderListService } from '../provider-list.service';
 })
 export class ProviderListComponent
 {
-    public providers: any;
+    public providers: any[];
+
+    public displayedColumns: string[];
 
     public isRequesting: boolean;
 
     public constructor(private providerListService: ProviderListService)
     {
-        this.providers = null;
+        this.providers = [];
+
+        this.displayedColumns = ['name', 'description', 'host', 'port', 'connector', 'address', 'username', 'password'];
 
         this.isRequesting = false;
     }
