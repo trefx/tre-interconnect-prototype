@@ -23,21 +23,31 @@ import org.bson.Document;
 
 class AnalysisProviderSummary
 {
-    public String id;
-    public String name;
-    public String summary;
-    public String description;
+    public String  id;
+    public String  name;
+    public String  description;
+    public String  host;
+    public String  port;
+    public String  connector;
+    public String  address;
+    public String  username;
+    public Boolean password;
 
     public AnalysisProviderSummary()
     {
     }
 
-    public AnalysisProviderSummary(String id, String name, String summary, String description)
+    public AnalysisProviderSummary(String id, String name, String description, String host, String post, String connector, String address, String username, Boolean password)
     {
         this.id          = id;
         this.name        = name;
-        this.summary     = summary;
         this.description = description;
+        this.host        = host;
+        this.port        = port;
+        this.connector   = connector;
+        this.address     = address;
+        this.username    = username;
+        this.password    = password;
     }
 }
 
@@ -71,8 +81,13 @@ public class AnalysisProviderResource
                     AnalysisProviderSummary analysisProviderSummary = new AnalysisProviderSummary();
                     analysisProviderSummary.id          = document.getString("id");
                     analysisProviderSummary.name        = document.getString("name");
-                    analysisProviderSummary.summary     = document.getString("summary");
                     analysisProviderSummary.description = document.getString("description");
+                    analysisProviderSummary.host        = document.getString("host");
+                    analysisProviderSummary.port        = document.getString("port");
+                    analysisProviderSummary.connector   = document.getString("connector");
+                    analysisProviderSummary.address     = document.getString("address");
+                    analysisProviderSummary.username    = document.getString("username");
+                    analysisProviderSummary.password    = document.getBoolean("password");
 
                     list.add(analysisProviderSummary);
                 }
