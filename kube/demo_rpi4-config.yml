@@ -1,0 +1,17 @@
+#
+# Copyright (c) 2023, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
+#
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-config
+  labels:
+    app: config
+data:
+  lab_amqpbroker_host: "192.168.1.243"
+  lab_amqpbroker_port: "5772"
+  dmz_amqpbroker_host: "192.168.1.243"
+  dmz_amqpbroker_port: "5872"
+  sde_amqpbroker_host: "192.168.1.243"
+  sde_amqpbroker_port: "5972"
