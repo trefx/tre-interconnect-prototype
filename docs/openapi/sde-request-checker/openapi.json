@@ -36,6 +36,23 @@
         }
       }
     },
+    "/list_request_checkers" : {
+      "get" : {
+        "tags" : [ "RO Crate List Request Checkers" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/permit_request" : {
       "post" : {
         "tags" : [ "RO Crate Permit Request" ],

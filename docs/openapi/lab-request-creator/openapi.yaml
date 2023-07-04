@@ -25,6 +25,19 @@ paths:
             application/json:
               schema:
                 type: string
+  /providers:
+    get:
+      tags:
+      - Analysis Provider Resource
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnalysisProviderSummary'
   /template:
     get:
       tags:
@@ -74,6 +87,27 @@ paths:
                 type: string
 components:
   schemas:
+    AnalysisProviderSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        host:
+          type: string
+        port:
+          type: string
+        connector:
+          type: string
+        address:
+          type: string
+        username:
+          type: string
+        password:
+          type: boolean
     DataSHIELDRequest:
       type: object
       properties:

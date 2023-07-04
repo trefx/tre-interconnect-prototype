@@ -38,6 +38,26 @@
         }
       }
     },
+    "/providers" : {
+      "get" : {
+        "tags" : [ "Analysis Provider Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnalysisProviderSummary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/template" : {
       "get" : {
         "tags" : [ "RO Crate Template Resource" ],
@@ -114,6 +134,38 @@
   },
   "components" : {
     "schemas" : {
+      "AnalysisProviderSummary" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "host" : {
+            "type" : "string"
+          },
+          "port" : {
+            "type" : "string"
+          },
+          "connector" : {
+            "type" : "string"
+          },
+          "address" : {
+            "type" : "string"
+          },
+          "username" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "boolean"
+          }
+        }
+      },
       "DataSHIELDRequest" : {
         "type" : "object",
         "properties" : {

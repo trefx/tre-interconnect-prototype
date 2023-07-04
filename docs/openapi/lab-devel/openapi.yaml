@@ -9,10 +9,43 @@ servers:
 - url: http://0.0.0.0:7090
   description: Auto generated value
 paths:
-  /stores_reset:
+  /empty_requests:
     post:
       tags:
-      - Stores Reset Resource
+      - Storage Control Resource
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /empty_responses:
+    post:
+      tags:
+      - Storage Control Resource
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /reload_providers:
+    post:
+      tags:
+      - Storage Control Resource
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+  /reload_templates:
+    post:
+      tags:
+      - Storage Control Resource
       responses:
         "200":
           description: OK
