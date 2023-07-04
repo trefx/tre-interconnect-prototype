@@ -1,0 +1,12 @@
+{
+    "id": "1",
+    "name": "sde1",
+    "summary": "localhost",
+    "description": "Default test TRE's DMZ",
+    "host": "trefx",
+    "port": "5771",
+    "connector": "smallrye-amqp",
+    "address": "dmz_incoming_requests",
+    "username": "admin",
+    "password": true
+}

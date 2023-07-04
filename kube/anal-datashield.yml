@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: anal_datashield
+  labels:
+    app: datashield
+spec:
+  containers:
+  - name: armadillo
+    image: docker.io/risbic/armadillo3.2-trefx:latest
+    ports:
+      - containerPort: 8080
+        hostPort: 8080
+    env:
+      - name: RSERVE_HOST
+        value: "localhost"
+      - name: DEBUG
+        value: "FALSE"
+    volumeMounts:
+      - mountPath: /data
+        name: anal-datashield
+  - name: rserver
+    image: docker.io/datashield/armadillo-rserver_caravan-yak:1.0.0
+    ports:
+      - containerPort: 6311
+        hostPort: 6311
+    env:
+      - name: DEBUG
+        value: "FALSE"
+  volumes:
+    - name: anal-datashield
+      hostPath:
+        path: ./anal-data/datashield
+        type: DirectoryOrCreate

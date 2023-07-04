@@ -9,9 +9,9 @@ metadata:
   labels:
     app: config
 data:
-  lab_amqpbroker_host: "192.168.1.205"
+  lab_amqpbroker_host: "192.168.1.243"
   lab_amqpbroker_port: "5772"
-  dmz_amqpbroker_host: "192.168.1.205"
+  dmz_amqpbroker_host: "192.168.1.243"
   dmz_amqpbroker_port: "5872"
-  sde_amqpbroker_host: "192.168.1.205"
+  sde_amqpbroker_host: "192.168.1.243"
   sde_amqpbroker_port: "5972"

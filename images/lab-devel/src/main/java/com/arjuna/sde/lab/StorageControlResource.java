@@ -35,9 +35,9 @@ import io.minio.RemoveObjectArgs;
 import io.minio.ListObjectsArgs;
 import io.minio.MakeBucketArgs;
 
-@jakarta.ws.rs.Path("/stores_reset")
 @ApplicationScoped
-public class StoresResetResource
+@jakarta.ws.rs.Path("/")
+public class StorageControlResource
 {
     @Inject
     public Logger log;
@@ -49,11 +49,12 @@ public class StoresResetResource
     public MinioClient minioClient;
 
     @POST
+    @jakarta.ws.rs.Path("/reload_templates")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postStoresReset()
+    public String postReloadTemplates()
     {
-        log.info("############ Lab - StoresResetResource::postStoresReset ############");
+        log.info("############ Lab - StorageControlResource::postReloadTemplates ############");
 
         try
         {
@@ -71,15 +72,11 @@ public class StoresResetResource
             return "{\"outcome\": \"Exception while creating request RO_Crate\"}";
         }
 
-        log.info("############ Lab - StoresResetResource::postStoresReset - Done");
-
         return "{\"outcome\": \"Done\"}";
     }
 
     private void loadTemplates(MinioClient minioClient, Path templateFilesPath)
     {
-        log.info("#### loadTemplates");
-
         try
         {
             if (minioClient.bucketExists(BucketExistsArgs.builder().bucket("templates").build()))
@@ -123,14 +120,10 @@ public class StoresResetResource
         {
             log.error("Exception while loading Templates", exception);
         }
-
-        log.info("#### loadTemplates - end");
     }
 
     private void loadTemplateInfos(MongoClient mongoClient, Path templateInfoFilesPath)
     {
-        log.info("#### loadTemplateInfos");
-
         try
         {
             MongoDatabase sde = mongoClient.getDatabase("sde");
@@ -165,7 +158,115 @@ public class StoresResetResource
         {
             log.error("Exception while loading TemplateInfos", exception);
         }
+    }
 
-        log.info("#### loadTemplateInfos - end");
+    @POST
+    @jakarta.ws.rs.Path("/empty_requests")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String postEmptyRequests()
+    {
+        log.info("############ Lab - StorageControlResource::postEmptyRequests ############");
+
+        try
+        {
+            if (minioClient.bucketExists(BucketExistsArgs.builder().bucket("requests").build()))
+            {
+                  Iterable<Result<Item>> bucketObjects = minioClient.listObjects(ListObjectsArgs.builder().bucket("requests").build());
+                  for (Result<Item> bucketObject: bucketObjects)
+                      minioClient.removeObject(RemoveObjectArgs.builder().bucket("requests").object(bucketObject.get().objectName()).versionId(bucketObject.get().versionId()).build());
+            }
+        }
+        catch (Error error)
+        {
+            log.error("Error while removing requests", error);
+            return "{\"outcome\": \"Error while removing requests\"}";
+        }
+        catch (Exception exception)
+        {
+            log.error("Exception while removing requests", exception);
+            return "{\"outcome\": \"Exception while removing request RO_Crate\"}";
+        }
+
+        return "{\"outcome\": \"Done\"}";
+    }
+
+    @POST
+    @jakarta.ws.rs.Path("/empty_responses")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String postEmptyResponses()
+    {
+        log.info("############ Lab - StorageControlResource::postEmptyResponses ############");
+
+        try
+        {
+            if (minioClient.bucketExists(BucketExistsArgs.builder().bucket("responses").build()))
+            {
+                  Iterable<Result<Item>> bucketObjects = minioClient.listObjects(ListObjectsArgs.builder().bucket("responses").build());
+                  for (Result<Item> bucketObject: bucketObjects)
+                      minioClient.removeObject(RemoveObjectArgs.builder().bucket("responses").object(bucketObject.get().objectName()).versionId(bucketObject.get().versionId()).build());
+            }
+        }
+        catch (Error error)
+        {
+            log.error("Error while removing responses", error);
+            return "{\"outcome\": \"Error while removing responses\"}";
+        }
+        catch (Exception exception)
+        {
+            log.error("Exception while removing responses", exception);
+            return "{\"outcome\": \"Exception while removing response RO_Crate\"}";
+        }
+
+        return "{\"outcome\": \"Done\"}";
+    }
+
+    @POST
+    @jakarta.ws.rs.Path("/reload_providers")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String postReloadProviders()
+    {
+        log.info("############ Lab - StorageControlResource::postReloadProviders ############");
+
+        try
+        {
+            Path providerInfoFilesPath = FileSystems.getDefault().getPath("/data/provider_infos");
+
+            MongoDatabase sde = mongoClient.getDatabase("sde");
+            sde.getCollection("provider_infos").drop();
+
+            try (DirectoryStream<Path> providerInfoPathsStream = Files.newDirectoryStream(providerInfoFilesPath))
+            {
+                for (Path providerInfoPath: providerInfoPathsStream)
+                {
+                    String   providerInfoContent = Files.readString(providerInfoPath);
+                    Document document            = Document.parse(providerInfoContent);
+
+                    sde.getCollection("provider_infos").insertOne(document);
+                }
+            }
+            catch (Error error)
+            {
+                throw error;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
+        catch (Error error)
+        {
+            log.error("Error while reloading providers", error);
+            return "{\"outcome\": \"Error while reloading providers\"}";
+        }
+        catch (Exception exception)
+        {
+            log.error("Exception while reloading providers", exception);
+            return "{\"outcome\": \"Exception while reloading providers\"}";
+        }
+
+        return "{\"outcome\": \"Done\"}";
     }
 }

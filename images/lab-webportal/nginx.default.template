@@ -16,6 +16,13 @@ server {
         proxy_pass http://localhost:7000/datashield_request_submitter;
     }
 
+    location /service/request_creator/providers {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7000/providers;
+    }
+
     location /service/request_creator/template/summaries {
         proxy_set_header X-Forwarded-Host $host:$server_port;
         proxy_set_header X-Forwarded-Server $host;
@@ -58,11 +65,32 @@ server {
         proxy_pass http://localhost:7010/request;
     }
 
-    location /service/devel/stores_reset {
+    location /service/devel/reload_templates {
         proxy_set_header X-Forwarded-Host $host:$server_port;
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://localhost:7090/stores_reset;
+        proxy_pass http://localhost:7090/reload_templates;
+    }
+
+    location /service/devel/empty_requests {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7090/empty_requests;
+    }
+
+    location /service/devel/empty_responses {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7090/empty_responses;
+    }
+
+    location /service/devel/reload_providers {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7090/reload_providers;
     }
 
     location / {
