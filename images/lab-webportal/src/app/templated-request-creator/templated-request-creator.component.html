@@ -4,21 +4,26 @@
         <mat-card-subtitle><h2>Analysis parameters</h2></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <mat-grid-list cols="2" rowHeight="8em">
-            <mat-grid-tile>
-                <mat-form-field class="parameter-form-field" appearance="outline">
-                    <mat-label>Template ID</mat-label>
-                    <input matInput type="text" [value]="templateID">
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                {{requestSummaries | json}}
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <mat-progress-bar mode="indeterminate" *ngIf="isGettingSummaries"></mat-progress-bar>
-                <button mat-raised-button color="primary" (click)="doGetRequestSummaries()">Get Request Summaries</button>
+        <mat-grid-list cols="6" rowHeight="16em">
+            <mat-grid-tile *ngFor="let summary of requestSummaries">
+                <mat-card>
+                    <mat-card-header>
+                        <h3>{{summary.title}}</h3>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <h4>{{summary.summary}}</h4>
+                    </mat-card-content>
+                    <mat-card-content>
+                        <p>{{summary.description}}<p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-raised-button color="primary" (click)="doSelectTemplate(summary.id)">Select</button>   
+                    </mat-card-actions>
+                </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
+        <mat-progress-bar mode="indeterminate" *ngIf="isGettingSummaries"></mat-progress-bar>
+        <button mat-raised-button color="primary" (click)="doGetRequestSummaries()">Get Request Summaries</button>
         <mat-progress-bar mode="indeterminate" *ngIf="isSubmitting"></mat-progress-bar>
         <p *ngIf="submissionOutcome">Outcome: {{submissionOutcome}}</p>
     </mat-card-content>

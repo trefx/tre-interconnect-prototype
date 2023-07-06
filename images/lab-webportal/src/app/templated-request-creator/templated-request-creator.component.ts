@@ -16,7 +16,7 @@ import { TemplatedRequestSubmitterService } from '../templated-request-submitter
 export class TemplatedRequestCreatorComponent
 {
     public requestSummaries: RequestFormSummary[];
-    public templateID:       string;
+    public templateId:       string;
     public requestTemplate:  any | null;
 
     public isGettingSummaries: boolean;
@@ -27,7 +27,7 @@ export class TemplatedRequestCreatorComponent
     public constructor(private requestService: RequestFormService, private templatedRequestSubmitterService: TemplatedRequestSubmitterService)
     {
         this.requestSummaries = [];
-        this.templateID       = "";
+        this.templateId       = "";
         this.requestTemplate  = null;
 
         this.isGettingSummaries = false;
@@ -43,17 +43,22 @@ export class TemplatedRequestCreatorComponent
         outcome.subscribe((data: RequestFormSummary[]) => { this.requestSummaries = data; this.isGettingSummaries = false });
     }
 
+    public doSelectTemplate(templateId: string)
+    {
+        this.templateId = templateId;
+    }
+
     public doGetRequestTemplate(): void
     {
         this.isGettingTemplate = true;
-        let outcome = this.requestService.getRequestTemplate(this.templateID);
+        let outcome = this.requestService.getRequestTemplate(this.templateId);
         outcome.subscribe((data: RequestFormTemplate) => { this.requestTemplate = data; this.isGettingTemplate = false });
     }
 
     public doCreateRequest(): void
     {
         this.isSubmitting = true;
-        let outcome = this.templatedRequestSubmitterService.createRequest(this.templateID);
+        let outcome = this.templatedRequestSubmitterService.createRequest(this.templateId);
         outcome.subscribe((data: Object) => { this.submissionOutcome = (data as any).outcome; of([1]).pipe(delay(6000)).subscribe((data: Object) => { this.submissionOutcome = null }); this.isSubmitting = false });
     }
 }
