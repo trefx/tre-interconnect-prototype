@@ -1,0 +1,12 @@
+{
+    "id": "2",
+    "name": "sde2",
+    "summary": "localhost",
+    "description": "Loopback to Current LAB",
+    "host": "trefx",
+    "port": "5671",
+    "connector": "smallrye-amqp",
+    "address": "dmz_incoming_requests",
+    "username": "admin",
+    "password": true
+}

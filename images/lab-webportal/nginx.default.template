@@ -2,6 +2,13 @@ server {
     listen      ${LISTEN_PORT};
     server_name ${SERVER_NAME};
 
+    location /service/request_creator/simple_request_submitter {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7000/simple_request_submitter;
+    }
+
     location /service/request_creator/templated_request_submitter {
         proxy_set_header X-Forwarded-Host $host:$server_port;
         proxy_set_header X-Forwarded-Server $host;
