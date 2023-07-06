@@ -23,7 +23,7 @@ export class RequestFormService
     {
     }
 
-    public listRequestFormSummarys(): Observable<RequestFormSummary[]>
+    public listRequestSummaries(): Observable<RequestFormSummary[]>
     {
         let headers = new HttpHeaders({"Content-Type": "application/json"});
         let params  = new HttpParams();
@@ -38,23 +38,19 @@ export class RequestFormService
 
         const outcomeObservable = of(requestFormSummaries);
 
-        outcomeObservable.subscribe(data => { console.log("** " + data + " **") });
-
         return outcomeObservable;
     }
 
-    public readRequestFormTemplate(requestFormTemplateID: string): Observable<RequestFormTemplate>
+    public getRequestTemplate(requestTemplateID: string): Observable<RequestFormTemplate>
     {
         let headers = new HttpHeaders({"Content-Type": "application/json"});
         let params  = new HttpParams();
 
 //        const outcomeObservable = this.httpClient.get<Object>(configService.serverURL + this.service, { headers: headers, params: params });
 
-        const requestFormTemplate: RequestFormTemplate = new RequestFormTemplate(requestFormTemplateID, "@Template@");
+        const requestTemplate: RequestFormTemplate = new RequestFormTemplate(requestTemplateID, "@Template@");
 
-        const outcomeObservable = of(requestFormTemplate);
-
-        outcomeObservable.subscribe(data => { console.log("** " + data + " **") });
+        const outcomeObservable = of(requestTemplate);
 
         return outcomeObservable;
     }
