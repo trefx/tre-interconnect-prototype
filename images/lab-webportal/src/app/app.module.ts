@@ -27,6 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent }                      from './app.component';
 import { ROCrateComponent }                  from './rocrate/rocrate.component';
 import { ROCrateListComponent }              from './rocrate-list/rocrate-list.component';
+import { SimpleRequestCreatorComponent }     from './simple-request-creator/simple-request-creator.component';
 import { TemplatedRequestCreatorComponent }  from './templated-request-creator/templated-request-creator.component';
 import { DataSHIELDRequestCreatorComponent } from './datashield-request-creator/datashield-request-creator.component';
 import { ProviderListComponent }             from './provider-list/provider-list.component';
@@ -38,6 +39,7 @@ import { DevelSupportComponent }             from './devel-support/devel-support
 import { ConfigService }                     from './config.service';
 import { ProviderListService }               from './provider-list.service';
 import { RequestFormService }                from './request-form.service';
+import { SimpleRequestSubmitterService }     from './simple-request-submitter.service';
 import { TemplatedRequestSubmitterService }  from './templated-request-submitter.service';
 import { DataSHIELDRequestSubmitterService } from './datashield-request-submitter.service';
 import { InteractionLogService }             from './interaction-log.service';
@@ -50,6 +52,7 @@ import { DevelSupportService }               from './devel-support.service';
         AppComponent,
         ROCrateComponent,
         ROCrateListComponent,
+        SimpleRequestCreatorComponent,
         TemplatedRequestCreatorComponent,
         DataSHIELDRequestCreatorComponent,
         ProviderListComponent,
@@ -83,6 +86,7 @@ import { DevelSupportService }               from './devel-support.service';
     [
         ConfigService,
         ProviderListService,
+        SimpleRequestSubmitterService,
         TemplatedRequestSubmitterService,
         DataSHIELDRequestSubmitterService,
         InteractionLogService,
