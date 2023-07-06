@@ -6,7 +6,7 @@
     "host": "trefx",
     "port": "5671",
     "connector": "smallrye-amqp",
-    "address": "lad_incoming_responses",
+    "address": "lab_incoming_responses",
     "username": "admin",
     "password": true
 }
