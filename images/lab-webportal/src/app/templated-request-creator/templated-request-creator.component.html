@@ -11,6 +11,13 @@
                     <input matInput type="text" [value]="templateID">
                 </mat-form-field>
             </mat-grid-tile>
+            <mat-grid-tile>
+                {{requestSummaries | json}}
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-progress-bar mode="indeterminate" *ngIf="isGettingSummaries"></mat-progress-bar>
+                <button mat-raised-button color="primary" (click)="doGetRequestSummaries()">Get Request Summaries</button>
+            </mat-grid-tile>
         </mat-grid-list>
         <mat-progress-bar mode="indeterminate" *ngIf="isSubmitting"></mat-progress-bar>
         <p *ngIf="submissionOutcome">Outcome: {{submissionOutcome}}</p>
