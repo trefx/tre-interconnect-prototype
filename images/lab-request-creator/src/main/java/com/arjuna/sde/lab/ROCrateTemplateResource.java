@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.lang.Error;
 import java.lang.Exception;
 
+import java.io.InputStream;
+
 import jakarta.inject.Inject;
 
 import jakarta.ws.rs.GET;
@@ -22,6 +24,7 @@ import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
+import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
 import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
@@ -34,6 +37,7 @@ import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 
 import io.minio.MinioClient;
+import io.minio.GetObjectArgs;
 
 class TemplateSummary
 {
@@ -52,6 +56,24 @@ class TemplateSummary
         this.name        = name;
         this.summary     = summary;
         this.description = description;
+    }
+}
+
+class TemplateField
+{
+    public String id;
+    public String name;
+    public String path;
+
+    public TemplateField()
+    {
+    }
+
+    public TemplateField(String id, String name, String path)
+    {
+        this.id   = id;
+        this.name = name;
+        this.path = path;
     }
 }
 
@@ -115,19 +137,30 @@ public class ROCrateTemplateResource
     }
 
     @GET
+    @Path("/fields")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<TemplateSummary> getTemplate(@QueryParam("template_id") String templateId)
+    public List<TemplateField> getTemplateFields(@QueryParam("template_id") String templateId)
     {
-        List<TemplateSummary> list = new ArrayList<TemplateSummary>();
+        log.info("############ Lab - ROCrateTemplateResource::getTemplateFields ############");
+
+        List<TemplateField> list = new ArrayList<TemplateField>();
 
         try
         {
-            MongoCursor<Document> cursor = mongoClient.getDatabase("tre").getCollection("templates").find().iterator();
+            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("templates").find().iterator();
 
             try
             {
                 while (cursor.hasNext())
                 {
+                    Document document = cursor.next();
+
+                    TemplateField templateField = new TemplateField();
+                    templateField.id            = document.getString("id");
+                    templateField.name          = document.getString("name");
+                    templateField.path          = document.getString("path");
+
+                    list.add(templateField);
                 }
             }
             finally
@@ -138,14 +171,43 @@ public class ROCrateTemplateResource
         catch (Error error)
         {
             log.error("Error while creating request RO_Crate", error);
-            return new ArrayList<TemplateSummary>();
+            return new ArrayList<TemplateField>();
         }
         catch (Exception exception)
         {
             log.error("Exception while creating request RO_Crate", exception);
-            return new ArrayList<TemplateSummary>();
+            return new ArrayList<TemplateField>();
         }
 
         return list;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject getTemplate(@QueryParam("template_id") String templateId)
+    {
+        log.info("############ Lab - ROCrateResponse.getTemplate ############");
+
+        JsonObject    results      = new JsonObject();
+        StringBuilder stringBuffer = new StringBuilder();
+        try
+        {
+            InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("templates").object(templateId).build());
+
+            for (int ch; (ch = inputStream.read()) != -1;)
+                stringBuffer.append((char) ch);
+
+            results = new JsonObject(stringBuffer.toString());
+        }
+        catch (Error error)
+        {
+            log.error("Error while obtaining template RO_Crate", error);
+        }
+        catch (Exception exception)
+        {
+            log.error("Exception while obtaining template RO_Crate", exception);
+        }
+
+        return results;
     }
 }
