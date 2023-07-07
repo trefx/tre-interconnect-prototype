@@ -17,7 +17,8 @@ import { RequestFormSummary }  from './request-form-summary';
 })
 export class RequestFormService
 {
-    private servicePath = "/service/request_form";
+    private templateSummariesServicePath = "/service/request_creator/template/summaries";
+    private templateServicePath          = "/service/request_creator/template";
 
     public constructor(private configService: ConfigService, private httpClient: HttpClient)
     {
@@ -28,15 +29,7 @@ export class RequestFormService
         let headers = new HttpHeaders({"Content-Type": "application/json"});
         let params  = new HttpParams();
 
-//        const outcomeObservable = this.httpClient.get<Object>(configService.serverURL + this.service, { headers: headers, params: params });
-
-        const requestFormSummaries: RequestFormSummary[] = [];
-        requestFormSummaries.push(new RequestFormSummary("0001", "A", "Summany of A", "Description A"));
-        requestFormSummaries.push(new RequestFormSummary("0002", "B", "Summany of B", "Description B"));
-        requestFormSummaries.push(new RequestFormSummary("0003", "C", "Summany of C", "Description C"));
-        requestFormSummaries.push(new RequestFormSummary("0004", "D", "Summany of D", "Description D"));
-
-        const outcomeObservable = of(requestFormSummaries);
+        const outcomeObservable = this.httpClient.get<RequestFormSummary[]>(this.configService.serverURL + this.templateSummariesServicePath, { headers: headers, params: params });
 
         return outcomeObservable;
     }
@@ -46,11 +39,7 @@ export class RequestFormService
         let headers = new HttpHeaders({"Content-Type": "application/json"});
         let params  = new HttpParams();
 
-//        const outcomeObservable = this.httpClient.get<Object>(configService.serverURL + this.service, { headers: headers, params: params });
-
-        const requestTemplate: RequestFormTemplate = new RequestFormTemplate(requestTemplateID, "@Template@");
-
-        const outcomeObservable = of(requestTemplate);
+        const outcomeObservable = this.httpClient.get<RequestFormTemplate>(this.configService.serverURL + this.templateServicePath, { headers: headers, params: params });
 
         return outcomeObservable;
     }
