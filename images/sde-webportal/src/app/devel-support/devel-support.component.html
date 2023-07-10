@@ -6,7 +6,7 @@
         <mat-grid-list cols="3" rowHeight="8em">
             <mat-grid-tile>
                 <mat-progress-spinner mode="indeterminate" *ngIf="isReloadingAgreementsData"></mat-progress-spinner>
-                <button mat-raised-button color="primary" (click)="doReloadAgreementsData()">Reload AgreementsData</button>
+                <button mat-raised-button color="primary" (click)="doReloadAgreementsData()">Reload Agreements Data</button>
                 <p *ngIf="reloadAgreementsDataMessage">Outcome: {{reloadAgreementsDataMessage}}</p>
             </mat-grid-tile>
         </mat-grid-list>
