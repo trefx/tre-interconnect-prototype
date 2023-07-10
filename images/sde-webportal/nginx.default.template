@@ -1,4 +1,3 @@
-
 server {
     listen      ${LISTEN_PORT};
     server_name ${SERVER_NAME};
@@ -78,6 +77,27 @@ server {
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_pass http://localhost:7030/response_checkers;
+    }
+
+    location /service/control/agreementsdata/summaries {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7050/agreementsdata/summaries;
+    }
+
+    location /service/control/agreementsdata/data {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7050/agreementsdata/data;
+    }
+
+    location /service/devel/reload_agreementsdata {
+        proxy_set_header X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7090/reload_agreementsdata;
     }
 
     location / {
