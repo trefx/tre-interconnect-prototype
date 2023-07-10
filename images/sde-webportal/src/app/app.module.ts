@@ -24,11 +24,12 @@ import { MatBadgeModule }           from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent }                  from './app.component';
-import { AgreementsDataComponent }       from './agreements-data/agreements-data.component';
-import { InteractionHistoryComponent }   from './interaction-history/interaction-history.component';
-import { UncheckedRequestListComponent } from './unchecked-request-list/unchecked-request-list.component';
-import { DevelSupportComponent }         from './devel-support/devel-support.component';
+import { AppComponent }                   from './app.component';
+import { AgreementsDataComponent }        from './agreements-data/agreements-data.component';
+import { InteractionHistoryComponent }    from './interaction-history/interaction-history.component';
+import { UncheckedRequestListComponent }  from './unchecked-request-list/unchecked-request-list.component';
+import { UncheckedResponseListComponent } from './unchecked-response-list/unchecked-response-list.component';
+import { DevelSupportComponent }          from './devel-support/devel-support.component';
 
 import { ConfigService }                  from './config.service';
 import { UncheckedInteractionLogService } from './unchecked-interaction-log.service';

@@ -10,48 +10,18 @@ import { DevelSupportService } from '../devel-support.service';
 })
 export class DevelSupportComponent
 {
-    public reloadTemplatesMessage: string | null;
-    public emptyRequestsMessage:   string | null;
-    public emptyResponsesMessage:  string | null;
-    public reloadProvidersMessage: string | null;
-    public isReloadingTemplates:   boolean;
-    public isEmptyingRequests:     boolean;
-    public isEmptyingResponses:    boolean;
-    public isReloadingProviders:   boolean;
+    public reloadAgreementsDataMessage: string | null;
+    public isReloadingAgreementsData:   boolean;
 
     public constructor(private develSupportService: DevelSupportService)
     {
-        this.reloadTemplatesMessage = null;
-        this.emptyRequestsMessage   = null;
-        this.emptyResponsesMessage  = null;
-        this.reloadProvidersMessage = null;
-        this.isReloadingTemplates   = false;
-        this.isEmptyingRequests     = false;
-        this.isEmptyingResponses    = false;
-        this.isReloadingProviders   = false;
+        this.reloadAgreementsDataMessage = null;
+        this.isReloadingAgreementsData   = false;
     }
 
-    public doReloadTemplates(): void
+    public doReloadAgreementsData(): void
     {
-        this.isReloadingTemplates = true;
-        this.develSupportService.reloadTemplates().subscribe((data: Object) => { this.reloadTemplatesMessage = (data as any).outcome; this.isReloadingTemplates = false });
-    }
-
-    public doEmptyRequests(): void
-    {
-        this.isEmptyingRequests = true;
-        this.develSupportService.emptyRequests().subscribe((data: Object) => { this.emptyRequestsMessage = (data as any).outcome; this.isEmptyingRequests = false });
-    }
-
-    public doEmptyResponses(): void
-    {
-        this.isEmptyingResponses = true;
-        this.develSupportService.emptyResponses().subscribe((data: Object) => { this.emptyResponsesMessage = (data as any).outcome; this.isEmptyingResponses = false });
-    }
-
-    public doReloadProviders(): void
-    {
-        this.isReloadingProviders = true;
-        this.develSupportService.reloadProviders().subscribe((data: Object) => { this.reloadProvidersMessage = (data as any).outcome; this.isReloadingProviders = false });
+        this.isReloadingAgreementsData = true;
+        this.develSupportService.reloadAgreementsData().subscribe((data: Object) => { this.reloadAgreementsDataMessage = (data as any).outcome; this.isReloadingAgreementsData = false });
     }
 }

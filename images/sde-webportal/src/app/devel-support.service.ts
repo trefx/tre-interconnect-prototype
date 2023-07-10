@@ -13,16 +13,13 @@ import { ConfigService } from './config.service';
 })
 export class DevelSupportService
 {
-    private reloadTemplatesServicePath = "/service/devel/reload_templates";
-    private emptyRequestsServicePath   = "/service/devel/empty_requests";
-    private emptyResponsesServicePath  = "/service/devel/empty_responses";
-    private reloadProvidersServicePath = "/service/devel/reload_providers";
+    private reloadAgreementsDataServicePath = "/service/devel/reload_agreementsdata";
 
     public constructor(private configService: ConfigService, private httpClient: HttpClient)
     {
     }
 
-    public reloadTemplates(): Observable<Object>
+    public reloadAgreementsData(): Observable<Object>
     {
         let headers = new HttpHeaders();
         headers = headers.append("Accept", "application/json");
@@ -30,39 +27,6 @@ export class DevelSupportService
         let params  = new HttpParams();
         let body    = { };
 
-        return this.httpClient.post<Object>(this.configService.serverURL + this.reloadTemplatesServicePath, body, { headers: headers, params: params });
-    }
-
-    public emptyRequests(): Observable<Object>
-    {
-        let headers = new HttpHeaders();
-        headers = headers.append("Accept", "application/json");
-        headers = headers.append("Content-Type", "application/json");
-        let params  = new HttpParams();
-        let body    = { };
-
-        return this.httpClient.post<Object>(this.configService.serverURL + this.emptyRequestsServicePath, body, { headers: headers, params: params });
-    }
-
-    public emptyResponses(): Observable<Object>
-    {
-        let headers = new HttpHeaders();
-        headers = headers.append("Accept", "application/json");
-        headers = headers.append("Content-Type", "application/json");
-        let params  = new HttpParams();
-        let body    = { };
-
-        return this.httpClient.post<Object>(this.configService.serverURL + this.emptyResponsesServicePath, body, { headers: headers, params: params });
-    }
-
-    public reloadProviders(): Observable<Object>
-    {
-        let headers = new HttpHeaders();
-        headers = headers.append("Accept", "application/json");
-        headers = headers.append("Content-Type", "application/json");
-        let params  = new HttpParams();
-        let body    = { };
-
-        return this.httpClient.post<Object>(this.configService.serverURL + this.reloadProvidersServicePath, body, { headers: headers, params: params });
+        return this.httpClient.post<Object>(this.configService.serverURL + this.reloadAgreementsDataServicePath, body, { headers: headers, params: params });
     }
 }
