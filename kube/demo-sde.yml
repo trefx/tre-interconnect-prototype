@@ -80,7 +80,16 @@ spec:
             key: dmz_amqpbroker_port
   - name: control
     image: docker.io/risbic/sde-control:latest
+  - name: devel
+    image: docker.io/risbic/sde-devel:latest
+    volumeMounts:
+      - mountPath: /data
+        name: devel-data
   volumes:
+    - name: devel-data
+      hostPath:
+        path: ./devel-data/sde
+        type: DirectoryOrCreate
     - name: mongo-data
       hostPath:
         path: ./sde-data/mongo
