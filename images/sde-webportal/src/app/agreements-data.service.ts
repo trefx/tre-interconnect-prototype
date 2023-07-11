@@ -1,9 +1,42 @@
 import { Injectable } from '@angular/core';
+import { HttpClient }  from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpParams }  from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
+import { Observable } from 'rxjs';
+
+import { ConfigService } from './config.service';
+
+@Injectable
+({
+    providedIn: 'root'
 })
-export class AgreementsDataService {
+export class AgreementsDataService
+{
+    private getAgreementsDataSummariesServicePath = "/control/agreementsdata/summaries";
+    private getAgreementsDataDataServicePath      = "/control/agreementsdata/data";
 
-  constructor() { }
+    public constructor(private configService: ConfigService, private httpClient: HttpClient)
+    {
+    }
+
+    public getAgreementsDataSummaries(): Observable<any>
+    {
+        let headers = new HttpHeaders();
+        headers = headers.append("Accept", "application/json");
+        headers = headers.append("Content-Type", "application/json");
+        let params  = new HttpParams();
+
+        return this.httpClient.get<any>(this.configService.serverURL + this.getAgreementsDataSummariesServicePath, { headers: headers, params: params });
+    }
+
+    public getAgreementsDataData(): Observable<any>
+    {
+        let headers = new HttpHeaders();
+        headers = headers.append("Accept", "application/json");
+        headers = headers.append("Content-Type", "application/json");
+        let params  = new HttpParams();
+
+        return this.httpClient.get<any>(this.configService.serverURL + this.getAgreementsDataDataServicePath, { headers: headers, params: params });
+    }
 }

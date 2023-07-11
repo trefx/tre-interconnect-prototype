@@ -23,5 +23,6 @@ export class AgreementsDataComponent
 
     public doReloadAgreementsDataList(): void
     {
+
     }
 }

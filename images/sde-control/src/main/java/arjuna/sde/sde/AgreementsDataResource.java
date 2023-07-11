@@ -105,7 +105,7 @@ public class AgreementsDataResource
     @GET
     @Path("/data")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray getData(@QueryParam("agreements_data_name") String agreementsDataName)
+    public JsonArray getAgreementsDataData(@QueryParam("agreements_data_name") String agreementsDataName)
     {
         log.info("############ SDE - AgreementsDataResource::getData ############");
 
