@@ -1,0 +1,6 @@
+{
+    "name": "bib",
+    "label": "BiB",
+    "columnFields": ["name", "type"],
+    "columnLabels": ["Name", "Type"]
+}
