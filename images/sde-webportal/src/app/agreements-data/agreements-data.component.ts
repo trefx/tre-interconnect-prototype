@@ -10,19 +10,24 @@ import { AgreementsDataService } from '../agreements-data.service';
 })
 export class AgreementsDataComponent
 {
-    public summaries:        any;
-    public data:             any;
-    public displayedColumns: string[];
+    public summaries:          any;
+    public data:               any;
+    public displayedColumns:   string[];
+    public isLoadingTables:    boolean;
+    public isLoadingTableData: boolean;
 
     public constructor(public agreementsDataService: AgreementsDataService)
     {
-        this.summaries        = [];
-        this.data             = [];
-        this.displayedColumns = ["Id", "Id", "Person"];
+        this.summaries          = [];
+        this.data               = [];
+        this.displayedColumns   = ["Id", "Id", "Person"];
+        this.isLoadingTables    = false;
+        this.isLoadingTableData = false;
     }
 
-    public doReloadAgreementsDataList(): void
+    public doReloadAgreementsDataSummaries(): void
     {
-
+        this.isLoadingTables = true;
+        let outcome = this.agreementsDataService.getAgreementsDataSummaries().subscribe((data: Object) => { this.summaries = (data as any).outcome; this.isLoadingTables = false });
     }
 }
