@@ -1,0 +1,6 @@
+{
+    "name": "dsa",
+    "label": "Data Sharing Agreements",
+    "columnFields": ["providername", "requestorid", "text"],
+    "columnLabels": ["provider Name", "Requester ID", "Text"]
+}

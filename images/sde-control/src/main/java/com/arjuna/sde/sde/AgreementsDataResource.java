@@ -66,13 +66,17 @@ public class AgreementsDataResource
 
         try
         {
-            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("/agreementsdata_infos").find().iterator();
+            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("agreementsdata_infos").find().iterator();
 
             try
             {
+                log.info("-- control:Summary --");
                 while (cursor.hasNext())
                 {
                     Document document = cursor.next();
+
+                    log.infof("[[%s]]", document);
+                    log.info("----");
 
                     AgreementsDataSummary agreementsDataSummary = new AgreementsDataSummary();
                     agreementsDataSummary.name         = document.getString("name");
@@ -105,9 +109,9 @@ public class AgreementsDataResource
     @GET
     @Path("/data")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray getData(@QueryParam("agreements_data_name") String agreementsDataName)
+    public JsonArray getAgreementsDataData(@QueryParam("agreements_data_name") String agreementsDataName)
     {
-        log.info("############ SDE - AgreementsDataResource::getData ############");
+        log.infof("############ SDE - AgreementsDataResource::getData(%s) ############", agreementsDataName);
 
         JsonArray list = new JsonArray();
 
@@ -117,9 +121,13 @@ public class AgreementsDataResource
 
             try
             {
+                log.info("-- control:Data --");
                 while (cursor.hasNext())
                 {
                     Document document = cursor.next();
+
+                    log.infof("[[%s|%s]]", agreementsDataName, document);
+                    log.info("----");
 
                     list.add(document);
                 }

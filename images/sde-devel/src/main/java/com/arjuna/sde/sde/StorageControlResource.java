@@ -25,16 +25,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 
-import io.minio.MinioClient;
-import io.minio.messages.Item;
-import io.minio.Result;
-import io.minio.PutObjectArgs;
-import io.minio.BucketExistsArgs;
-import io.minio.RemoveBucketArgs;
-import io.minio.RemoveObjectArgs;
-import io.minio.ListObjectsArgs;
-import io.minio.MakeBucketArgs;
-
 @ApplicationScoped
 @jakarta.ws.rs.Path("/")
 public class StorageControlResource
@@ -60,6 +50,7 @@ public class StorageControlResource
             MongoDatabase sde = mongoClient.getDatabase("sde");
             sde.getCollection("agreementsdata_infos").drop();
 
+            log.info("-- dev:Summary --");
             try (DirectoryStream<Path> agreementsDataInfoPathsStream = Files.newDirectoryStream(agreementsDataInfoFilesPath))
             {
                 for (Path agreementsDataInfoPath: agreementsDataInfoPathsStream)
@@ -67,7 +58,53 @@ public class StorageControlResource
                     String   agreementsDataInfoContent = Files.readString(agreementsDataInfoPath);
                     Document document                  = Document.parse(agreementsDataInfoContent);
 
+                    log.infof("[[%s]]", document);
+                    log.info("----");
+
                     sde.getCollection("agreementsdata_infos").insertOne(document);
+                }
+            }
+            catch (Error error)
+            {
+                throw error;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
+        catch (Error error)
+        {
+            log.error("Error while reloading agreements info", error);
+            return "{\"outcome\": \"Error while reloading agreements data\"}";
+        }
+        catch (Exception exception)
+        {
+            log.error("Exception while reloading agreements info", exception);
+            return "{\"outcome\": \"Exception while reloading agreements data\"}";
+        }
+
+        try
+        {
+            Path agreementsDataFilesPath = FileSystems.getDefault().getPath("/data/agreementsdata");
+
+            MongoDatabase sde = mongoClient.getDatabase("sde");
+
+            log.info("-- dev:Data --");
+            try (DirectoryStream<Path> agreementsDataPathsStream = Files.newDirectoryStream(agreementsDataFilesPath))
+            {
+                for (Path agreementsDataPath: agreementsDataPathsStream)
+                {
+                    String collectionName = "ad_" + agreementsDataPath.getFileName().toString().replace(".json", "");
+                    sde.getCollection(collectionName).drop();
+
+                    String   agreementsDataContent = Files.readString(agreementsDataPath);
+                    Document document              = Document.parse(agreementsDataContent);
+
+                    log.infof("[[%s|%s]]", collectionName, document);
+                    log.info("----");
+
+                    sde.getCollection(collectionName).insertOne(document);
                 }
             }
             catch (Error error)

@@ -1,0 +1,6 @@
+{
+    "name": "projects",
+    "label": "Projects",
+    "columnFields": ["name", "id"],
+    "columnLabels": ["Name", "Id"]
+}

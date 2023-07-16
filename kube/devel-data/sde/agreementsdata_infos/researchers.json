@@ -1,0 +1,6 @@
+{
+    "name": "researchers",
+    "label": "Researchers",
+    "columnFields": ["name", "id", "organization", "projectname", "projectid"],
+    "columnLabels": ["Name", "Id", "Organization", "Project Name", "Project ID"]
+}
