@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+mport { Injectable } from '@angular/core';
 import { HttpClient }  from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams }  from '@angular/common/http';
@@ -13,8 +13,8 @@ import { ConfigService } from './config.service';
 })
 export class AgreementsDataService
 {
-    private getAgreementsDataSummariesServicePath = "/control/agreementsdata/summaries";
-    private getAgreementsDataDataServicePath      = "/control/agreementsdata/data";
+    private getAgreementsDataSummariesServicePath = "/service/control/agreementsdata/summaries";
+    private getAgreementsDataDataServicePath      = "/service/control/agreementsdata/data";
 
     public constructor(private configService: ConfigService, private httpClient: HttpClient)
     {
