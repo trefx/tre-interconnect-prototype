@@ -1,0 +1,6 @@
+{
+    "name": "drf",
+    "label": "Data Request Forms",
+    "columnFields": ["projectname", "requestorid", "text"],
+    "columnLabels": ["Project Name", "Requester ID", "Text"]
+}
