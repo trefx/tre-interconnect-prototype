@@ -50,16 +50,12 @@ public class StorageControlResource
             MongoDatabase sde = mongoClient.getDatabase("sde");
             sde.getCollection("agreementsdata_infos").drop();
 
-            log.info("-- dev:Summary --");
             try (DirectoryStream<Path> agreementsDataInfoPathsStream = Files.newDirectoryStream(agreementsDataInfoFilesPath))
             {
                 for (Path agreementsDataInfoPath: agreementsDataInfoPathsStream)
                 {
                     String   agreementsDataInfoContent = Files.readString(agreementsDataInfoPath);
                     Document document                  = Document.parse(agreementsDataInfoContent);
-
-                    log.infof("[[%s]]", document);
-                    log.info("----");
 
                     sde.getCollection("agreementsdata_infos").insertOne(document);
                 }
@@ -90,7 +86,6 @@ public class StorageControlResource
 
             MongoDatabase sde = mongoClient.getDatabase("sde");
 
-            log.info("-- dev:Data --");
             try (DirectoryStream<Path> agreementsDataPathsStream = Files.newDirectoryStream(agreementsDataFilesPath))
             {
                 for (Path agreementsDataPath: agreementsDataPathsStream)
@@ -100,9 +95,6 @@ public class StorageControlResource
 
                     String   agreementsDataContent = Files.readString(agreementsDataPath);
                     Document document              = Document.parse(agreementsDataContent);
-
-                    log.infof("[[%s|%s]]", collectionName, document);
-                    log.info("----");
 
                     sde.getCollection(collectionName).insertOne(document);
                 }

@@ -70,13 +70,9 @@ public class AgreementsDataResource
 
             try
             {
-                log.info("-- control:Summary --");
                 while (cursor.hasNext())
                 {
                     Document document = cursor.next();
-
-                    log.infof("[[%s]]", document);
-                    log.info("----");
 
                     AgreementsDataSummary agreementsDataSummary = new AgreementsDataSummary();
                     agreementsDataSummary.name         = document.getString("name");
@@ -121,15 +117,12 @@ public class AgreementsDataResource
 
             try
             {
-                log.info("-- control:Data --");
-                while (cursor.hasNext())
+                if (cursor.hasNext())
                 {
                     Document document = cursor.next();
 
-                    log.infof("[[%s|%s]]", agreementsDataName, document);
-                    log.info("----");
-
-                    list.add(document);
+                    JsonObject object = new JsonObject(document.toJson());
+                    list = object.getJsonArray("data");
                 }
             }
             finally
