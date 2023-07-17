@@ -14,7 +14,6 @@ export class AgreementsDataComponent
     public selectedIndex:          number | null;
     public selectedAgreementsData: any;
     public data:                   any;
-    public displayedColumns:       string[];
     public isLoadingTables:        boolean;
     public isLoadingTableData:     boolean;
 
@@ -24,7 +23,6 @@ export class AgreementsDataComponent
         this.selectedIndex          = null;
         this.selectedAgreementsData = null;
         this.data                   = [];
-        this.displayedColumns       = [];
         this.isLoadingTables        = false;
         this.isLoadingTableData     = false;
     }
@@ -37,20 +35,15 @@ export class AgreementsDataComponent
 
     private processAgreementDataSummaries(agreementsDataSummaries: any)
     {
-        this.agreementsDatas = agreementsDataSummaries;
+        this.agreementsDatas        = agreementsDataSummaries;
         this.selectedAgreementsData = this.agreementsDatas[0];
+        this.doReloadAgreementsDataData();        
     }
 
     public doSelectAgreementsDataIndex(agreementsDataIndex: any)
     {
-        console.log(agreementsDataIndex);
-//        this.selectedAgreementsData = agreementsData;
-    }
-
-    public doSelectAgreementsData(agreementsData: any)
-    {
-        console.log(agreementsData);
-//        this.selectedAgreementsData = agreementsData;
+        this.selectedAgreementsData = this.agreementsDatas[agreementsDataIndex];
+        this.doReloadAgreementsDataData()
     }
 
     public doReloadAgreementsDataData(): void
