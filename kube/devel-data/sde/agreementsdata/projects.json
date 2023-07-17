@@ -1,1 +1,6 @@
-[ { "name": "BiB", "type": "NHS" } ]
+{
+    "data":
+    [
+        { "name": "BiB", "type": "NHS" }
+    ]
+}
