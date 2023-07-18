@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: anal_datashield
+  name: anal-datashield
   labels:
     app: datashield
 spec:

@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: data-minio-auth
+type: kubernetes.io/basic-auth
+stringData:
+  username: admin
+  password: password
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: data-minio
+spec:
+  hostUsers: false
+  containers:
+  - name: minio
+    image: quay.io/minio/minio
+    ports:
+    - containerPort: 9000
+      hostPort: 9000
+    - containerPort: 9001
+      hostPort: 9001
+    volumeMounts:
+    - mountPath: /data
+      name: minio-data
+    env:
+    - name: MINIO_ROOT_USER
+      valueFrom:
+        secretKeyRef:
+          name: data-minio-auth
+          key: username
+    - name: MINIO_ROOT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: data-minio-auth
+          key: password
+    args: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
+  volumes:
+    - name: minio-data
+      hostPath:
+        path: ./data-data/minio
+        type: DirectoryOrCreate
