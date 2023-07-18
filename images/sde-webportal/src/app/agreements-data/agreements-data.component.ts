@@ -49,7 +49,13 @@ export class AgreementsDataComponent
     public doReloadAgreementsDataData(): void
     {
         this.isLoadingTableData = true;
-        this.agreementsDataService.getAgreementsDataData(this.selectedAgreementsData.name).subscribe((data: any) => { this.processAgreementDataData(data); this.isLoadingTableData = false });
+        if (this.selectedAgreementsData.name != null)
+            this.agreementsDataService.getAgreementsDataData(this.selectedAgreementsData.name).subscribe((data: any) => { this.processAgreementDataData(data); this.isLoadingTableData = false });
+        else
+        {
+            this.data               = [];
+            this.isLoadingTableData = false;
+        }           
     }
 
     private processAgreementDataData(agreementsDataData: any)
