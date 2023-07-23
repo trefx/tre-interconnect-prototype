@@ -22,11 +22,10 @@ import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
+import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
-import edu.kit.datamanager.ro_crate.writer.FolderWriter;
-import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
+import edu.kit.datamanager.ro_crate.entities.contextual.ContextualEntity;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -45,7 +44,7 @@ public class ROCrateSimpleRequestSubmitterResource
     public ObjectMapper objectMapper;
 
     @Channel("trs_outgoing")
-    public Emitter<RoCrate> requestEmitter;
+    public Emitter<JsonObject> requestEmitter;
 
     @Inject
     public MongoClient mongoClient;
@@ -56,22 +55,24 @@ public class ROCrateSimpleRequestSubmitterResource
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postSubmitSimpleRequest(Request request)
+    public String postSubmitSimpleRequest()
     {
         log.info("############ Lab - ROCrateSimpleRequestSubmitterResource::postSubmitSampleRequest ############");
 
         try
         {
-            RootDataEntity rootDataEntity = new RootDataEntity.RootDataEntityBuilder()
-                .addProperty("template-id", request.templateID)
+             RoCrate request = new RoCrate.RoCrateBuilder()
+                .addContextualEntity(
+                    new ContextualEntity.ContextualEntityBuilder()
+                        .addType("SimpleRequest")
+                        .setId("http://example.org/" + UUID.randomUUID().toString())
+                        .build()
+                )
                 .build();
 
-            RoCrate roCrate = new RoCrate.RoCrateBuilder("Request", UUID.randomUUID().toString())
-                .build();
+            JsonObject requestJson = new JsonObject(objectMapper.writeValueAsString(request));
 
-            roCrate.setRootDataEntity(rootDataEntity);
-
-            requestEmitter.send(roCrate);
+            requestEmitter.send(requestJson);
 
             return "{ \"outcome\": \"success\" }";
         }

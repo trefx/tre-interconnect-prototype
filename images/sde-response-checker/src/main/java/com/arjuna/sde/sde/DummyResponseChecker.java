@@ -2,7 +2,7 @@ package com.arjuna.sde.sde;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
-import edu.kit.datamanager.ro_crate.RoCrate;
+import io.vertx.core.json.JsonObject;
 
 @ApplicationScoped
 public class DummyResponseChecker implements ResponseChecker
@@ -24,7 +24,7 @@ public class DummyResponseChecker implements ResponseChecker
        return "Does not augment response, but cause alternate responses to be manualy checked.";
     }
 
-    public Boolean check(RoCrate response)
+    public Boolean check(JsonObject response)
     {
         needManualCheck = Boolean.logicalXor(needManualCheck, Boolean.TRUE);
 

@@ -45,7 +45,7 @@ public class ROCratePermitRequest
     public ObjectMapper objectMapper;
 
     @Channel("pr_outgoing")
-    public Emitter<RoCrate> requestEmitter;
+    public Emitter<JsonObject> requestEmitter;
 
     @Inject
     public MinioClient minioClient;
@@ -65,10 +65,9 @@ public class ROCratePermitRequest
                 stringBuffer.append((char) ch);
             inputStream.close();
 
-            JsonObject requestJSON = new JsonObject(stringBuffer.toString());
-            RoCrate    request     = objectMapper.convertValue(requestJSON, RoCrate.class);
+            JsonObject requestJson = new JsonObject(stringBuffer.toString());
 
-            requestEmitter.send(request);
+            requestEmitter.send(requestJson);
 
             minioClient.removeObject(RemoveObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
         }

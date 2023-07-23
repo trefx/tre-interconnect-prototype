@@ -22,9 +22,7 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
-import edu.kit.datamanager.ro_crate.writer.FolderWriter;
-import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
+import edu.kit.datamanager.ro_crate.entities.contextual.ContextualEntity;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -32,30 +30,6 @@ import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 
 import io.minio.MinioClient;
-
-class DataSHIELDRequest
-{
-    public String platformName;
-    public String profileName;
-    public String symbolNamesList;
-    public String tableNamesList;
-    public String workspaceName;
-    public String rScript;
-
-    public DataSHIELDRequest()
-    {
-    }
-
-    public DataSHIELDRequest(String platformName, String profileName, String symbolNamesList, String tableNamesList, String workspaceName, String rScript)
-    {
-        this.platformName    = platformName;
-        this.profileName     = profileName;
-        this.symbolNamesList = symbolNamesList;
-        this.tableNamesList  = tableNamesList;
-        this.workspaceName   = workspaceName;
-        this.rScript         = rScript;
-    }
-}
 
 @Path("/datashield_request_submitter")
 public class ROCrateDataSHIELDRequestSubmitterResource
@@ -67,47 +41,50 @@ public class ROCrateDataSHIELDRequestSubmitterResource
     public ObjectMapper objectMapper;
 
     @Channel("drs_outgoing")
-    public Emitter<RoCrate> requestEmitter;
+    public Emitter<JsonObject> requestEmitter;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postSubmitDataSHIELDRequest(DataSHIELDRequest dataSHIELDRequest)
+    public String postSubmitDataSHIELDRequest(JsonObject dataSHIELDRequest)
     {
         log.info("############ Lab - ROCrateDataSHIELDRequestSubmitterResource::postSubmitDataSHIELDRequest ############");
 
         try
         {
-            log.debugf("DataSHIELD Platform Name:     %s", dataSHIELDRequest.platformName);
-            log.debugf("DataSHIELD Profile Name:      %s", dataSHIELDRequest.profileName);
-            log.debugf("DataSHIELD Symbol Names List: %s", dataSHIELDRequest.symbolNamesList);
-            log.debugf("DataSHIELD Table Names List:  %s", dataSHIELDRequest.tableNamesList);
-            log.debugf("DataSHIELD Workspace Name:    %s", dataSHIELDRequest.workspaceName);
-            log.debugf("DataSHIELD R Script:          %s", dataSHIELDRequest.rScript);
+            String platformName    = validDataSHIELDPlatformName(dataSHIELDRequest.getString("dataSHIELDPlatformName"));
+            String profileName     = validDataSHIELDProfileName(dataSHIELDRequest.getString("dataSHIELDProfileName"));
+            String symbolNamesList = validDataSHIELDSymbolNamesList(dataSHIELDRequest.getString("dataSHIELDSymbolNamesList"));
+            String tableNamesList  = validDataSHIELDTableNamesList(dataSHIELDRequest.getString("dataSHIELDTableNamesList"));
+            String workspaceName   = validDataSHIELDWorkspaceName(dataSHIELDRequest.getString("dataSHIELDWorkspaceName"));
+            String rScript         = validDataSHIELDRScript(dataSHIELDRequest.getString("dataSHIELDRScript"));
 
-            String platformName    = validDataSHIELDPlatformName(dataSHIELDRequest.platformName);
-            String profileName     = validDataSHIELDProfileName(dataSHIELDRequest.profileName);
-            String symbolNamesList = validDataSHIELDSymbolNamesList(dataSHIELDRequest.symbolNamesList);
-            String tableNamesList  = validDataSHIELDTableNamesList(dataSHIELDRequest.tableNamesList);
-            String workspaceName   = validDataSHIELDWorkspaceName(dataSHIELDRequest.workspaceName);
-            String rScript         = validDataSHIELDRScript(dataSHIELDRequest.rScript);
+            log.debugf("DataSHIELD Platform Name:     %s", platformName);
+            log.debugf("DataSHIELD Profile Name:      %s", profileName);
+            log.debugf("DataSHIELD Symbol Names List: %s", symbolNamesList);
+            log.debugf("DataSHIELD Table Names List:  %s", tableNamesList);
+            log.debugf("DataSHIELD Workspace Name:    %s", workspaceName);
+            log.debugf("DataSHIELD R Script:          %s", rScript);
 
-            RootDataEntity rootDataEntity = new RootDataEntity.RootDataEntityBuilder()
-                .addProperty("request-type", "DataSHIELD:1.0.0")
-                .addProperty("datashield-platform-name", platformName)
-                .addProperty("datashield-profile-name", profileName)
-                .addProperty("datashield-symbol-names-list", symbolNamesList)
-                .addProperty("datashield-table-names-list", tableNamesList)
-                .addProperty("datashield-workspace-name", workspaceName)
-                .addProperty("datashield-r-script", rScript)
+            RoCrate request = new RoCrate.RoCrateBuilder("TRE-FX Request", UUID.randomUUID().toString())
+                .addContextualEntity(
+                    new ContextualEntity.ContextualEntityBuilder()
+                        .addType("DataSHIELDRequest")
+                        .setId("http://example.org/" + UUID.randomUUID().toString())
+                        .addProperty("request-type", "DataSHIELD:1.0.0")
+                        .addProperty("datashield-platform-name", platformName)
+                        .addProperty("datashield-profile-name", profileName)
+                        .addProperty("datashield-symbol-names-list", symbolNamesList)
+                        .addProperty("datashield-table-names-list", tableNamesList)
+                        .addProperty("datashield-workspace-name", workspaceName)
+                        .addProperty("datashield-r-script", rScript)
+                        .build()
+                )
                 .build();
 
-            RoCrate roCrate = new RoCrate.RoCrateBuilder("Request", UUID.randomUUID().toString())
-                .build();
+            JsonObject requestJson = new JsonObject(objectMapper.writeValueAsString(request));
 
-            roCrate.setRootDataEntity(rootDataEntity);
-
-            requestEmitter.send(roCrate);
+            requestEmitter.send(requestJson);
 
             return "{ \"outcome\": \"success\" }";
         }

@@ -22,8 +22,6 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
-import edu.kit.datamanager.ro_crate.writer.FolderWriter;
 import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import io.quarkus.arc.All;
@@ -47,7 +45,7 @@ public class ROCrateRequestChecker
     public ObjectMapper objectMapper;
 
     @Channel("rc_outgoing")
-    public Emitter<RoCrate> requestEmitter;
+    public Emitter<JsonObject> requestEmitter;
 
     @Inject
     public MinioClient minioClient;
@@ -58,18 +56,16 @@ public class ROCrateRequestChecker
 
     @Blocking
     @Incoming("rc_incoming")
-    public void checkRequest(JsonObject requestObject)
+    public void checkRequest(JsonObject requestJson)
     {
         try
         {
             log.info("############ SDE - ROCrateRequestChecker::checkRequest ############");
 
-            RoCrate request = objectMapper.convertValue(requestObject, RoCrate.class);
-
             Boolean needsManualChecking = null;
             for (RequestChecker requestChecker : requestCheckers)
             {
-                Boolean checkManually = requestChecker.check(request);
+                Boolean checkManually = requestChecker.check(requestJson);
                 if (needsManualChecking == null)
                     needsManualChecking = checkManually;
                 else if ((checkManually != null) && checkManually.booleanValue())
@@ -83,12 +79,14 @@ public class ROCrateRequestChecker
                 if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("unchecked-requests").build()))
                     minioClient.makeBucket(MakeBucketArgs.builder().bucket("unchecked-requests").build());
 
-                InputStream inputStream = new StringBufferInputStream(objectMapper.writeValueAsString(request));
+                InputStream inputStream = new StringBufferInputStream(requestJson.toString());
                 minioClient.putObject(PutObjectArgs.builder().bucket("unchecked-requests").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
                 inputStream.close();
             }
             else
-                requestEmitter.send(request);
+            {
+                requestEmitter.send(requestJson);
+            }
         }
         catch (Error error)
         {

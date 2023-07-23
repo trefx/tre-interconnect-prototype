@@ -12,13 +12,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jboss.logging.Logger;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-
 import io.vertx.core.json.JsonObject;
+
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
 @ApplicationScoped
@@ -37,12 +36,8 @@ public class DataSHIELDAnalysisAdapter
     @Blocking
     @Incoming("daa_incoming")
     @Outgoing("daa_outgoing")
-//    public RoCrate processDataSHIELDRequest(RoCrate datashieldRequest)
-    public RoCrate processDataSHIELDRequest(JsonObject datashieldRequest)
+    public JsonObject processDataSHIELDRequest(JsonObject datashieldRequest)
     {
-        String responce     = null;
-        String errorMessage = null;
-
         try
         {
             log.info("############ SDE - DataSHIELDAnalysisAdapter::processDataSHIELDRequest ############");
@@ -56,14 +51,12 @@ public class DataSHIELDAnalysisAdapter
 //            String dataSHIELDWorkspaceName   = rootDataEntity.getProperty("datashield-workspace-name").asText();
 //            String dataSHIELDRScript         = rootDataEntity.getProperty("datashield-r-script").asText();
 
-            JsonObject rootDataEntity = datashieldRequest.getJsonObject("rootDataEntity");
-
-            String dataSHIELDPlatformName    = rootDataEntity.getString("datashield-platform-name");
-            String dataSHIELDProfileName     = rootDataEntity.getString("datashield-profile-name");
-            String dataSHIELDSymbolNamesList = rootDataEntity.getString("datashield-symbol-names-list");
-            String dataSHIELDTableNamesList  = rootDataEntity.getString("datashield-table-names-list");
-            String dataSHIELDWorkspaceName   = rootDataEntity.getString("datashield-workspace-name");
-            String dataSHIELDRScript         = rootDataEntity.getString("datashield-r-script");
+            String dataSHIELDPlatformName    = datashieldRequest.getString("datashield-platform-name");
+            String dataSHIELDProfileName     = datashieldRequest.getString("datashield-profile-name");
+            String dataSHIELDSymbolNamesList = datashieldRequest.getString("datashield-symbol-names-list");
+            String dataSHIELDTableNamesList  = datashieldRequest.getString("datashield-table-names-list");
+            String dataSHIELDWorkspaceName   = datashieldRequest.getString("datashield-workspace-name");
+            String dataSHIELDRScript         = datashieldRequest.getString("datashield-r-script");
 
             log.infof("DataSHIELD Platform Name     %s", dataSHIELDPlatformName);
             log.infof("DataSHIELD Profile Name      %s", dataSHIELDProfileName);
@@ -76,25 +69,28 @@ public class DataSHIELDAnalysisAdapter
             armadilloService.postSelectProfile(dataSHIELDProfileName, false);
             armadilloService.postLoadTable(dataSHIELDSymbolNamesList, dataSHIELDTableNamesList, false);
 
-            responce = armadilloService.postExecute(dataSHIELDRScript, false);
+            String responce     = armadilloService.postExecute(dataSHIELDRScript, false);
+            String errorMessage = "";
             // Save Workspace
+
+            log.infof("Responce:      %s\n", responce);
+            log.infof("Error message: %s\n", errorMessage);
+
+            JsonObject datashieldResponse = new JsonObject("{ \"outcome\", \"success\" }");
+
+            return datashieldResponse;
         }
         catch(Error error)
         {
-            errorMessage = "Error processing of DataSHIELD request";
+            String errorMessage = "Error processing of DataSHIELD request";
             log.warn(errorMessage, error);
+            return new JsonObject("{ \"outcome\", \"error\" }");
         }
         catch(Exception exception)
         {
-            errorMessage = "Exception processing of DataSHIELD request";
+            String errorMessage = "Exception processing of DataSHIELD request";
             log.warn(errorMessage, exception);
+            return new JsonObject("{ \"outcome\", \"exception\" }");
         }
-
-        log.infof("Responce:      %s\n", responce);
-        log.infof("Error message: %s\n", errorMessage);
-
-        RoCrate datashieldResponse = new RoCrate.RoCrateBuilder("Request", UUID.randomUUID().toString()).build();
-
-        return datashieldResponse;
     }
 }
