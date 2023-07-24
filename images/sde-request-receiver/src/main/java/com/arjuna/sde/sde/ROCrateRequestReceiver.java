@@ -34,15 +34,13 @@ public class ROCrateRequestReceiver
     @Blocking
     @Incoming("rr_incoming")
     @Outgoing("rr_outgoing")
-    public RoCrate receiveRequest(JsonObject requestObject)
+    public JsonObject receiveRequest(JsonObject requestObject)
     {
         try
         {
             log.info("############ SDE - ROCrateRequestReceiver::receiveRequest ############");
 
-            RoCrate request = objectMapper.convertValue(requestObject, RoCrate.class);
-
-            return request;
+            return requestObject;
         }
         catch (Error error)
         {

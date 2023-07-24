@@ -45,22 +45,22 @@ public class ROCrateRequestSender
     @Blocking
     @Incoming("rs_incoming")
     @Outgoing("rs_outgoing")
-    public RoCrate forwardRequest(JsonObject requestJson)
+    public JsonObject forwardRequest(JsonObject requestJson)
     {
         log.info("############ Lab - ROCrateRequestSender::forwardRequest ############");
 
         try
         {
-            RoCrate request = objectMapper.convertValue(requestJson, RoCrate.class);
-
             if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("requests").build()))
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket("requests").build());
 
-            InputStream inputStream = new StringBufferInputStream(objectMapper.writeValueAsString(request));
+            InputStream inputStream = new StringBufferInputStream(requestJson.toString());
             minioClient.putObject(PutObjectArgs.builder().bucket("requests").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
             inputStream.close();
 
-            return request;
+            JsonObject responseJson = requestJson;
+
+            return responseJson;
         }
         catch (Error error)
         {

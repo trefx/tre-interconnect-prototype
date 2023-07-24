@@ -54,9 +54,9 @@ public class ROCrateUncheckedRequest
         try
         {
             InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
-
             for (int ch; (ch = inputStream.read()) != -1;)
                 stringBuffer.append((char) ch);
+            inputStream.close();
 
             results = new JsonObject(stringBuffer.toString());
         }

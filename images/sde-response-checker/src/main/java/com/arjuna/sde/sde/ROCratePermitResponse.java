@@ -45,7 +45,7 @@ public class ROCratePermitResponse
     public ObjectMapper objectMapper;
 
     @Channel("pr_outgoing")
-    public Emitter<RoCrate> responseEmitter;
+    public Emitter<JsonObject> responseEmitter;
 
     @Inject
     public MinioClient minioClient;
@@ -65,10 +65,9 @@ public class ROCratePermitResponse
                 stringBuffer.append((char) ch);
             inputStream.close();
 
-            JsonObject responseJSON = new JsonObject(stringBuffer.toString());
-            RoCrate    response     = objectMapper.convertValue(responseJSON, RoCrate.class);
+            JsonObject responseJson = new JsonObject(stringBuffer.toString());
 
-            responseEmitter.send(response);
+            responseEmitter.send(responseJson);
 
             minioClient.removeObject(RemoveObjectArgs.builder().bucket("unchecked-responses").object(responseId).build());
         }

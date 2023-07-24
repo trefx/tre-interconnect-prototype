@@ -22,11 +22,10 @@ import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
+import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
-import edu.kit.datamanager.ro_crate.writer.FolderWriter;
-import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
+import edu.kit.datamanager.ro_crate.entities.contextual.ContextualEntity;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -34,20 +33,6 @@ import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 
 import io.minio.MinioClient;
-
-class Request
-{
-    public String templateID;
-
-    public Request()
-    {
-    }
-
-    public Request(String templateID)
-    {
-        this.templateID = templateID;
-    }
-}
 
 @Path("/templated_request_submitter")
 public class ROCrateTemplatedRequestSubmitterResource
@@ -59,7 +44,7 @@ public class ROCrateTemplatedRequestSubmitterResource
     public ObjectMapper objectMapper;
 
     @Channel("trs_outgoing")
-    public Emitter<RoCrate> requestEmitter;
+    public Emitter<JsonObject> requestEmitter;
 
     @Inject
     public MongoClient mongoClient;
@@ -70,22 +55,27 @@ public class ROCrateTemplatedRequestSubmitterResource
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postSubmitTemplatedRequest(Request request)
+    public String postSubmitTemplatedRequest(JsonObject templatedRequest)
     {
         log.info("############ Lab - ROCrateTemplatedRequestSubmitterResource::postSubmitTemplatedRequest ############");
 
         try
         {
-            RootDataEntity rootDataEntity = new RootDataEntity.RootDataEntityBuilder()
-                .addProperty("template-id", request.templateID)
+             String templateId = templatedRequest.getString("templateID");
+
+             RoCrate request = new RoCrate.RoCrateBuilder()
+                .addContextualEntity(
+                    new ContextualEntity.ContextualEntityBuilder()
+                        .addType("TemplatedRequest")
+                        .setId("http://example.org/" + UUID.randomUUID().toString())
+                        .addProperty("template-id", templateId)
+                        .build()
+                )
                 .build();
 
-            RoCrate roCrate = new RoCrate.RoCrateBuilder("Request", UUID.randomUUID().toString())
-                .build();
+            JsonObject requestJson = new JsonObject(objectMapper.writeValueAsString(request));
 
-            roCrate.setRootDataEntity(rootDataEntity);
-
-            requestEmitter.send(roCrate);
+            requestEmitter.send(requestJson);
 
             return "{ \"outcome\": \"success\" }";
         }

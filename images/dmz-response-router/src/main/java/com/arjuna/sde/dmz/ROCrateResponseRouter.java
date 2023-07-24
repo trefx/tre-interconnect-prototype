@@ -34,15 +34,15 @@ public class ROCrateResponseRouter
     @Blocking
     @Incoming("rr_incoming")
     @Outgoing("rr_outgoing")
-    public RoCrate routeResponse(JsonObject responseObject)
+    public JsonObject routeResponse(JsonObject requestJson)
     {
         try
         {
             log.info("############ DMZ - ROCrateResponseRouter::routeResponse ############");
 
-            RoCrate response = objectMapper.convertValue(responseObject, RoCrate.class);
+            JsonObject responseJson = requestJson;
 
-            return response;
+            return responseJson;
         }
         catch (Error error)
         {

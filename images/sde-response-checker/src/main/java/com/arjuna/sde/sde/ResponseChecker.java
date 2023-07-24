@@ -1,6 +1,6 @@
 package com.arjuna.sde.sde;
 
-import edu.kit.datamanager.ro_crate.RoCrate;
+import io.vertx.core.json.JsonObject;
 
 interface ResponseChecker
 {
@@ -8,5 +8,5 @@ interface ResponseChecker
 
     public String getDescription();
 
-    public Boolean check(RoCrate response);
+    public Boolean check(JsonObject response);
 }

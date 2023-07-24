@@ -34,15 +34,27 @@ public class ROCrateAnalysisAdaptor
     @Blocking
     @Incoming("aa_incoming")
     @Outgoing("aa_outgoing")
-    public RoCrate doAnalysis(JsonObject requestObject)
+    public JsonObject doAnalysis(JsonObject requestJson)
     {
         try
         {
             log.info("############ SDE - ROCrateAnalysisAdaptor::doAnalysis ############");
 
-            RoCrate response = objectMapper.convertValue(requestObject, RoCrate.class);
+               JsonObject responseJson = requestJson;
 
-            return response;
+//             RoCrate response = objectMapper.convertValue(requestObject, RoCrate.class);
+
+//             RoCrate response = new RoCrate.RoCrateBuilder(request)
+//                 .addDataEntity(
+//                     new DataEntity.DataEntityBuilder()
+//                       .addType("CreativeWork")
+//                       .setId("http://example.org/" + UUID.randomUUID().toString())
+//                       .addProperty("Answer to the Ultimate Question of Life, The Universe, and Everything", "42")
+//                       .build()
+//               )
+//               .build();
+
+            return responseJson;
         }
         catch (Error error)
         {
