@@ -1,0 +1,19 @@
+#
+# Copyright (c) 2023, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
+#
+
+# Not working yet....
+
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: demo
+  labels:
+    app: demo
+spec:
+  selector:
+     matchLabels:
+        app:
+        - lab
+        - dmz
+        - sde
