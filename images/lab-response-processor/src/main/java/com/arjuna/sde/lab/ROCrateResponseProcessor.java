@@ -44,7 +44,7 @@ public class ROCrateResponseProcessor
 
     @Blocking
     @Incoming("rp_incoming")
-    public void processResponse(JsonObject response)
+    public void processResponse(JsonObject responseJson)
     {
         log.info("############ Lab - ROCrateResponseProcessor::processResponse ############");
 
@@ -53,7 +53,7 @@ public class ROCrateResponseProcessor
             if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("responses").build()))
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket("responses").build());
 
-            InputStream inputStream = new StringBufferInputStream(objectMapper.writeValueAsString(response));
+            InputStream inputStream = new StringBufferInputStream(responseJson.toString());
             minioClient.putObject(PutObjectArgs.builder().bucket("responses").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
             inputStream.close();
         }

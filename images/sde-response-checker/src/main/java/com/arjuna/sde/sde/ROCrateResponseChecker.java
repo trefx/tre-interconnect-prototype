@@ -22,9 +22,6 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
-import edu.kit.datamanager.ro_crate.writer.FolderWriter;
-import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import io.quarkus.arc.All;
 
@@ -81,7 +78,7 @@ public class ROCrateResponseChecker
                 if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("unchecked-responses").build()))
                     minioClient.makeBucket(MakeBucketArgs.builder().bucket("unchecked-responses").build());
 
-                InputStream inputStream = new StringBufferInputStream(objectMapper.writeValueAsString(responseJson));
+                InputStream inputStream = new StringBufferInputStream(responseJson.toString());
                 minioClient.putObject(PutObjectArgs.builder().bucket("unchecked-responses").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
                 inputStream.close();
             }
