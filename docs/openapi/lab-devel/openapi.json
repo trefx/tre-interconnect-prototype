@@ -1,0 +1,93 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "lab-devel API",
+    "version" : "1.0.0-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:7090",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:7090",
+    "description" : "Auto generated value"
+  } ],
+  "paths" : {
+    "/empty_requests" : {
+      "post" : {
+        "tags" : [ "Storage Control Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/empty_responses" : {
+      "post" : {
+        "tags" : [ "Storage Control Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reload_providers" : {
+      "post" : {
+        "tags" : [ "Storage Control Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reload_templates" : {
+      "post" : {
+        "tags" : [ "Storage Control Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "securitySchemes" : {
+      "SecurityScheme" : {
+        "type" : "http",
+        "description" : "Authentication",
+        "scheme" : "basic"
+      }
+    }
+  }
+}

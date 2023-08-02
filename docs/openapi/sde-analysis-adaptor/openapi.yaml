@@ -1,0 +1,17 @@
+---
+openapi: 3.0.3
+info:
+  title: sde-analysis-adaptor API
+  version: 1.0.0-SNAPSHOT
+servers:
+- url: http://localhost:7020
+  description: Auto generated value
+- url: http://0.0.0.0:7020
+  description: Auto generated value
+paths: {}
+components:
+  securitySchemes:
+    SecurityScheme:
+      type: http
+      description: Authentication
+      scheme: basic

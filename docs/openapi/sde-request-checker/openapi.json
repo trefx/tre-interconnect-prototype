@@ -1,0 +1,148 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "sde-request-checker API",
+    "version" : "1.0.0-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:7010",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:7010",
+    "description" : "Auto generated value"
+  } ],
+  "paths" : {
+    "/block_request" : {
+      "post" : {
+        "tags" : [ "RO Crate Block Request" ],
+        "parameters" : [ {
+          "name" : "requestid",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/list_request_checkers" : {
+      "get" : {
+        "tags" : [ "RO Crate List Request Checkers" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permit_request" : {
+      "post" : {
+        "tags" : [ "RO Crate Permit Request" ],
+        "parameters" : [ {
+          "name" : "requestid",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unchecked_request" : {
+      "get" : {
+        "tags" : [ "RO Crate Unchecked Request" ],
+        "parameters" : [ {
+          "name" : "requestid",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unchecked_requests" : {
+      "get" : {
+        "tags" : [ "RO Crate Unchecked Requests" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "JsonObject" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "key" : {
+              "type" : "string"
+            },
+            "value" : { }
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "SecurityScheme" : {
+        "type" : "http",
+        "description" : "Authentication",
+        "scheme" : "basic"
+      }
+    }
+  }
+}
