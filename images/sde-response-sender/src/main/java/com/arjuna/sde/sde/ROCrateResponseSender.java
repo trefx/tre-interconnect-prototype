@@ -42,8 +42,6 @@ public class ROCrateResponseSender
         {
             log.info("############ SDE - ROCrateResponseSender::sendResponse ############");
 
-            RoCrate response = objectMapper.convertValue(responseObject, RoCrate.class);
-
             return responseObject;
         }
         catch (Error error)

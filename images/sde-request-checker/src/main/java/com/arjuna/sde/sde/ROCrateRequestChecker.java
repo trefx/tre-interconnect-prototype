@@ -22,7 +22,6 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import io.quarkus.arc.All;
 
