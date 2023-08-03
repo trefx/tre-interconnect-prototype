@@ -17,7 +17,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DataSHIELDRequest'
+              $ref: '#/components/schemas/JsonObject'
       responses:
         "200":
           description: OK
@@ -38,7 +38,34 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AnalysisProviderSummary'
+  /simple_request_submitter:
+    post:
+      tags:
+      - RO Crate Simple Request Submitter Resource
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
   /template:
+    get:
+      tags:
+      - RO Crate Template Resource
+      parameters:
+      - name: template_id
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonObject'
+  /template/fields:
     get:
       tags:
       - RO Crate Template Resource
@@ -55,7 +82,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/TemplateSummary'
+                  $ref: '#/components/schemas/TemplateField'
   /template/summaries:
     get:
       tags:
@@ -77,7 +104,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Request'
+              $ref: '#/components/schemas/JsonObject'
       responses:
         "200":
           description: OK
@@ -108,25 +135,22 @@ components:
           type: string
         password:
           type: boolean
-    DataSHIELDRequest:
+    JsonObject:
+      type: array
+      items:
+        type: object
+        properties:
+          key:
+            type: string
+          value: {}
+    TemplateField:
       type: object
       properties:
-        platformName:
+        id:
           type: string
-        profileName:
+        name:
           type: string
-        symbolNamesList:
-          type: string
-        tableNamesList:
-          type: string
-        workspaceName:
-          type: string
-        rScript:
-          type: string
-    Request:
-      type: object
-      properties:
-        templateID:
+        path:
           type: string
     TemplateSummary:
       type: object

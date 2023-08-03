@@ -8,8 +8,56 @@ servers:
   description: Auto generated value
 - url: http://0.0.0.0:7050
   description: Auto generated value
-paths: {}
+paths:
+  /agreementsdata/data:
+    get:
+      tags:
+      - Agreements Data Resource
+      parameters:
+      - name: agreements_data_name
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonArray'
+  /agreementsdata/summaries:
+    get:
+      tags:
+      - Agreements Data Resource
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AgreementsDataSummary'
 components:
+  schemas:
+    AgreementsDataSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        columnFields:
+          type: array
+          items:
+            type: string
+        columnLabels:
+          type: array
+          items:
+            type: string
+    JsonArray:
+      type: array
+      items: {}
   securitySchemes:
     SecurityScheme:
       type: http

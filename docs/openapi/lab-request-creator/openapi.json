@@ -19,7 +19,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/DataSHIELDRequest"
+                "$ref" : "#/components/schemas/JsonObject"
               }
             }
           }
@@ -58,7 +58,48 @@
         }
       }
     },
+    "/simple_request_submitter" : {
+      "post" : {
+        "tags" : [ "RO Crate Simple Request Submitter Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/template" : {
+      "get" : {
+        "tags" : [ "RO Crate Template Resource" ],
+        "parameters" : [ {
+          "name" : "template_id",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/template/fields" : {
       "get" : {
         "tags" : [ "RO Crate Template Resource" ],
         "parameters" : [ {
@@ -76,7 +117,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/TemplateSummary"
+                    "$ref" : "#/components/schemas/TemplateField"
                   }
                 }
               }
@@ -112,7 +153,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Request"
+                "$ref" : "#/components/schemas/JsonObject"
               }
             }
           }
@@ -166,33 +207,28 @@
           }
         }
       },
-      "DataSHIELDRequest" : {
-        "type" : "object",
-        "properties" : {
-          "platformName" : {
-            "type" : "string"
-          },
-          "profileName" : {
-            "type" : "string"
-          },
-          "symbolNamesList" : {
-            "type" : "string"
-          },
-          "tableNamesList" : {
-            "type" : "string"
-          },
-          "workspaceName" : {
-            "type" : "string"
-          },
-          "rScript" : {
-            "type" : "string"
+      "JsonObject" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "key" : {
+              "type" : "string"
+            },
+            "value" : { }
           }
         }
       },
-      "Request" : {
+      "TemplateField" : {
         "type" : "object",
         "properties" : {
-          "templateID" : {
+          "id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "path" : {
             "type" : "string"
           }
         }
