@@ -1,4 +1,4 @@
-package com.arjuna.sde.sde;
+package com.arjuna.sde.anal.datashield;
 
 import java.util.Base64;
 
