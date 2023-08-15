@@ -6,21 +6,31 @@ metadata:
     app: datashield
 spec:
   containers:
+  - name: activemq
+    image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:latest
+    ports:
+      - containerPort: 5672
+        hostPort: 6072
+    env:
+      - name: AMQ_USER
+        value: "admin"
+      - name: AMQ_PASSWORD
+        value: "password"
+  - name: anal-datashield-adaptor
+    image: docker.io/risbic/anal-datashield-adaptor:latest
   - name: armadillo
-    image: docker.io/risbic/armadillo3.2-trefx:latest
+    image: docker.io/risbic/armadillo-trefx:latest
     ports:
       - containerPort: 8080
         hostPort: 8080
     env:
-      - name: RSERVE_HOST
-        value: "localhost"
       - name: DEBUG
         value: "FALSE"
     volumeMounts:
       - mountPath: /data
         name: anal-datashield
   - name: rserver
-    image: docker.io/datashield/armadillo-rserver_caravan-yak:1.0.0
+    image: docker.io/datashield/armadillo-rserver_ionic-aqueduct:1.0.0
     ports:
       - containerPort: 6311
         hostPort: 6311
