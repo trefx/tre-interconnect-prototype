@@ -6,7 +6,7 @@ QUARKUS = quarkus
 MVN     = mvn
 PODMAN  = podman
 
-IMAGE_NAME = docker.io/risbic/sde-analysis-adaptor
+IMAGE_NAME = docker.io/risbic/sde-analysis-dispatcher
 IMAGE_TAG  = latest
 
 all:
