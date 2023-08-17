@@ -1,7 +1,7 @@
 {
   "openapi" : "3.0.3",
   "info" : {
-    "title" : "sde-analysis-adaptor API",
+    "title" : "sde-analysis-dispatcher API",
     "version" : "1.0.0-SNAPSHOT"
   },
   "servers" : [ {
