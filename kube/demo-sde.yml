@@ -61,8 +61,8 @@ spec:
             key: dmz_amqpbroker_port
   - name: request_checker
     image: docker.io/risbic/sde-request-checker:latest
-  - name: analysis_adaptor
-    image: docker.io/risbic/sde-analysis-adaptor:latest
+  - name: analysis_dispacher
+    image: docker.io/risbic/sde-analysis-dispatcher:latest
   - name: response_checker
     image: docker.io/risbic/sde-response-checker:latest
   - name: response_sender
