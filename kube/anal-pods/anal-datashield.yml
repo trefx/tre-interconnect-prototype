@@ -19,7 +19,7 @@ spec:
   - name: anal-datashield-adaptor
     image: docker.io/risbic/anal-datashield-adaptor:latest
   - name: armadillo
-    image: docker.io/risbic/armadillo-trefx:latest
+    image: docker.io/risbic/anal-datashield-armadillo:latest
     ports:
       - containerPort: 8080
         hostPort: 8080
@@ -28,8 +28,8 @@ spec:
         value: "FALSE"
     volumeMounts:
       - mountPath: /data
-        name: anal-datashield
-  - name: rserver
+        name: anal-datashield-armadillo
+  - name: trefx-rserver
     image: docker.io/datashield/armadillo-rserver_ionic-aqueduct:1.0.0
     ports:
       - containerPort: 6311
@@ -38,7 +38,7 @@ spec:
       - name: DEBUG
         value: "FALSE"
   volumes:
-    - name: anal-datashield
+    - name: anal-datashield-armadillo
       hostPath:
-        path: ./anal-data/datashield
+        path: ./anal-data/datashield/armadillo
         type: DirectoryOrCreate
