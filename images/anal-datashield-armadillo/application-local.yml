@@ -1,0 +1,30 @@
+# 'basic' profile is a configuration without oidc
+# you can only sign in using basicauth 'admin' 'admin'
+
+armadillo:
+  debug: false
+  armadillo.oidc-permission-enabled: false
+  docker-management-enabled: false
+
+  profiles:
+    - name: default
+      image: datashield/armadillo-rserver_ionic-aqueduct:1.0.0
+      host: localhost
+      port: 6311
+      package-whitelist:
+        - dsBase
+      function-blacklist: [ ]
+      options:
+        datashield:
+          seed: 342325352
+
+  spring:
+    security:
+      user:
+        password: admin
+    config:
+      activate:
+        on-profile: basic
+
+  storage:
+    root-dir: data
