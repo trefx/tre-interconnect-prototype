@@ -9,9 +9,11 @@ metadata:
   labels:
     app: config
 data:
-  lab_amqpbroker_host: "10.0.4.15"
-  lab_amqpbroker_port: "5772"
-  dmz_amqpbroker_host: "10.0.4.15"
-  dmz_amqpbroker_port: "5872"
-  sde_amqpbroker_host: "10.0.4.15"
-  sde_amqpbroker_port: "5972"
+  lab_amqpbroker_host:     "10.0.4.15"
+  lab_amqpbroker_port:     "5772"
+  dmz_amqpbroker_host:     "10.0.4.15"
+  dmz_amqpbroker_port:     "5872"
+  sde_amqpbroker_host:     "10.0.4.15"
+  sde_amqpbroker_port:     "5972"
+  anal_ds_amqpbroker_host: "10.0.4.15"
+  anal_ds_amqpbroker_port: "6072"
