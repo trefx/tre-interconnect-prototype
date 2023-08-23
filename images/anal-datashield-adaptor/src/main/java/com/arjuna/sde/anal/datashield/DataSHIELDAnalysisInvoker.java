@@ -1,16 +1,26 @@
 package com.arjuna.sde.anal.datashield;
 
 import jakarta.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import io.quarkus.runtime.QuarkusApplication;
-import io.quarkus.runtime.annotations.QuarkusMain;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
+import io.vertx.core.json.JsonObject;
+import io.vertx.core.json.JsonArray;
 
-@QuarkusMain
-public class DataSHIELDAnalysisInvoker implements QuarkusApplication
+import edu.kit.datamanager.ro_crate.RoCrate;
+import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
+import edu.kit.datamanager.ro_crate.writer.FolderWriter;
+import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
+
+import io.smallrye.reactive.messaging.annotations.Blocking;
+
+@ApplicationScoped
+public class DataSHIELDAnalysisInvoker
 {
     @Inject
     public Logger log;
@@ -19,38 +29,17 @@ public class DataSHIELDAnalysisInvoker implements QuarkusApplication
     @RestClient
     public ArmadilloService armadilloService;
 
-    public int run(String... args)
+    @Blocking
+    @Incoming("dsa_incoming")
+    @Outgoing("dsa_outgoing")
+    public JsonObject processRequest(JsonObject responseObject)
         throws Exception
     {
         try
         {
-            if (args.length != 6)
-            {
-                log.error("Usage: DataSHIELDAnalysisInvoker platform_name profile_name symbol_names_list table_names_list workspace_name rscript");
-                return 1;
-            }
+            log.info("############ SDE - ROCrateResponseSender::sendResponse ############");
 
-            String dataSHIELDPlatformName    = args[0];
-            String dataSHIELDProfileName     = args[1];
-            String dataSHIELDSymbolNamesList = args[2];
-            String dataSHIELDTableNamesList  = args[3];
-            String dataSHIELDWorkspaceName   = args[4];
-            String dataSHIELDRScript         = args[5];
-
-            log.infof("DataSHIELD Platform Name     %s", dataSHIELDPlatformName);
-            log.infof("DataSHIELD Profile Name      %s", dataSHIELDProfileName);
-            log.infof("DataSHIELD Symbol Names List %s", dataSHIELDSymbolNamesList);
-            log.infof("DataSHIELD Table Names List  %s", dataSHIELDTableNamesList);
-            log.infof("DataSHIELD Workspace Name    %s", dataSHIELDWorkspaceName);
-            log.infof("DataSHIELD R Script          %s", dataSHIELDRScript);
-
-            // Load Workspace
-            armadilloService.postSelectProfile(dataSHIELDProfileName, false);
-
-            armadilloService.postLoadTable(dataSHIELDSymbolNamesList, dataSHIELDTableNamesList, false);
-
-            String response = armadilloService.postExecute(dataSHIELDRScript, false);
-            // Save Workspace
+            return responseObject;
         }
         catch(Error error)
         {
@@ -61,6 +50,6 @@ public class DataSHIELDAnalysisInvoker implements QuarkusApplication
             log.error("Exception performing of DataSHIELD Analysis invocation", exception);
         }
 
-        return 0;
+        return null;
     }
 }
