@@ -22,30 +22,6 @@ all:
 	$(MAKE) -C anal-datashield-adaptor all
 	$(MAKE) -C anal-datashield-armadillo all
 
-all-lab:
-	$(MAKE) -C lab-request-creator all
-	$(MAKE) -C lab-request-sender all
-	$(MAKE) -C lab-response-processor all
-	$(MAKE) -C lab-webportal all
-	$(MAKE) -C lab-devel all
-
-all-dmz:
-	$(MAKE) -C dmz-response-router all
-
-all-sde:
-	$(MAKE) -C sde-control all
-	$(MAKE) -C sde-devel all
-	$(MAKE) -C sde-request-checker all
-	$(MAKE) -C sde-request-receiver all
-	$(MAKE) -C sde-response-checker all
-	$(MAKE) -C sde-response-sender all
-	$(MAKE) -C sde-webportal all
-	$(MAKE) -C sde-analysis-dispatcher all
-
-all-anal:
-	$(MAKE) -C anal-datashield-adaptor all
-	$(MAKE) -C anal-datashield-armadillo all
-
 push:
 	$(MAKE) -C lab-request-creator push
 	$(MAKE) -C lab-request-sender push
