@@ -47,6 +47,7 @@ export class RequestListComponent implements OnInit
 
     public doReloadList(): void
     {
+        this.requestText               = "";
         this.isLoadingRequestMetadatas = true;
         this.interactionLogService.listRequests().subscribe((data: any) => { this.requestMetadatas = this.extractRequestMetadatas(data); this.displayedRequestMetadatas = this.requestMetadatas.slice(this.displayedPageIndex * this.displayedPageSize, (this.displayedPageIndex + 1) * this.displayedPageSize); this.isLoadingRequestMetadatas = false });
     }

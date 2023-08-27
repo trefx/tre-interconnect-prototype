@@ -44,6 +44,7 @@ export class UncheckedRequestListComponent implements OnInit
 
     public doReloadUncheckedList(): void
     {
+        this.uncheckedRequestText               = "";
         this.isLoadingUncheckedRequestMetadatas = true;
         this.uncheckedInteractionLogService.listUncheckedRequests().subscribe((data: any) => { this.uncheckedRequestMetadatas = this.extractUncheckedRequestMetadatas(data); this.isLoadingUncheckedRequestMetadatas = false });
     }
