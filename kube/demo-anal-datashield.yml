@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: anal-datashield
+  name: demo-anal-datashield
   labels:
-    app: datashield
+    app: anal-datashield
 spec:
   containers:
   - name: activemq
@@ -20,9 +20,6 @@ spec:
     image: docker.io/risbic/anal-datashield-adaptor:latest
   - name: armadillo
     image: docker.io/risbic/anal-datashield-armadillo:latest
-    ports:
-      - containerPort: 8080
-        hostPort: 8080
     env:
       - name: DEBUG
         value: "FALSE"
@@ -31,9 +28,6 @@ spec:
         name: anal-datashield-armadillo
   - name: trefx-rserver
     image: docker.io/datashield/armadillo-rserver_ionic-aqueduct:1.0.0
-    ports:
-      - containerPort: 6311
-        hostPort: 6311
     env:
       - name: DEBUG
         value: "FALSE"

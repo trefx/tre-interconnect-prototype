@@ -48,6 +48,7 @@ export class ResponseListComponent implements OnInit
 
     public doReloadList(): void
     {
+        this.responseText               = "";
         this.isLoadingResponseMetadatas = true;
         this.interactionLogService.listResponses().subscribe((data: any) => { this.responseMetadatas = this.extractResponseMetadatas(data); this.displayedResponseMetadatas = this.responseMetadatas.slice(this.displayedPageIndex * this.displayedPageSize, (this.displayedPageIndex + 1) * this.displayedPageSize); this.isLoadingResponseMetadatas = false });
     }

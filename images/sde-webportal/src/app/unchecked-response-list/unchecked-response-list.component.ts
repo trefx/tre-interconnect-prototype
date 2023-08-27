@@ -44,6 +44,7 @@ export class UncheckedResponseListComponent implements OnInit
 
     public doReloadUncheckedList(): void
     {
+        this.uncheckedResponseText               = "";
         this.isLoadingUncheckedResponseMetadatas = true;
         this.uncheckedInteractionLogService.listUncheckedResponses().subscribe((data: any) => { this.uncheckedResponseMetadatas = this.extractUncheckedResponseMetadatas(data); this.isLoadingUncheckedResponseMetadatas = false });
     }
