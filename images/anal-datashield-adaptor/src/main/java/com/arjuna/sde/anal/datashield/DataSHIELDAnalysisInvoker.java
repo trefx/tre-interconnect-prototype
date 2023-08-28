@@ -25,9 +25,9 @@ public class DataSHIELDAnalysisInvoker
     @Inject
     public Logger log;
 
-    @Inject
-    @RestClient
-    public ArmadilloService armadilloService;
+//    @Inject
+//    @RestClient
+//    public ArmadilloService armadilloService;
 
     @Blocking
     @Incoming("dsa_incoming")
