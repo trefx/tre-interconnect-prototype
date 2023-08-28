@@ -37,7 +37,7 @@ public class DataSHIELDAnalysisInvoker
     {
         try
         {
-            log.info("############ SDE - ROCrateResponseSender::sendResponse ############");
+            log.info("############ Anal - DataSHIELDAnalysisInvoker::processRequest ############");
 
             return responseObject;
         }
