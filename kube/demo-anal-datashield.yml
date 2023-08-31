@@ -20,6 +20,9 @@ spec:
     image: docker.io/risbic/anal-datashield-adaptor:latest
   - name: armadillo
     image: docker.io/risbic/anal-datashield-armadillo:latest
+    ports:
+      - containerPort: 8080
+        hostPort: 8100
     env:
       - name: DEBUG
         value: "FALSE"

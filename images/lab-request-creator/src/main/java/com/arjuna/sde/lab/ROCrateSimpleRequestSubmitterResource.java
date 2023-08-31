@@ -64,8 +64,16 @@ public class ROCrateSimpleRequestSubmitterResource
              RoCrate request = new RoCrate.RoCrateBuilder()
                 .addContextualEntity(
                     new ContextualEntity.ContextualEntityBuilder()
-                        .addType("SimpleRequest")
                         .setId("http://example.org/" + UUID.randomUUID().toString())
+                        .addType("FederatedAnalysis")
+                        .addProperty("type", "DummyAnalysis")
+                        .addProperty("version", "1.0.0")
+                        .build()
+                )
+                .addContextualEntity(
+                    new ContextualEntity.ContextualEntityBuilder()
+                        .setId("http://example.org/" + UUID.randomUUID().toString())
+                        .addType("DummyAnalysisRequestParameters")
                         .build()
                 )
                 .build();

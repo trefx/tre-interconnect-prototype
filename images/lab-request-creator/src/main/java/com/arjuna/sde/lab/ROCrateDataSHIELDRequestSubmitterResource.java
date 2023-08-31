@@ -59,25 +59,25 @@ public class ROCrateDataSHIELDRequestSubmitterResource
             String workspaceName   = validDataSHIELDWorkspaceName(dataSHIELDRequest.getString("dataSHIELDWorkspaceName"));
             String rScript         = validDataSHIELDRScript(dataSHIELDRequest.getString("dataSHIELDRScript"));
 
-            log.debugf("DataSHIELD Platform Name:     %s", platformName);
-            log.debugf("DataSHIELD Profile Name:      %s", profileName);
-            log.debugf("DataSHIELD Symbol Names List: %s", symbolNamesList);
-            log.debugf("DataSHIELD Table Names List:  %s", tableNamesList);
-            log.debugf("DataSHIELD Workspace Name:    %s", workspaceName);
-            log.debugf("DataSHIELD R Script:          %s", rScript);
-
-            RoCrate request = new RoCrate.RoCrateBuilder("TRE-FX Request", UUID.randomUUID().toString())
+            RoCrate request = new RoCrate.RoCrateBuilder()
                 .addContextualEntity(
                     new ContextualEntity.ContextualEntityBuilder()
-                        .addType("DataSHIELDRequest")
                         .setId("http://example.org/" + UUID.randomUUID().toString())
-                        .addProperty("request-type", "DataSHIELD:1.0.0")
-                        .addProperty("datashield-platform-name", platformName)
-                        .addProperty("datashield-profile-name", profileName)
-                        .addProperty("datashield-symbol-names-list", symbolNamesList)
-                        .addProperty("datashield-table-names-list", tableNamesList)
-                        .addProperty("datashield-workspace-name", workspaceName)
-                        .addProperty("datashield-r-script", rScript)
+                        .addType("FederatedAnalysis")
+                        .addProperty("request-type", "DataSHIELDAnalysis")
+                        .addProperty("version", "1.0.0")
+                        .build()
+                )
+                .addContextualEntity(
+                    new ContextualEntity.ContextualEntityBuilder()
+                        .setId("http://example.org/" + UUID.randomUUID().toString())
+                        .addType("DataSHIELDAnalysisRequestParameters")
+                        .addProperty("platform-name", platformName)
+                        .addProperty("profile-name", profileName)
+                        .addProperty("symbol-names-list", symbolNamesList)
+                        .addProperty("table-names-list", tableNamesList)
+                        .addProperty("workspace-name", workspaceName)
+                        .addProperty("r-script", rScript)
                         .build()
                 )
                 .build();
