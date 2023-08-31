@@ -50,14 +50,25 @@ public class ROCrateAnalysisDispatcher
 
             if (requestJson.containsKey("allContextualEntities") && (requestJson.getJsonArray("allContextualEntities") != null))
             {
+                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - before forward to analysis ############");
+
+                analysisRequestEmitter.send(requestJson);
+
+                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - after forward to analysis ############");
             }
             else
             {
+                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - forward to response ############");
+
                 requestJson.put("allContextualEntities", new JsonArray());
 
                 noRequestTypeRequested(requestJson);
 
+                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - before forward to response ############");
+
                 responseEmitter.send(requestJson);
+
+                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - after forward to response ############");
             }
         }
         catch (Error error)
@@ -107,6 +118,8 @@ public class ROCrateAnalysisDispatcher
     @Incoming("dsa_incoming")
     public void analysisResponseProcessor(JsonObject responseJson)
     {
+        log.info("############ SDE - ROCrateAnalysisDispatcher::analysisResponseProcessor ############");
+
         responseEmitter.send(responseJson);
     }
 }
