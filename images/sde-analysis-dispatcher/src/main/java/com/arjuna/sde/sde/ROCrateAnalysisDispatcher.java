@@ -50,11 +50,9 @@ public class ROCrateAnalysisDispatcher
 
             if (requestJson.containsKey("allContextualEntities") && (requestJson.getJsonArray("allContextualEntities") != null))
             {
-                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - before forward to analysis ############");
+                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - forward to analysis ############");
 
                 analysisRequestEmitter.send(requestJson);
-
-                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - after forward to analysis ############");
             }
             else
             {
@@ -64,11 +62,7 @@ public class ROCrateAnalysisDispatcher
 
                 noRequestTypeRequested(requestJson);
 
-                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - before forward to response ############");
-
                 responseEmitter.send(requestJson);
-
-                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - after forward to response ############");
             }
         }
         catch (Error error)
