@@ -37,6 +37,8 @@ import { DevelSupportComponent }            from './devel-support/devel-support.
 
 import { ConfigService }                  from './config.service';
 import { UncheckedInteractionLogService } from './unchecked-interaction-log.service';
+import { RequestCheckingControlService }  from './request-checking-control.service';
+import { ResponseCheckingControlService } from './response-checking-control.service';
 import { AgreementsDataService }          from './agreements-data.service';
 
 @NgModule
@@ -78,6 +80,8 @@ import { AgreementsDataService }          from './agreements-data.service';
     [
         ConfigService,
         UncheckedInteractionLogService,
+        RequestCheckingControlService,
+        ResponseCheckingControlService,
         AgreementsDataService
     ],
     bootstrap:
