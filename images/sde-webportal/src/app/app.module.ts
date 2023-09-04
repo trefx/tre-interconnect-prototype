@@ -22,6 +22,8 @@ import { MatProgressBarModule }     from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule }          from '@angular/material/button';
 import { MatIconModule }            from '@angular/material/icon';
+import { MatSlideToggleModule }     from '@angular/material/slide-toggle';
+
 import { MatBadgeModule }           from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +39,8 @@ import { DevelSupportComponent }            from './devel-support/devel-support.
 
 import { ConfigService }                  from './config.service';
 import { UncheckedInteractionLogService } from './unchecked-interaction-log.service';
+import { RequestCheckingControlService }  from './request-checking-control.service';
+import { ResponseCheckingControlService } from './response-checking-control.service';
 import { AgreementsDataService }          from './agreements-data.service';
 
 @NgModule
@@ -72,12 +76,15 @@ import { AgreementsDataService }          from './agreements-data.service';
         MatButtonModule,
         MatIconModule,
         MatBadgeModule,
+        MatSlideToggleModule,
         AppRoutingModule
     ],
     providers:
     [
         ConfigService,
         UncheckedInteractionLogService,
+        RequestCheckingControlService,
+        ResponseCheckingControlService,
         AgreementsDataService
     ],
     bootstrap:
