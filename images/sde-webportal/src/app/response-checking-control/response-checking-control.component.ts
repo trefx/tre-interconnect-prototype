@@ -11,17 +11,23 @@ import { ResponseCheckingControlService } from '../response-checking-control.ser
 export class ResponseCheckingControlComponent
 {
     public responseCheckers:          any;
+    public status:                    boolean;
+    public outcome:                   any;
     public isLoadingResponseCheckers: boolean;
 
     public constructor(public responseCheckingControlService: ResponseCheckingControlService)
     {
         this.responseCheckers          = [];
+        this.status                   = true;
+        this.outcome                   = "";
         this.isLoadingResponseCheckers = false;
     }
 
     public doLoadResponseCheckerList(): void
     {
+        this.responseCheckers          = [];
+        this.outcome                   = "";
         this.isLoadingResponseCheckers = true;
-        this.responseCheckingControlService.responseCheckerList().subscribe((data: any) => { this.responseCheckers = data; this.isLoadingResponseCheckers = false });
+        this.responseCheckingControlService.responseCheckerList().subscribe((data: any) => { this.responseCheckers = data.checkers; this.outcome = data.outcome; this.isLoadingResponseCheckers = false });
     }
 }

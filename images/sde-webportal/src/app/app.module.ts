@@ -22,6 +22,8 @@ import { MatProgressBarModule }     from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule }          from '@angular/material/button';
 import { MatIconModule }            from '@angular/material/icon';
+import { MatSlideToggleModule }     from '@angular/material/slide-toggle';
+
 import { MatBadgeModule }           from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -74,6 +76,7 @@ import { AgreementsDataService }          from './agreements-data.service';
         MatButtonModule,
         MatIconModule,
         MatBadgeModule,
+        MatSlideToggleModule,
         AppRoutingModule
     ],
     providers:

@@ -11,17 +11,23 @@ import { RequestCheckingControlService } from '../request-checking-control.servi
 export class RequestCheckingControlComponent
 {
     public requestCheckers:          any;
+    public status:                   boolean;
+    public outcome:                  any;
     public isLoadingRequestCheckers: boolean;
 
     public constructor(public requestCheckingControlService: RequestCheckingControlService)
     {
         this.requestCheckers          = [];
+        this.status                   = true;
+        this.outcome                  = "";
         this.isLoadingRequestCheckers = false;
     }
 
     public doLoadRequestCheckerList(): void
     {
+        this.requestCheckers          = [];
+        this.outcome                  = "";
         this.isLoadingRequestCheckers = true;
-        this.requestCheckingControlService.requestCheckerList().subscribe((data: any) => { this.requestCheckers = data; this.isLoadingRequestCheckers = false });
+        this.requestCheckingControlService.requestCheckerList().subscribe((data: any) => { this.requestCheckers = data.checkers; this.outcome = data.outcome; this.isLoadingRequestCheckers = false });
     }
 }
