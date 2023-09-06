@@ -9,12 +9,12 @@ servers:
 - url: http://0.0.0.0:7050
   description: Auto generated value
 paths:
-  /agreementsdata/data:
+  /agreementdatas/data:
     get:
       tags:
-      - Agreements Data Resource
+      - Agreement Datas Resource
       parameters:
-      - name: agreements_data_name
+      - name: agreement_data_name
         in: query
         schema:
           type: string
@@ -25,10 +25,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonArray'
-  /agreementsdata/summaries:
+  /agreementdatas/summaries:
     get:
       tags:
-      - Agreements Data Resource
+      - Agreement Datas Resource
       responses:
         "200":
           description: OK
@@ -37,10 +37,10 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/AgreementsDataSummary'
+                  $ref: '#/components/schemas/AgreementDataSummary'
 components:
   schemas:
-    AgreementsDataSummary:
+    AgreementDataSummary:
       type: object
       properties:
         name:

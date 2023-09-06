@@ -12,7 +12,7 @@
     "description" : "Auto generated value"
   } ],
   "paths" : {
-    "/reload_agreementsdata" : {
+    "/reload_agreementdatas" : {
       "post" : {
         "tags" : [ "Storage Control Resource" ],
         "responses" : {
