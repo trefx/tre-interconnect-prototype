@@ -36,28 +36,28 @@ public class StorageControlResource
     public MongoClient mongoClient;
 
     @POST
-    @jakarta.ws.rs.Path("/reload_agreementsdata")
+    @jakarta.ws.rs.Path("/reload_agreementdatas")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String postReloadAgreementsData()
+    public String postReloadAgreementDatas()
     {
-        log.info("############ SDE - StorageControlResource::postReloadAgreementsData ############");
+        log.info("############ SDE - StorageControlResource::postReloadAgreementDatas ############");
 
         try
         {
-            Path agreementsDataInfoFilesPath = FileSystems.getDefault().getPath("/data/agreementsdata_infos");
+            Path agreementDatasInfoFilesPath = FileSystems.getDefault().getPath("/data/agreementdatas_infos");
 
             MongoDatabase sde = mongoClient.getDatabase("sde");
-            sde.getCollection("agreementsdata_infos").drop();
+            sde.getCollection("agreementdatas_infos").drop();
 
-            try (DirectoryStream<Path> agreementsDataInfoPathsStream = Files.newDirectoryStream(agreementsDataInfoFilesPath))
+            try (DirectoryStream<Path> agreementDatasInfoPathsStream = Files.newDirectoryStream(agreementDatasInfoFilesPath))
             {
-                for (Path agreementsDataInfoPath: agreementsDataInfoPathsStream)
+                for (Path agreementDatasInfoPath: agreementDatasInfoPathsStream)
                 {
-                    String   agreementsDataInfoContent = Files.readString(agreementsDataInfoPath);
-                    Document document                  = Document.parse(agreementsDataInfoContent);
+                    String   agreementDatasInfoContent = Files.readString(agreementDatasInfoPath);
+                    Document document                  = Document.parse(agreementDatasInfoContent);
 
-                    sde.getCollection("agreementsdata_infos").insertOne(document);
+                    sde.getCollection("agreementdatas_infos").insertOne(document);
                 }
             }
             catch (Error error)
@@ -82,19 +82,19 @@ public class StorageControlResource
 
         try
         {
-            Path agreementsDataFilesPath = FileSystems.getDefault().getPath("/data/agreementsdata");
+            Path agreementDatasFilesPath = FileSystems.getDefault().getPath("/data/agreementdatas");
 
             MongoDatabase sde = mongoClient.getDatabase("sde");
 
-            try (DirectoryStream<Path> agreementsDataPathsStream = Files.newDirectoryStream(agreementsDataFilesPath))
+            try (DirectoryStream<Path> agreementDatasPathsStream = Files.newDirectoryStream(agreementDatasFilesPath))
             {
-                for (Path agreementsDataPath: agreementsDataPathsStream)
+                for (Path agreementDatasPath: agreementDatasPathsStream)
                 {
-                    String collectionName = "ad_" + agreementsDataPath.getFileName().toString().replace(".json", "");
+                    String collectionName = "ad_" + agreementDatasPath.getFileName().toString().replace(".json", "");
                     sde.getCollection(collectionName).drop();
 
-                    String   agreementsDataContent = Files.readString(agreementsDataPath);
-                    Document document              = Document.parse(agreementsDataContent);
+                    String   agreementDatasContent = Files.readString(agreementDatasPath);
+                    Document document              = Document.parse(agreementDatasContent);
 
                     sde.getCollection(collectionName).insertOne(document);
                 }

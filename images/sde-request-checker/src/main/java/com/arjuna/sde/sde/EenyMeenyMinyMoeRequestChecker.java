@@ -5,26 +5,26 @@ import jakarta.enterprise.context.ApplicationScoped;
 import io.vertx.core.json.JsonObject;
 
 @ApplicationScoped
-public class DummyResponseChecker implements ResponseChecker
+public class EenyMeenyMinyMoeRequestChecker implements RequestChecker
 {
     private Boolean needManualCheck;
 
-    public DummyResponseChecker()
+    public EenyMeenyMinyMoeRequestChecker()
     {
         needManualCheck = Boolean.TRUE;
     }
 
     public String getName()
     {
-        return "Dummy Response Checker";
+        return "Eeny, Meeny, Miny, Moe Request Checker";
     }
 
     public String getDescription()
     {
-       return "Does not augment response, but cause alternate responses to be manualy checked.";
+       return "Causes alternate requests to be manualy checked. No request augmentation is performed by this checker";
     }
 
-    public Boolean check(JsonObject response)
+    public Boolean check(JsonObject request)
     {
         needManualCheck = Boolean.logicalXor(needManualCheck, Boolean.TRUE);
 
