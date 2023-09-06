@@ -29,11 +29,8 @@ public class ROCrateListRequestCheckers
     @Inject
     public Logger log;
 
-    @All
     @Inject
-    public List<RequestChecker> requestCheckers;
-
-    private Map<String, Boolean> enabledMap = new HashMap<String, Boolean>();
+    public ROCrateRequestChecker roCrateRequestChecker;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,20 +42,15 @@ public class ROCrateListRequestCheckers
         try
         {
             JsonArray checkers = new JsonArray();
-            for (RequestChecker requestChecker: requestCheckers)
+            for (RequestChecker requestChecker: roCrateRequestChecker.requestCheckers)
             {
-                String  className = requestChecker.getClass().getName();
-                Boolean enabled   = Boolean.TRUE;
-                if (enabledMap.containsKey(className))
-                    enabled = enabledMap.get(className);
-
                 checkers.add(
                     new JsonObject()
                         .put("name", requestChecker.getName())
                         .put("description", requestChecker.getDescription())
-                        .put("enabled", enabled)
-                        .put("immutable", false)
-                        .put("className", className)
+                        .put("enabled", requestChecker.getEnabled())
+                        .put("immutable", requestChecker.getImmutable())
+                        .put("className", requestChecker.getClass().getName())
                 );
             }
             results.put("checkers", checkers);

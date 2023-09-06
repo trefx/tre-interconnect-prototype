@@ -9,9 +9,15 @@ public class EenyMeenyMinyMoeRequestChecker implements RequestChecker
 {
     private Boolean needManualCheck;
 
+    private Boolean enabled;
+    private Boolean immutable;
+
     public EenyMeenyMinyMoeRequestChecker()
     {
         needManualCheck = Boolean.TRUE;
+
+        enabled   = Boolean.TRUE;
+        immutable = Boolean.FALSE;
     }
 
     public String getName()
@@ -29,5 +35,24 @@ public class EenyMeenyMinyMoeRequestChecker implements RequestChecker
         needManualCheck = Boolean.logicalXor(needManualCheck, Boolean.TRUE);
 
         return needManualCheck;
+    }
+    public Boolean isEnabled()
+    {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled)
+    {
+        this.enabled = enabled;
+    }
+
+    public Boolean isImmutable()
+    {
+        return immutable;
+    }
+
+    public void setImmutable(Boolean immutable)
+    {
+        this.immutable = immutable;
     }
 }

@@ -7,8 +7,13 @@ import io.vertx.core.json.JsonObject;
 @ApplicationScoped
 public class RequireAtLeastOneForManualRequestChecker implements RequestChecker
 {
+    private Boolean enabled;
+    private Boolean immutable;
+
     public RequireAtLeastOneForManualRequestChecker()
     {
+        enabled   = Boolean.TRUE;
+        immutable = Boolean.FALSE;
     }
 
     public String getName()
@@ -24,5 +29,25 @@ public class RequireAtLeastOneForManualRequestChecker implements RequestChecker
     public Boolean check(JsonObject request)
     {
         return Boolean.FALSE;
+    }
+
+    public Boolean isEnabled()
+    {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled)
+    {
+        this.enabled = enabled;
+    }
+
+    public Boolean isImmutable()
+    {
+        return immutable;
+    }
+
+    public void setImmutable(Boolean immutable)
+    {
+        this.immutable = immutable;
     }
 }

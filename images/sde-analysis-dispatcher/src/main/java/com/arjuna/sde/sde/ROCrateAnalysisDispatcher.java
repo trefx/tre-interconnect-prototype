@@ -50,14 +50,26 @@ public class ROCrateAnalysisDispatcher
 
             if (requestJson.containsKey("allContextualEntities") && (requestJson.getJsonArray("allContextualEntities") != null))
             {
-                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - forward to analysis ############");
+                String requestType = null;
+                JsonArray requestContextualEntities = requestJson.getJsonArray("allContextualEntities");
+                for (int index = 0; index < requestContextualEntities.size(); index++)
+                {
+                    JsonObject entity = requestContextualEntities.getJsonObject(index);
+                    if (entity.getString("@type").equals("FederatedAnalysis") && entity.getString("request-type").equals("DataSHIELDAnalysis")
+                        requestType = entity.getString("request-type");
+                }
 
-                analysisRequestEmitter.send(requestJson);
+                if ("DataSHIELDAnalysis".equals(requestType))
+                    analysisRequestEmitter.send(requestJson);
+                else
+                {
+                    unknownRequestTypeRequested(requestJson)
+
+                    responseEmitter.send(requestJson);
+                }
             }
             else
             {
-                log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis - forward to response ############");
-
                 requestJson.put("allContextualEntities", new JsonArray());
 
                 noRequestTypeRequested(requestJson);
@@ -73,17 +85,6 @@ public class ROCrateAnalysisDispatcher
         {
             log.error("Exception while dispatching request RO_Crate", exception);
         }
-    }
-
-    private void ultimateQuestionRequestTypeRequested(JsonObject requestJson)
-    {
-        JsonObject responseEntity = new JsonObject();
-        responseEntity.put("@type", "Response");
-        responseEntity.put("@id", "http://example.org/" + UUID.randomUUID().toString());
-        responseEntity.put("message", "The answer to life, the universe, and everything is 42");
-
-        JsonArray allContextualEntities = requestJson.getJsonArray("allContextualEntities");
-        allContextualEntities.add(responseEntity);
     }
 
     private void noRequestTypeRequested(JsonObject requestJson)
