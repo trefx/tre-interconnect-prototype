@@ -30,4 +30,10 @@ export class RequestCheckingControlComponent
         this.isLoadingRequestCheckers = true;
         this.requestCheckingControlService.requestCheckerList().subscribe((data: any) => { this.requestCheckers = data.checkers; this.outcome = data.outcome; this.isLoadingRequestCheckers = false });
     }
+
+    public doSaveRequestCheckerList(): void
+    {
+        this.isLoadingRequestCheckers = true;
+        this.requestCheckingControlService.saveRequestCheckerList(this.requestCheckers).subscribe((data: any) => { this.outcome = data.outcome; this.isLoadingRequestCheckers = false });
+    }
 }

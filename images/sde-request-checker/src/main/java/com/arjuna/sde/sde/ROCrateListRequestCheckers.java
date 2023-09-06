@@ -48,8 +48,8 @@ public class ROCrateListRequestCheckers
                     new JsonObject()
                         .put("name", requestChecker.getName())
                         .put("description", requestChecker.getDescription())
-                        .put("enabled", requestChecker.getEnabled())
-                        .put("immutable", requestChecker.getImmutable())
+                        .put("enabled", requestChecker.isEnabled())
+                        .put("immutable", requestChecker.isImmutable())
                         .put("className", requestChecker.getClass().getName())
                 );
             }
@@ -83,12 +83,14 @@ public class ROCrateListRequestCheckers
             JsonArray requestCheckers = parameters.getJsonArray("checkers");
             for (Object requestCheckerObject: requestCheckers.getList())
             {
-                JsonObject requestChecker = (JsonObject) requestCheckerObject;
+                JsonObject requestCheckerJson = (JsonObject) requestCheckerObject;
 
-                String  className = requestChecker.getString("className");
-                Boolean enabled   = requestChecker.getBoolean("enabled");
+                String  className = requestCheckerJson.getString("className");
+                Boolean enabled   = requestCheckerJson.getBoolean("enabled");
 
-                enabledMap.put(className, enabled);
+                for (RequestChecker requestChecker: roCrateRequestChecker.requestCheckers)
+                    if (className.equals(requestChecker.getClass().getName()))
+                        requestChecker.setEnabled(enabled);
             }
 
             results.put("outcome", "Done");

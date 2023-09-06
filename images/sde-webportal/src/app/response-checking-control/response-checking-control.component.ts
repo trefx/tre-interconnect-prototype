@@ -30,4 +30,10 @@ export class ResponseCheckingControlComponent
         this.isLoadingResponseCheckers = true;
         this.responseCheckingControlService.responseCheckerList().subscribe((data: any) => { this.responseCheckers = data.checkers; this.outcome = data.outcome; this.isLoadingResponseCheckers = false });
     }
+
+    public doSaveResponseCheckerList(): void
+    {
+        this.isLoadingResponseCheckers = true;
+        this.responseCheckingControlService.saveResponseCheckerList(this.responseCheckers).subscribe((data: any) => { this.outcome = data.outcome; this.isLoadingResponseCheckers = false });
+    }
 }

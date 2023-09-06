@@ -28,4 +28,15 @@ export class ResponseCheckingControlService
 
         return this.httpClient.get<Object>(this.configService.serverURL + this.listResponseCheckersServicePath, { headers: headers, params: params });
     }
+
+    public saveResponseCheckerList(responseCheckers: any): Observable<Object>
+    {
+        let headers = new HttpHeaders();
+        headers = headers.append("Accept", "application/json");
+        headers = headers.append("Content-Type", "application/json");
+        let params = new HttpParams();
+        let body   = { "checkers": responseCheckers };
+
+        return this.httpClient.post<Object>(this.configService.serverURL + this.listResponseCheckersServicePath, body, { headers: headers, params: params });
+    }
 }
