@@ -36,7 +36,7 @@ export class AgreementDatasService
         headers = headers.append("Accept", "application/json");
         headers = headers.append("Content-Type", "application/json");
         let params  = new HttpParams();
-        params = params.append("agreements_data_name", name);
+        params = params.append("agreement_data_name", name);
 
         return this.httpClient.get<any>(this.configService.serverURL + this.getAgreementDataServicePath, { headers: headers, params: params });
     }
