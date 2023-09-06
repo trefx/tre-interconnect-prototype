@@ -55,7 +55,7 @@ public class ROCrateAnalysisDispatcher
                 for (int index = 0; index < requestContextualEntities.size(); index++)
                 {
                     JsonObject entity = requestContextualEntities.getJsonObject(index);
-                    if (entity.getString("@type").equals("FederatedAnalysis") && entity.getString("request-type").equals("DataSHIELDAnalysis")
+                    if (entity.getString("@type").equals("FederatedAnalysis") && entity.getString("request-type").equals("DataSHIELDAnalysis"))
                         requestType = entity.getString("request-type");
                 }
 
@@ -63,7 +63,7 @@ public class ROCrateAnalysisDispatcher
                     analysisRequestEmitter.send(requestJson);
                 else
                 {
-                    unknownRequestTypeRequested(requestJson)
+                    unknownRequestTypeRequested(requestJson);
 
                     responseEmitter.send(requestJson);
                 }
