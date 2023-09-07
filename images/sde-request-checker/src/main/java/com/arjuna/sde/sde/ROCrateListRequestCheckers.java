@@ -32,6 +32,10 @@ public class ROCrateListRequestCheckers
     @Inject
     public ROCrateRequestChecker roCrateRequestChecker;
 
+    @All
+    @Inject
+    public List<RequestChecker> requestCheckers;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getListRequestCheckers()
@@ -42,7 +46,7 @@ public class ROCrateListRequestCheckers
         try
         {
             JsonArray checkers = new JsonArray();
-            for (RequestChecker requestChecker: roCrateRequestChecker.requestCheckers)
+            for (RequestChecker requestChecker: requestCheckers)
             {
                 checkers.add(
                     new JsonObject()
