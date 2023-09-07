@@ -29,7 +29,7 @@ import { MatBadgeModule }           from '@angular/material/badge';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent }                     from './app.component';
-import { AgreementsDataComponent }          from './agreements-data/agreements-data.component';
+import { AgreementDatasComponent }          from './agreement-datas/agreement-datas.component';
 import { InteractionHistoryComponent }      from './interaction-history/interaction-history.component';
 import { UncheckedRequestListComponent }    from './unchecked-request-list/unchecked-request-list.component';
 import { UncheckedResponseListComponent }   from './unchecked-response-list/unchecked-response-list.component';
@@ -41,14 +41,14 @@ import { ConfigService }                  from './config.service';
 import { UncheckedInteractionLogService } from './unchecked-interaction-log.service';
 import { RequestCheckingControlService }  from './request-checking-control.service';
 import { ResponseCheckingControlService } from './response-checking-control.service';
-import { AgreementsDataService }          from './agreements-data.service';
+import { AgreementDatasService }          from './agreement-datas.service';
 
 @NgModule
 ({
     declarations:
     [
         AppComponent,
-        AgreementsDataComponent,
+        AgreementDatasComponent,
         InteractionHistoryComponent,
         UncheckedRequestListComponent,
         UncheckedResponseListComponent,
@@ -85,7 +85,7 @@ import { AgreementsDataService }          from './agreements-data.service';
         UncheckedInteractionLogService,
         RequestCheckingControlService,
         ResponseCheckingControlService,
-        AgreementsDataService
+        AgreementDatasService
     ],
     bootstrap:
     [

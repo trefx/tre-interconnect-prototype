@@ -26,18 +26,18 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 
-class AgreementsDataSummary
+class AgreementDataSummary
 {
     public String       name;
     public String       label;
     public List<String> columnFields;
     public List<String> columnLabels;
 
-    public AgreementsDataSummary()
+    public AgreementDataSummary()
     {
     }
 
-    public AgreementsDataSummary(String name, String label, List<String> columnFields, List<String> columnLabels)
+    public AgreementDataSummary(String name, String label, List<String> columnFields, List<String> columnLabels)
     {
        this.name         = name;
        this.label        = label;
@@ -46,8 +46,8 @@ class AgreementsDataSummary
     }
 }
 
-@Path("/agreementsdata")
-public class AgreementsDataResource
+@Path("/agreementdatas")
+public class AgreementDatasResource
 {
     @Inject
     public Logger log;
@@ -58,15 +58,15 @@ public class AgreementsDataResource
     @GET
     @Path("/summaries")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<AgreementsDataSummary> getAgreementsDataSummaries()
+    public List<AgreementDataSummary> getAgreementDataSummaries()
     {
-        log.info("############ SDE - AgreementsDataResource::getAgreementsDataSummaries ############");
+        log.info("############ SDE - AgreementDatasResource::getAgreementDataSummaries ############");
 
-        List<AgreementsDataSummary> list = new ArrayList<AgreementsDataSummary>();
+        List<AgreementDataSummary> list = new ArrayList<AgreementDataSummary>();
 
         try
         {
-            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("agreementsdata_infos").find().iterator();
+            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("agreementdatas_infos").find().iterator();
 
             try
             {
@@ -74,13 +74,13 @@ public class AgreementsDataResource
                 {
                     Document document = cursor.next();
 
-                    AgreementsDataSummary agreementsDataSummary = new AgreementsDataSummary();
-                    agreementsDataSummary.name         = document.getString("name");
-                    agreementsDataSummary.label        = document.getString("label");
-                    agreementsDataSummary.columnFields = document.getList("columnFields", String.class);
-                    agreementsDataSummary.columnLabels = document.getList("columnLabels", String.class);
+                    AgreementDataSummary agreementDataSummary = new AgreementDataSummary();
+                    agreementDataSummary.name         = document.getString("name");
+                    agreementDataSummary.label        = document.getString("label");
+                    agreementDataSummary.columnFields = document.getList("columnFields", String.class);
+                    agreementDataSummary.columnLabels = document.getList("columnLabels", String.class);
 
-                    list.add(agreementsDataSummary);
+                    list.add(agreementDataSummary);
                 }
             }
             finally
@@ -90,13 +90,13 @@ public class AgreementsDataResource
         }
         catch (Error error)
         {
-            log.error("Error while creating agreements data summaries", error);
-            return new ArrayList<AgreementsDataSummary>();
+            log.error("Error while creating agreement data summaries", error);
+            return new ArrayList<AgreementDataSummary>();
         }
         catch (Exception exception)
         {
-            log.error("Exception while creating agreements data summaries", exception);
-            return new ArrayList<AgreementsDataSummary>();
+            log.error("Exception while creating agreement data summaries", exception);
+            return new ArrayList<AgreementDataSummary>();
         }
 
         return list;
@@ -105,15 +105,15 @@ public class AgreementsDataResource
     @GET
     @Path("/data")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray getAgreementsDataData(@QueryParam("agreements_data_name") String agreementsDataName)
+    public JsonArray getAgreementData(@QueryParam("agreement_data_name") String agreementDataName)
     {
-        log.infof("############ SDE - AgreementsDataResource::getData(%s) ############", agreementsDataName);
+        log.infof("############ SDE - AgreementDatasResource::getgetAgreementData(%s) ############", agreementDataName);
 
         JsonArray list = new JsonArray();
 
         try
         {
-            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("ad_" + agreementsDataName).find().iterator();
+            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("ad_" + agreementDataName).find().iterator();
 
             try
             {

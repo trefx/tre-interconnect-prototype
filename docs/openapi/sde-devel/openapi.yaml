@@ -9,7 +9,7 @@ servers:
 - url: http://0.0.0.0:7090
   description: Auto generated value
 paths:
-  /reload_agreementsdata:
+  /reload_agreementdatas:
     post:
       tags:
       - Storage Control Resource

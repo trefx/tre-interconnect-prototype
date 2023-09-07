@@ -12,11 +12,11 @@
     "description" : "Auto generated value"
   } ],
   "paths" : {
-    "/agreementsdata/data" : {
+    "/agreementdatas/data" : {
       "get" : {
-        "tags" : [ "Agreements Data Resource" ],
+        "tags" : [ "Agreement Datas Resource" ],
         "parameters" : [ {
-          "name" : "agreements_data_name",
+          "name" : "agreement_data_name",
           "in" : "query",
           "schema" : {
             "type" : "string"
@@ -36,9 +36,9 @@
         }
       }
     },
-    "/agreementsdata/summaries" : {
+    "/agreementdatas/summaries" : {
       "get" : {
-        "tags" : [ "Agreements Data Resource" ],
+        "tags" : [ "Agreement Datas Resource" ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -47,7 +47,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/AgreementsDataSummary"
+                    "$ref" : "#/components/schemas/AgreementDataSummary"
                   }
                 }
               }
@@ -59,7 +59,7 @@
   },
   "components" : {
     "schemas" : {
-      "AgreementsDataSummary" : {
+      "AgreementDataSummary" : {
         "type" : "object",
         "properties" : {
           "name" : {

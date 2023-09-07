@@ -9,13 +9,15 @@
                 {{responseChecker.description}}
             </mat-card-content>
             <mat-card-actions>
-                <mat-slide-toggle [(ngModel)]="status">enabled</mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="responseChecker.enabled">enabled</mat-slide-toggle>
             </mat-card-actions>
         </mat-card>
     </mat-card-content>
     <mat-card-actions>
         <mat-progress-bar mode="indeterminate" *ngIf="isLoadingResponseCheckers"></mat-progress-bar>
         <button mat-button (click)="doLoadResponseCheckerList()">LOAD RESPONSE CHECKERS</button>
+        <span>&nbsp;&nbsp;</span>
+        <button mat-button (click)="doSaveResponseCheckerList()">SAVE RESPONSE CHECKERS</button>
         <span *ngIf="outcome">&nbsp;&nbsp;{{outcome}}</span>
     </mat-card-actions>
 </mat-card>

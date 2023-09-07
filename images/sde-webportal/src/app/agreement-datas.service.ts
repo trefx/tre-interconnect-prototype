@@ -11,33 +11,33 @@ import { ConfigService } from './config.service';
 ({
     providedIn: 'root'
 })
-export class AgreementsDataService
+export class AgreementDatasService
 {
-    private getAgreementsDataSummariesServicePath = "/service/control/agreementsdata/summaries";
-    private getAgreementsDataDataServicePath      = "/service/control/agreementsdata/data";
+    private getAgreementDataSummariesServicePath = "/service/control/agreementdatas/summaries";
+    private getAgreementDataServicePath          = "/service/control/agreementdatas/data";
 
     public constructor(private configService: ConfigService, private httpClient: HttpClient)
     {
     }
 
-    public getAgreementsDataSummaries(): Observable<any>
+    public getAgreementDataSummaries(): Observable<any>
     {
         let headers = new HttpHeaders();
         headers = headers.append("Accept", "application/json");
         headers = headers.append("Content-Type", "application/json");
         let params  = new HttpParams();
 
-        return this.httpClient.get<any>(this.configService.serverURL + this.getAgreementsDataSummariesServicePath, { headers: headers, params: params });
+        return this.httpClient.get<any>(this.configService.serverURL + this.getAgreementDataSummariesServicePath, { headers: headers, params: params });
     }
 
-    public getAgreementsDataData(name: string): Observable<any>
+    public getAgreementData(name: string): Observable<any>
     {
         let headers = new HttpHeaders();
         headers = headers.append("Accept", "application/json");
         headers = headers.append("Content-Type", "application/json");
         let params  = new HttpParams();
-        params = params.append("agreements_data_name", name);
+        params = params.append("agreement_data_name", name);
 
-        return this.httpClient.get<any>(this.configService.serverURL + this.getAgreementsDataDataServicePath, { headers: headers, params: params });
+        return this.httpClient.get<any>(this.configService.serverURL + this.getAgreementDataServicePath, { headers: headers, params: params });
     }
 }

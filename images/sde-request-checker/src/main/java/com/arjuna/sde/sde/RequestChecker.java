@@ -11,4 +11,12 @@ interface RequestChecker
     public String getDescription();
 
     public Boolean check(JsonObject request);
+
+    public Boolean isEnabled();
+
+    public void setEnabled(Boolean enabled);
+
+    public Boolean isImmutable();
+
+    public void setImmutable(Boolean immutable);
 }
