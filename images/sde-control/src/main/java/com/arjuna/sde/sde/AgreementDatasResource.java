@@ -107,7 +107,7 @@ public class AgreementDatasResource
     @Produces(MediaType.APPLICATION_JSON)
     public JsonArray getAgreementData(@QueryParam("agreement_data_name") String agreementDataName)
     {
-        log.infof("############ SDE - AgreementDatasResource::getgetAgreementData(%s) ############", agreementDataName);
+        log.infof("############ SDE - AgreementDatasResource::getAgreementData(%s) ############", agreementDataName);
 
         JsonArray list = new JsonArray();
 
