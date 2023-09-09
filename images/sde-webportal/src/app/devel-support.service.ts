@@ -13,7 +13,7 @@ import { ConfigService } from './config.service';
 })
 export class DevelSupportService
 {
-    private reloadAgreementsDataServicePath = "/service/devel/reload_agreementsdata";
+    private reloadAgreementDatasServicePath = "/service/devel/reload_agreementdatas";
 
     public constructor(private configService: ConfigService, private httpClient: HttpClient)
     {
@@ -27,6 +27,6 @@ export class DevelSupportService
         let params  = new HttpParams();
         let body    = { };
 
-        return this.httpClient.post<Object>(this.configService.serverURL + this.reloadAgreementsDataServicePath, body, { headers: headers, params: params });
+        return this.httpClient.post<Object>(this.configService.serverURL + this.reloadAgreementDatasServicePath, body, { headers: headers, params: params });
     }
 }
