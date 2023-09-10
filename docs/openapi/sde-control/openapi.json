@@ -28,7 +28,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/JsonArray"
+                  "$ref" : "#/components/schemas/AgreementData"
                 }
               }
             }
@@ -59,15 +59,9 @@
   },
   "components" : {
     "schemas" : {
-      "AgreementDataSummary" : {
+      "AgreementData" : {
         "type" : "object",
         "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "label" : {
-            "type" : "string"
-          },
           "columnFields" : {
             "type" : "array",
             "items" : {
@@ -79,6 +73,20 @@
             "items" : {
               "type" : "string"
             }
+          },
+          "data" : {
+            "$ref" : "#/components/schemas/JsonArray"
+          }
+        }
+      },
+      "AgreementDataSummary" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "label" : {
+            "type" : "string"
           }
         }
       },
