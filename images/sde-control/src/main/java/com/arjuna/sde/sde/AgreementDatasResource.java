@@ -24,25 +24,40 @@ import io.vertx.core.json.JsonArray;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.BasicDBObject;
 import org.bson.Document;
 
 class AgreementDataSummary
 {
     public String       name;
     public String       label;
-    public List<String> columnFields;
-    public List<String> columnLabels;
 
     public AgreementDataSummary()
     {
     }
 
-    public AgreementDataSummary(String name, String label, List<String> columnFields, List<String> columnLabels)
+    public AgreementDataSummary(String name, String label)
     {
-       this.name         = name;
-       this.label        = label;
+       this.name  = name;
+       this.label = label;
+    }
+}
+
+class AgreementData
+{
+    public List<String> columnFields;
+    public List<String> columnLabels;
+    public JsonArray    data;
+
+    public AgreementData()
+    {
+    }
+
+    public AgreementData(List<String> columnFields, List<String> columnLabels, JsonArray data)
+    {
        this.columnFields = columnFields;
        this.columnLabels = columnLabels;
+       this.data         = data;
     }
 }
 
@@ -62,7 +77,7 @@ public class AgreementDatasResource
     {
         log.info("############ SDE - AgreementDatasResource::getAgreementDataSummaries ############");
 
-        List<AgreementDataSummary> list = new ArrayList<AgreementDataSummary>();
+        List<AgreementDataSummary> agreementDataSummarys = new ArrayList<AgreementDataSummary>();
 
         try
         {
@@ -77,10 +92,8 @@ public class AgreementDatasResource
                     AgreementDataSummary agreementDataSummary = new AgreementDataSummary();
                     agreementDataSummary.name         = document.getString("name");
                     agreementDataSummary.label        = document.getString("label");
-                    agreementDataSummary.columnFields = document.getList("columnFields", String.class);
-                    agreementDataSummary.columnLabels = document.getList("columnLabels", String.class);
 
-                    list.add(agreementDataSummary);
+                    agreementDataSummarys.add(agreementDataSummary);
                 }
             }
             finally
@@ -99,48 +112,76 @@ public class AgreementDatasResource
             return new ArrayList<AgreementDataSummary>();
         }
 
-        return list;
+        return agreementDataSummarys;
     }
 
     @GET
     @Path("/data")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray getAgreementData(@QueryParam("agreement_data_name") String agreementDataName)
+    public AgreementData getAgreementData(@QueryParam("agreement_data_name") String agreementDataName)
     {
         log.infof("############ SDE - AgreementDatasResource::getAgreementData(%s) ############", agreementDataName);
 
-        JsonArray list = new JsonArray();
+        AgreementData agreementData = new AgreementData();
 
         try
         {
-            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("ad_" + agreementDataName).find().iterator();
+            BasicDBObject whereQuery = new BasicDBObject();
+            whereQuery.put("name", agreementDataName);
+            MongoCursor<Document> cursorMetadata = mongoClient.getDatabase("sde").getCollection("agreementdatas_infos").find(whereQuery).iterator();
 
             try
             {
-                if (cursor.hasNext())
+                if (cursorMetadata.hasNext())
                 {
-                    Document document = cursor.next();
+                    Document document = cursorMetadata.next();
 
-                    JsonObject object = new JsonObject(document.toJson());
-                    list = object.getJsonArray("data");
+                    agreementData.columnFields = document.getList("columnFields", String.class);
+                    agreementData.columnLabels = document.getList("columnLabels", String.class);
                 }
             }
             finally
             {
-                cursor.close();
+                cursorMetadata.close();
+            }
+
+            MongoCursor<Document> cursorData = mongoClient.getDatabase("sde").getCollection("ad_" + agreementDataName).find().iterator();
+
+            try
+            {
+                if (cursorData.hasNext())
+                {
+                    Document document = cursorData.next();
+
+                    JsonObject jsonObject = new JsonObject(document.toJson());
+
+                    log.info("======");
+                    log.info(jsonObject);
+                    log.info("------");
+                    log.info(jsonObject.getJsonArray("data"));
+                    log.info("------");
+                    log.info(jsonObject.getJsonArray("list"));
+                    log.info("======");
+
+                    agreementData.data = jsonObject.getJsonArray("data");
+                }
+            }
+            finally
+            {
+                cursorData.close();
             }
         }
         catch (Error error)
         {
             log.error("Error while obaining data", error);
-            return new JsonArray();
+            return new AgreementData();
         }
         catch (Exception exception)
         {
             log.error("Exception while obtaining data", exception);
-            return new JsonArray();
+            return new AgreementData();
         }
 
-        return list;
+        return agreementData;
     }
 }

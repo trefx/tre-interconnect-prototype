@@ -24,7 +24,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JsonArray'
+                $ref: '#/components/schemas/AgreementData'
   /agreementdatas/summaries:
     get:
       tags:
@@ -40,13 +40,9 @@ paths:
                   $ref: '#/components/schemas/AgreementDataSummary'
 components:
   schemas:
-    AgreementDataSummary:
+    AgreementData:
       type: object
       properties:
-        name:
-          type: string
-        label:
-          type: string
         columnFields:
           type: array
           items:
@@ -55,6 +51,15 @@ components:
           type: array
           items:
             type: string
+        data:
+          $ref: '#/components/schemas/JsonArray'
+    AgreementDataSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
     JsonArray:
       type: array
       items: {}
