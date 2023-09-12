@@ -75,7 +75,10 @@
             }
           },
           "data" : {
-            "$ref" : "#/components/schemas/JsonArray"
+            "type" : "array",
+            "items" : {
+              "type" : "object"
+            }
           }
         }
       },
@@ -89,10 +92,6 @@
             "type" : "string"
           }
         }
-      },
-      "JsonArray" : {
-        "type" : "array",
-        "items" : { }
       }
     },
     "securitySchemes" : {

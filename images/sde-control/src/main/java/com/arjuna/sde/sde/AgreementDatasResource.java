@@ -3,6 +3,8 @@ package com.arjuna.sde.sde;
 import java.util.UUID;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.lang.Error;
 import java.lang.Exception;
 
@@ -47,13 +49,13 @@ class AgreementData
 {
     public List<String> columnFields;
     public List<String> columnLabels;
-    public JsonArray    data;
+    public List<Map>    data;
 
     public AgreementData()
     {
     }
 
-    public AgreementData(List<String> columnFields, List<String> columnLabels, JsonArray data)
+    public AgreementData(List<String> columnFields, List<String> columnLabels, List<Map> data)
     {
        this.columnFields = columnFields;
        this.columnLabels = columnLabels;
@@ -90,8 +92,8 @@ public class AgreementDatasResource
                     Document document = cursor.next();
 
                     AgreementDataSummary agreementDataSummary = new AgreementDataSummary();
-                    agreementDataSummary.name         = document.getString("name");
-                    agreementDataSummary.label        = document.getString("label");
+                    agreementDataSummary.name                 = document.getString("name");
+                    agreementDataSummary.label                = document.getString("label");
 
                     agreementDataSummarys.add(agreementDataSummary);
                 }
@@ -154,16 +156,14 @@ public class AgreementDatasResource
                     Document document = cursorData.next();
 
                     JsonObject jsonObject = new JsonObject(document.toJson());
+                    JsonArray  dataArray  = jsonObject.getJsonArray("data");
 
-                    log.info("======");
-                    log.info(jsonObject);
-                    log.info("------");
-                    log.info(jsonObject.getJsonArray("data"));
-                    log.info("------");
-                    log.info(jsonObject.getJsonArray("list"));
-                    log.info("======");
+                    List<Map> dataList = new ArrayList<Map>(dataArray.size());
 
-                    agreementData.data = jsonObject.getJsonArray("data");
+                    for (int index = 0; index < dataArray.size(); index++)
+                        dataList.add(dataArray.getJsonObject(index).getMap());
+
+                    agreementData.data = dataList;
                 }
             }
             finally
@@ -185,3 +185,4 @@ public class AgreementDatasResource
         return agreementData;
     }
 }
+
