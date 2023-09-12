@@ -52,7 +52,9 @@ components:
           items:
             type: string
         data:
-          $ref: '#/components/schemas/JsonArray'
+          type: array
+          items:
+            type: object
     AgreementDataSummary:
       type: object
       properties:
@@ -60,9 +62,6 @@ components:
           type: string
         label:
           type: string
-    JsonArray:
-      type: array
-      items: {}
   securitySchemes:
     SecurityScheme:
       type: http
