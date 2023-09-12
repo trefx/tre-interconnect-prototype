@@ -159,8 +159,6 @@ public class AgreementDatasResource
                     log.info(jsonObject);
                     log.info("------");
                     log.info(jsonObject.getJsonArray("data"));
-                    log.info("------");
-                    log.info(jsonObject.getJsonArray("list"));
                     log.info("======");
 
                     agreementData.data = jsonObject.getJsonArray("data");
