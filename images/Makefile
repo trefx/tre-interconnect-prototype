@@ -21,6 +21,8 @@ all:
 	$(MAKE) -C sde-analysis-dispatcher all
 	$(MAKE) -C anal-datashield-adaptor all
 	$(MAKE) -C anal-datashield-armadillo all
+	$(MAKE) -C dev-queue-push all
+	$(MAKE) -C dev-queue-pull all
 
 push:
 	$(MAKE) -C lab-request-creator push
@@ -39,6 +41,8 @@ push:
 	$(MAKE) -C sde-analysis-dispatcher push
 	$(MAKE) -C anal-datashield-adaptor push
 	$(MAKE) -C anal-datashield-armadillo push
+	$(MAKE) -C dev-queue-push push
+	$(MAKE) -C dev-queue-pull push
 
 clean:
 	$(MAKE) -C lab-request-creator clean
@@ -56,6 +60,8 @@ clean:
 	$(MAKE) -C sde-webportal clean
 	$(MAKE) -C anal-datashield-adaptor clean
 	$(MAKE) -C anal-datashield-armadillo clean
+	$(MAKE) -C dev-queue-push clean
+	$(MAKE) -C dev-queue-pull clean
 
 purge:
 	$(MAKE) -C lab-request-creator purge
@@ -73,3 +79,5 @@ purge:
 	$(MAKE) -C sde-webportal purge
 	$(MAKE) -C anal-datashield-adaptor purge
 	$(MAKE) -C anal-datashield-armadillo purge
+	$(MAKE) -C dev-queue-push purge
+	$(MAKE) -C dev-queue-pull purge

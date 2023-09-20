@@ -1,3 +1,11 @@
+# Setup networking addresses
+
+Edit "demo-config.yml" to set "lab_amqpbroker_host", "dmz_amqpbroker_host", "sde_amqpbroker_host" and "anal_ds_amqpbroker_host" to the primary IP address of host machine.
+
+# Setup data volumes for anal demo (anal-data directory)
+
+tar tf anal-data_2023-09-05.tar.gz
+
 # Play deployments
 
 podman kube play --configmap demo-config.yml demo-lab.yml
