@@ -4,7 +4,7 @@ Edit "demo-config.yml" to set "lab_amqpbroker_host", "dmz_amqpbroker_host", "sde
 
 # Setup data volumes for anal demo (anal-data directory)
 
-tar tf anal-data_2023-09-05.tar.gz
+tar xf anal-data_2023-09-05.tar.gz
 
 # Play deployments
 
