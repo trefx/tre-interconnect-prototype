@@ -2,12 +2,14 @@
 # Copyright (c) 2023, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
 #
 
+include ../settings.mk
+
 PODMAN = podman
 WGET   = wget
 RM     = rm -f
 
-IMAGE_NAME = docker.io/risbic/anal-datashield-armadillo
-IMAGE_TAG  = latest
+IMAGE_NAME = $(IMAGE_REPO)/anal-datashield-armadillo
+# IMAGE_TAG from settings.mk
 
 MOLGENIS_ARMADILLO_JAR = molgenis-armadillo-3.3.0.jar
 MOLGENIS_ARMADILLO_URL = https://github.com/molgenis/molgenis-service-armadillo/releases/download/v3.3.0/molgenis-armadillo-3.3.0.jar
