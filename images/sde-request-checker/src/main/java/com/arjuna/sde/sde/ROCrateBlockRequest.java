@@ -35,6 +35,8 @@ import io.minio.MinioClient;
 import io.minio.GetObjectArgs;
 import io.minio.RemoveObjectArgs;
 
+import com.arjuna.sde.ROCrateTransformer;
+
 @Path("/block_request")
 public class ROCrateBlockRequest
 {
@@ -45,7 +47,7 @@ public class ROCrateBlockRequest
     public ObjectMapper objectMapper;
 
     @Channel("br_outgoing")
-    public Emitter<JsonObject> requestEmitter;
+    public Emitter<byte[]> requestEmitter;
 
     @Inject
     public MinioClient minioClient;

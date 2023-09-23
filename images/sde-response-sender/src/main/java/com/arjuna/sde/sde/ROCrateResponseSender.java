@@ -24,6 +24,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
+import com.arjuna.sde.ROCrateTransformer;
+
 @ApplicationScoped
 public class ROCrateResponseSender
 {
@@ -36,7 +38,7 @@ public class ROCrateResponseSender
     @Blocking
     @Incoming("rs_incoming")
     @Outgoing("rs_outgoing")
-    public JsonObject sendResponse(JsonObject responseObject)
+    public byte[] sendResponse(byte[] response)
     {
         try
         {

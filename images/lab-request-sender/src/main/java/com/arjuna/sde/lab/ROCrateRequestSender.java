@@ -20,8 +20,6 @@ import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
-import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import io.minio.MinioClient;
 import io.minio.BucketExistsArgs;
@@ -29,6 +27,8 @@ import io.minio.MakeBucketArgs;
 import io.minio.PutObjectArgs;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
+
+import com.arjuna.sde.ROCrateTransformer;
 
 @ApplicationScoped
 public class ROCrateRequestSender
@@ -45,7 +45,7 @@ public class ROCrateRequestSender
     @Blocking
     @Incoming("rs_incoming")
     @Outgoing("rs_outgoing")
-    public JsonObject forwardRequest(JsonObject requestJson)
+    public byte[] forwardRequest(byte[] requestJson)
     {
         log.info("############ Lab - ROCrateRequestSender::forwardRequest ############");
 
