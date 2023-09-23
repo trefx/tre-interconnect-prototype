@@ -17,9 +17,9 @@ spec:
       - name: AMQ_PASSWORD
         value: "password"
   - name: anal-datashield-adaptor
-    image: docker.io/risbic/anal-datashield-adaptor:latest
+    image: docker.io/risbic/anal-datashield-adaptor:test
   - name: armadillo
-    image: docker.io/risbic/anal-datashield-armadillo:latest
+    image: docker.io/risbic/anal-datashield-armadillo:test
     ports:
       - containerPort: 8080
         hostPort: 8100
