@@ -1,4 +1,4 @@
-package com.arjuna.sde.lab;
+package com.arjuna.sde.sde;
 
 import java.util.UUID;
 import java.lang.Error;
