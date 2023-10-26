@@ -77,8 +77,3 @@ components:
           key:
             type: string
           value: {}
-  securitySchemes:
-    SecurityScheme:
-      type: http
-      description: Authentication
-      scheme: basic
