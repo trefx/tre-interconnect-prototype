@@ -9,9 +9,3 @@ servers:
 - url: http://0.0.0.0:7020
   description: Auto generated value
 paths: {}
-components:
-  securitySchemes:
-    SecurityScheme:
-      type: http
-      description: Authentication
-      scheme: basic

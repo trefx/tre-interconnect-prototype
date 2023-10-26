@@ -20,9 +20,3 @@ paths:
             application/json:
               schema:
                 type: string
-components:
-  securitySchemes:
-    SecurityScheme:
-      type: http
-      description: Authentication
-      scheme: basic

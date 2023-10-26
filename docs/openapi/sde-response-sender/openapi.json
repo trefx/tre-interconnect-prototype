@@ -11,14 +11,5 @@
     "url" : "http://0.0.0.0:7040",
     "description" : "Auto generated value"
   } ],
-  "paths" : { },
-  "components" : {
-    "securitySchemes" : {
-      "SecurityScheme" : {
-        "type" : "http",
-        "description" : "Authentication",
-        "scheme" : "basic"
-      }
-    }
-  }
+  "paths" : { }
 }
