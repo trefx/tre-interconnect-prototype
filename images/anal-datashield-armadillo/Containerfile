@@ -2,14 +2,15 @@
 # Containerfile for Armadillo 3.3 Server for DataSHIELD testing
 #
 
-FROM ubuntu:latest
+FROM alpine:latest
 
 COPY molgenis-armadillo-3.3.0.jar .
 COPY application-local.yml .
 
-RUN apt-get update -y
-RUN apt-get upgrade -y
-RUN apt-get install -y openjdk-17-jdk
+RUN apk update
+RUN apk upgrade
+RUN apk add openjdk17-jdk
+RUN apk add openjdk17-jre-headless
 RUN mkdir -p data
 
 ENV SPRING_PROFILES_ACTIVE=basic
