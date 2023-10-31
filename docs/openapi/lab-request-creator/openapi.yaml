@@ -163,8 +163,3 @@ components:
           type: string
         description:
           type: string
-  securitySchemes:
-    SecurityScheme:
-      type: http
-      description: Authentication
-      scheme: basic

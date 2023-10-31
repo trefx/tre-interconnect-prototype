@@ -62,8 +62,3 @@ components:
           type: string
         label:
           type: string
-  securitySchemes:
-    SecurityScheme:
-      type: http
-      description: Authentication
-      scheme: basic
