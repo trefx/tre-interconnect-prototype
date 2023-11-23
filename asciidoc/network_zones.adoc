@@ -1,0 +1,31 @@
+= TRE-FX: TRE Interconnect Prototype
+
+.Network Zones
+image::networks.png[align=center,width=50%,scaledwidth=50%,pdfwidth=50%]
+
+== Host TRE network zone
+this network zone contains microservices which supports the analyst initiating invocations and inspecting the invocation’s (multiple) results. Access to the microservices within the Host TRE network zone is via a web interface for the Analysis (via the Internet) and by AMQP Queues for access to the microservices within other TREs’ DMZ’s (via the Internet). 
+
+.Host TRE deployment
+image::lab_deployment.png[align=center,width=50%,scaledwidth=50%,pdfwidth=50%]
+
+== Admin network zone
+this network zone is assumed to exist in some form in all TREs, a secure location from which administrative action can be performed on other parts of this TRE. In this demo the Admin network zone is assumed to be accessible from the Internet.
+
+== DMZ network zone
+this network zone contains microservices which isolate the other network zones within the TRE from the internet. The DMZ network zone does not initiate interactions with other network zones within the TRE.
+
+image::dmz_deployment.png[align=center,width=50%,scaledwidth=50%,pdfwidth=50%]
+
+== Invocation management network zone
+this network zone contains the microservices which are responsible for checking invocations (pulled from the DMZ network zone), both request and response. It is also responsible for initiating (and responding to the completion of) the right analysis subsystem within the Analysis network zone.
+
+image::sde_deployment.png[align=center,width=50%,scaledwidth=50%,pdfwidth=50%]
+
+== Analysis network zone
+this network zone contains a number of sub-zones (Kubernetes Pods) containing microservices which manage particular forms of Analysis. The invocation requests are placed in a queue by a microservice in the Invocation management network zone, and invocation responses are placed in an additional queue to be collected by a microservice in the Invocation management network zone.
+
+image::anal-datashield_deployment.png[align=center,width=50%,scaledwidth=50%,pdfwidth=50%]
+
+== Data network zone
+this network zone is the highly secure network zone in which the sensitive data is stored.
