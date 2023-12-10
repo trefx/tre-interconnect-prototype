@@ -20,4 +20,4 @@ clean:
 	$(MVN) clean
 
 purge: clean
-	$(PODMAN) image rmi $(IMAGE_NAME):$(IMAGE_TAG)
+	$(PODMAN) image rm $(IMAGE_NAME):$(IMAGE_TAG)
