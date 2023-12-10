@@ -25,4 +25,4 @@ clean:
 	$(RM) $(MOLGENIS_ARMADILLO_JAR)
 
 purge: clean
-	$(PODMAN) image rm -i $(IMAGE_NAME):$(IMAGE_TAG)
+	$(PODMAN) image rmi $(IMAGE_NAME):$(IMAGE_TAG)
