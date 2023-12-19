@@ -1,4 +1,4 @@
-package com.arjuna.sde.anal.datashield;
+package com.arjuna.sde.analysis.datashield;
 
 import java.util.Base64;
 import java.util.UUID;
@@ -40,7 +40,7 @@ public class DataSHIELDAnalysisInvoker
     {
         try
         {
-            log.info("############ Anal - DataSHIELDAnalysisInvoker::processRequest ############");
+            log.info("############ Analysis - DataSHIELDAnalysisInvoker::processRequest ############");
 
             JsonArray requestContextualEntities = requestObject.getJsonArray("allContextualEntities");
 

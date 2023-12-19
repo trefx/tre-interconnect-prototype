@@ -1,0 +1,1 @@
+{"profiles":{"default":{"name":"default","image":"datashield/armadillo-rserver_ionic-aqueduct:1.0.0","host":"localhost","port":6311,"packageWhitelist":["dsBase"],"functionBlacklist":[],"options":{"datashield.seed":"342325352"}}}}

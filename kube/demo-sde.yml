@@ -64,16 +64,16 @@ spec:
   - name: analysis_dispacher
     image: docker.io/risbic/sde-analysis-dispatcher:latest
     env:
-      - name: ANAL_DS_AMQPBROKER_HOST
+      - name: ANALYSIS_DS_AMQPBROKER_HOST
         valueFrom:
           configMapKeyRef:
             name: demo-config
-            key: anal_ds_amqpbroker_host
-      - name: ANAL_DS_AMQPBROKER_PORT
+            key: analysis_ds_amqpbroker_host
+      - name: ANALYSIS_DS_AMQPBROKER_PORT
         valueFrom:
           configMapKeyRef:
             name: demo-config
-            key: anal_ds_amqpbroker_port
+            key: analysis_ds_amqpbroker_port
   - name: response_checker
     image: docker.io/risbic/sde-response-checker:latest
   - name: response_sender

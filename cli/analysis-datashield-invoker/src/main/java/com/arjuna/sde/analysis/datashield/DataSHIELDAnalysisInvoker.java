@@ -1,4 +1,4 @@
-package com.arjuna.sde.anal.datashield;
+package com.arjuna.sde.analysis.datashield;
 
 import java.lang.Exception;
 
@@ -29,7 +29,7 @@ public class DataSHIELDAnalysisInvoker implements QuarkusApplication
     {
         if (args.length != 6)
         {
-            System.err.printf("Command line: anal-datashield-invoker <platform name> <profile name> <symbol names list> <table names list> <workspace name> <r script>%n");
+            System.err.printf("Command line: analysis-datashield-invoker <platform name> <profile name> <symbol names list> <table names list> <workspace name> <r script>%n");
             return -1;
         }
 
