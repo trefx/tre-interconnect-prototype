@@ -6,7 +6,7 @@ PODMAN = podman
 WGET   = wget
 RM     = rm -f
 
-IMAGE_NAME = docker.io/risbic/anal-datashield-armadillo
+IMAGE_NAME = docker.io/risbic/analysis-datashield-armadillo
 IMAGE_TAG  = latest
 
 MOLGENIS_ARMADILLO_JAR = molgenis-armadillo-3.3.0.jar

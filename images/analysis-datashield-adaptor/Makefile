@@ -6,7 +6,7 @@ QUARKUS = quarkus
 MVN     = mvn
 PODMAN  = podman
 
-IMAGE_NAME = docker.io/risbic/anal-datashield-adaptor
+IMAGE_NAME = docker.io/risbic/analysis-datashield-adaptor
 IMAGE_TAG  = latest
 
 all:

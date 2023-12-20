@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: demo-anal-datashield
+  name: demo-analysis-datashield
   labels:
-    app: anal-datashield
+    app: analysis-datashield
 spec:
   containers:
   - name: activemq
@@ -16,10 +16,10 @@ spec:
         value: "admin"
       - name: AMQ_PASSWORD
         value: "password"
-  - name: anal-datashield-adaptor
-    image: docker.io/risbic/anal-datashield-adaptor:latest
+  - name: analysis-datashield-adaptor
+    image: docker.io/risbic/analysis-datashield-adaptor:latest
   - name: armadillo
-    image: docker.io/risbic/anal-datashield-armadillo:latest
+    image: docker.io/risbic/analysis-datashield-armadillo:latest
     ports:
       - containerPort: 8080
         hostPort: 8100
@@ -28,14 +28,14 @@ spec:
         value: "FALSE"
     volumeMounts:
       - mountPath: /data
-        name: anal-datashield-armadillo
+        name: analysis-datashield-armadillo
   - name: trefx-rserver
     image: docker.io/datashield/armadillo-rserver_ionic-aqueduct:1.0.0
     env:
       - name: DEBUG
         value: "FALSE"
   volumes:
-    - name: anal-datashield-armadillo
+    - name: analysis-datashield-armadillo
       hostPath:
-        path: ./anal-data/datashield/armadillo
+        path: ./analysis-data/datashield/armadillo
         type: DirectoryOrCreate
