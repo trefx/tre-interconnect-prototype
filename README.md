@@ -18,5 +18,5 @@ Prototype implementation of TRE interconnection layer for TRE-FX
 </p>
 
 <p align="center">
-<img src="docs/anal-datashield_deployment.png" style="width: 75%; height: 75%"/>
+<img src="docs/analysis-datashield_deployment.png" style="width: 75%; height: 75%"/>
 </p>

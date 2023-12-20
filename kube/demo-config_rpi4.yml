@@ -9,11 +9,11 @@ metadata:
   labels:
     app: config
 data:
-  lab_amqpbroker_host:     "192.168.1.243"
-  lab_amqpbroker_port:     "5772"
-  dmz_amqpbroker_host:     "192.168.1.243"
-  dmz_amqpbroker_port:     "5872"
-  sde_amqpbroker_host:     "192.168.1.243"
-  sde_amqpbroker_port:     "5972"
-  anal_ds_amqpbroker_host: "192.168.1.243"
-  anal_ds_amqpbroker_port: "6072"
+  lab_amqpbroker_host:        "192.168.1.243"
+  lab_amqpbroker_port:        "5772"
+  dmz_amqpbroker_host:         "192.168.1.243"
+  dmz_amqpbroker_port:         "5872"
+  sde_amqpbroker_host:         "192.168.1.243"
+  sde_amqpbroker_port:         "5972"
+  analysis_ds_amqpbroker_host: "192.168.1.243"
+  analysis_ds_amqpbroker_port: "6072"
