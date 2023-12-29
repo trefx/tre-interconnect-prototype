@@ -25,6 +25,8 @@ import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
+import com.arjuna.sde.ROCrateTransformer;
+
 @ApplicationScoped
 public class ROCrateAnalysisDispatcher
 {
@@ -35,14 +37,14 @@ public class ROCrateAnalysisDispatcher
     public ObjectMapper objectMapper;
 
     @Channel("ad_outgoing")
-    public Emitter<JsonObject> responseEmitter;
+    public Emitter<byte[]> responseEmitter;
 
     @Channel("dsa_outgoing")
-    public Emitter<JsonObject> analysisRequestEmitter;
+    public Emitter<byte[]> analysisRequestEmitter;
 
     @Blocking
     @Incoming("ad_incoming")
-    public void dispatchAnalysis(JsonObject requestJson)
+    public void dispatchAnalysis(byte[] requestJson)
     {
         try
         {

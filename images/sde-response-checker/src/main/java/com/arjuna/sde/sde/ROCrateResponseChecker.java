@@ -44,7 +44,7 @@ public class ROCrateResponseChecker
     public ObjectMapper objectMapper;
 
     @Channel("rc_outgoing")
-    public Emitter<JsonObject> responseEmitter;
+    public Emitter<byte[]> responseEmitter;
 
     @Inject
     public MinioClient minioClient;
@@ -55,7 +55,7 @@ public class ROCrateResponseChecker
 
     @Blocking
     @Incoming("rc_incoming")
-    public void checkResponse(JsonObject responseJson)
+    public void checkResponse(byte[] response)
     {
         try
         {

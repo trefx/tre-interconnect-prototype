@@ -45,7 +45,7 @@ public class ROCrateBlockResponse
     public ObjectMapper objectMapper;
 
     @Channel("br_outgoing")
-    public Emitter<JsonObject> responseEmitter;
+    public Emitter<byte[]> responseEmitter;
 
     @Inject
     public MinioClient minioClient;
