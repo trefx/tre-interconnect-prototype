@@ -2,6 +2,8 @@
 # Copyright (c) 2023, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
 #
 
+include ../settings.mk
+
 QUARKUS = quarkus
 MVN     = mvn
 PODMAN  = podman

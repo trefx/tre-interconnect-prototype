@@ -55,7 +55,7 @@ public class ROCrateRequestChecker
 
     @Blocking
     @Incoming("rc_incoming")
-    public void checkRequest(JsonObject requestJson)
+    public void checkRequest(byte[] requestJson)
     {
         try
         {

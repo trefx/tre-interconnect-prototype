@@ -34,6 +34,8 @@ import org.bson.Document;
 
 import io.minio.MinioClient;
 
+import com.arjuna.sde.ROCrateTransformer;
+
 @Path("/templated_request_submitter")
 public class ROCrateTemplatedRequestSubmitterResource
 {
@@ -44,7 +46,7 @@ public class ROCrateTemplatedRequestSubmitterResource
     public ObjectMapper objectMapper;
 
     @Channel("trs_outgoing")
-    public Emitter<JsonObject> requestEmitter;
+    public Emitter<byte[]> requestEmitter;
 
     @Inject
     public MongoClient mongoClient;
