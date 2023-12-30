@@ -21,7 +21,7 @@ spec:
       - name: AMQ_PASSWORD
         value: "password"
   - name: webportal
-    image: docker.io/risbic/sde-webportal:latest
+    image: docker.io/risbic/sde-webportal:test
     ports:
       - containerPort: 80
         hostPort: 8090
@@ -47,7 +47,7 @@ spec:
         value: "password"
     args: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
   - name: request_receiver
-    image: docker.io/risbic/sde-request-receiver:latest
+    image: docker.io/risbic/sde-request-receiver:test
     env:
       - name: DMZ_AMQPBROKER_HOST
         valueFrom:
@@ -60,9 +60,9 @@ spec:
             name: demo-config
             key: dmz_amqpbroker_port
   - name: request_checker
-    image: docker.io/risbic/sde-request-checker:latest
+    image: docker.io/risbic/sde-request-checker:test
   - name: analysis_dispacher
-    image: docker.io/risbic/sde-analysis-dispatcher:latest
+    image: docker.io/risbic/sde-analysis-dispatcher:test
     env:
       - name: ANALYSIS_DS_AMQPBROKER_HOST
         valueFrom:
@@ -75,9 +75,9 @@ spec:
             name: demo-config
             key: analysis_ds_amqpbroker_port
   - name: response_checker
-    image: docker.io/risbic/sde-response-checker:latest
+    image: docker.io/risbic/sde-response-checker:test
   - name: response_sender
-    image: docker.io/risbic/sde-response-sender:latest
+    image: docker.io/risbic/sde-response-sender:test
     env:
       - name: DMZ_AMQPBROKER_HOST
         valueFrom:
@@ -90,9 +90,9 @@ spec:
             name: demo-config
             key: dmz_amqpbroker_port
   - name: control
-    image: docker.io/risbic/sde-control:latest
+    image: docker.io/risbic/sde-control:test
   - name: devel
-    image: docker.io/risbic/sde-devel:latest
+    image: docker.io/risbic/sde-devel:test
     volumeMounts:
       - mountPath: /data
         name: devel-data

@@ -12,15 +12,12 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
-import io.vertx.core.json.JsonObject;
-import io.vertx.core.json.JsonArray;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
-import edu.kit.datamanager.ro_crate.writer.FolderWriter;
-import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
+
+import com.arjuna.sde.ROCrateTransformer;
 
 @ApplicationScoped
 public class DataSHIELDAnalysisInvoker
@@ -35,12 +32,14 @@ public class DataSHIELDAnalysisInvoker
     @Blocking
     @Incoming("dsa_incoming")
     @Outgoing("dsa_outgoing")
-    public JsonObject processRequest(JsonObject requestObject)
+    public byte[] processRequest(byte[] request)
         throws Exception
     {
         try
         {
             log.info("############ Analysis - DataSHIELDAnalysisInvoker::processRequest ############");
+
+            RoCrate roCrate = ROCrateTransformer.zipBytesToROC(request);
 
             JsonArray requestContextualEntities = requestObject.getJsonArray("allContextualEntities");
 
@@ -105,10 +104,10 @@ public class DataSHIELDAnalysisInvoker
                 responseEntity.put("message", "Malformed request, no parameters");
 
                 JsonArray responseContextualEntities = responseObject.getJsonArray("allContextualEntities");
-                responseContextualEntities.add(responseEntity);
+                responseContextualEntities.add(requestROC);
             }
 
-            return responseObject;
+            return ROCrateTransformer.rocToZipBytes(roCrate);
         }
         catch(Error error)
         {

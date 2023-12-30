@@ -34,7 +34,7 @@ public class ROCrateRequestReceiver
     @Blocking
     @Incoming("rr_incoming")
     @Outgoing("rr_outgoing")
-    public JsonObject receiveRequest(JsonObject requestObject)
+    public byte[] receiveRequest(byte[] request)
     {
         try
         {

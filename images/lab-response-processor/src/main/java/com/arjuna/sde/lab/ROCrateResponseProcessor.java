@@ -44,7 +44,7 @@ public class ROCrateResponseProcessor
 
     @Blocking
     @Incoming("rp_incoming")
-    public void processResponse(JsonObject responseJson)
+    public void processResponse(byte[] response)
     {
         log.info("############ Lab - ROCrateResponseProcessor::processResponse ############");
 

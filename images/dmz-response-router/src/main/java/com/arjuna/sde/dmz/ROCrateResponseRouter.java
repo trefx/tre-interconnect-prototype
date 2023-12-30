@@ -13,12 +13,8 @@ import org.jboss.logging.Logger;
 
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
-import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
-import edu.kit.datamanager.ro_crate.writer.FolderWriter;
-import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
@@ -34,15 +30,15 @@ public class ROCrateResponseRouter
     @Blocking
     @Incoming("rr_incoming")
     @Outgoing("rr_outgoing")
-    public JsonObject routeResponse(JsonObject requestJson)
+    public byte[] routeResponse(byte[] request)
     {
         try
         {
             log.info("############ DMZ - ROCrateResponseRouter::routeResponse ############");
 
-            JsonObject responseJson = requestJson;
+            byte[] response = request;
 
-            return responseJson;
+            return response;
         }
         catch (Error error)
         {

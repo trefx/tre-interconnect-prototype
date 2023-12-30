@@ -45,7 +45,7 @@ public class ROCratePermitRequest
     public ObjectMapper objectMapper;
 
     @Channel("pr_outgoing")
-    public Emitter<JsonObject> requestEmitter;
+    public Emitter<byte[]> requestEmitter;
 
     @Inject
     public MinioClient minioClient;
