@@ -5,7 +5,7 @@ import java.lang.Error;
 import java.lang.Exception;
 
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
+import java.io.ByteArrayInputStream;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
@@ -28,7 +28,7 @@ import io.minio.PutObjectArgs;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
-import com.arjuna.sde.ROCrateTransformer;
+import com.arjuna.sde.utils.ROCrateTransformer;
 
 @ApplicationScoped
 public class ROCrateRequestSender
@@ -45,7 +45,7 @@ public class ROCrateRequestSender
     @Blocking
     @Incoming("rs_incoming")
     @Outgoing("rs_outgoing")
-    public byte[] forwardRequest(byte[] requestJson)
+    public byte[] forwardRequest(byte[] requestBytes)
     {
         log.info("############ Lab - ROCrateRequestSender::forwardRequest ############");
 
@@ -54,13 +54,11 @@ public class ROCrateRequestSender
             if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("requests").build()))
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket("requests").build());
 
-            InputStream inputStream = new StringBufferInputStream(requestJson.toString());
+            InputStream inputStream = new ByteArrayInputStream(requestBytes);
             minioClient.putObject(PutObjectArgs.builder().bucket("requests").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
             inputStream.close();
 
-            JsonObject responseJson = requestJson;
-
-            return responseJson;
+            return requestBytes;
         }
         catch (Error error)
         {

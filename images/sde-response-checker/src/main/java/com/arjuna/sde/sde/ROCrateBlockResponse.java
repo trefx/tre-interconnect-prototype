@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Path;
@@ -59,15 +60,16 @@ public class ROCrateBlockResponse
 
         try
         {
-            StringBuilder stringBuffer = new StringBuilder();
-            InputStream   inputStream  = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-responses").object(responseId).build());
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            InputStream           inputStream           = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-responses").object(responseId).build());
             for (int ch; (ch = inputStream.read()) != -1;)
-                stringBuffer.append((char) ch);
+                byteArrayOutputStream.write(ch);
+            byteArrayOutputStream.close();
             inputStream.close();
 
-            JsonObject responseJson = new JsonObject(stringBuffer.toString());
+            byte[] responseBytes = byteArrayOutputStream.toByteArray();
 
-            responseEmitter.send(responseJson);
+            responseEmitter.send(responseBytes);
 
             minioClient.removeObject(RemoveObjectArgs.builder().bucket("unchecked-responses").object(responseId).build());
         }

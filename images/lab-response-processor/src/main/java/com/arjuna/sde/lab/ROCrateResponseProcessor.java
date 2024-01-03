@@ -5,7 +5,7 @@ import java.lang.Error;
 import java.lang.Exception;
 
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
+import java.io.ByteArrayInputStream;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
@@ -44,7 +44,7 @@ public class ROCrateResponseProcessor
 
     @Blocking
     @Incoming("rp_incoming")
-    public void processResponse(byte[] response)
+    public void processResponse(byte[] responseBytes)
     {
         log.info("############ Lab - ROCrateResponseProcessor::processResponse ############");
 
@@ -53,7 +53,7 @@ public class ROCrateResponseProcessor
             if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("responses").build()))
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket("responses").build());
 
-            InputStream inputStream = new StringBufferInputStream(responseJson.toString());
+            InputStream inputStream = new ByteArrayInputStream(responseBytes);
             minioClient.putObject(PutObjectArgs.builder().bucket("responses").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
             inputStream.close();
         }

@@ -31,7 +31,7 @@ import org.bson.Document;
 
 import io.minio.MinioClient;
 
-import com.arjuna.sde.ROCrateTransformer;
+import com.arjuna.sde.utils.ROCrateTransformer;
 
 @Path("/datashield_request_submitter")
 public class ROCrateDataSHIELDRequestSubmitterResource
@@ -84,9 +84,9 @@ public class ROCrateDataSHIELDRequestSubmitterResource
                 )
                 .build();
 
-            JsonObject requestJson = new JsonObject(objectMapper.writeValueAsString(request));
+            byte[] requestBytes = ROCrateTransformer.rocToZipBytes(request);
 
-            requestEmitter.send(requestJson);
+            requestEmitter.send(requestBytes);
 
             return "{ \"outcome\": \"success\" }";
         }

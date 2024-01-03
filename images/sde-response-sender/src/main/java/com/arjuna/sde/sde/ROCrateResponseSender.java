@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
-import com.arjuna.sde.ROCrateTransformer;
+import com.arjuna.sde.utils.ROCrateTransformer;
 
 @ApplicationScoped
 public class ROCrateResponseSender
@@ -44,7 +44,7 @@ public class ROCrateResponseSender
         {
             log.info("############ SDE - ROCrateResponseSender::sendResponse ############");
 
-            return responseObject;
+            return response;
         }
         catch (Error error)
         {

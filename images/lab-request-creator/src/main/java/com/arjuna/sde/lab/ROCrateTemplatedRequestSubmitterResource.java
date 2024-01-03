@@ -34,7 +34,7 @@ import org.bson.Document;
 
 import io.minio.MinioClient;
 
-import com.arjuna.sde.ROCrateTransformer;
+import com.arjuna.sde.utils.ROCrateTransformer;
 
 @Path("/templated_request_submitter")
 public class ROCrateTemplatedRequestSubmitterResource
@@ -63,9 +63,9 @@ public class ROCrateTemplatedRequestSubmitterResource
 
         try
         {
-             String templateId = templatedRequest.getString("templateID");
+            String templateId = templatedRequest.getString("templateID");
 
-             RoCrate request = new RoCrate.RoCrateBuilder()
+            RoCrate request = new RoCrate.RoCrateBuilder()
                 .addContextualEntity(
                     new ContextualEntity.ContextualEntityBuilder()
                         .addType("TemplatedRequest")
@@ -75,9 +75,9 @@ public class ROCrateTemplatedRequestSubmitterResource
                 )
                 .build();
 
-            JsonObject requestJson = new JsonObject(objectMapper.writeValueAsString(request));
+            byte[] requestBytes = ROCrateTransformer.rocToZipBytes(request);
 
-            requestEmitter.send(requestJson);
+            requestEmitter.send(requestBytes);
 
             return "{ \"outcome\": \"success\" }";
         }

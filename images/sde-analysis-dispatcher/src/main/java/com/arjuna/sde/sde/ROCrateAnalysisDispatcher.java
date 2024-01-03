@@ -25,7 +25,7 @@ import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
 
-import com.arjuna.sde.ROCrateTransformer;
+import com.arjuna.sde.utils.ROCrateTransformer;
 
 @ApplicationScoped
 public class ROCrateAnalysisDispatcher
@@ -44,40 +44,40 @@ public class ROCrateAnalysisDispatcher
 
     @Blocking
     @Incoming("ad_incoming")
-    public void dispatchAnalysis(byte[] requestJson)
+    public void dispatchAnalysis(byte[] requestBytes)
     {
         try
         {
             log.info("############ SDE - ROCrateAnalysisDispatcher::dispatchAnalysis ############");
 
-            if (requestJson.containsKey("allContextualEntities") && (requestJson.getJsonArray("allContextualEntities") != null))
-            {
-                String requestType = null;
-                JsonArray requestContextualEntities = requestJson.getJsonArray("allContextualEntities");
-                for (int index = 0; index < requestContextualEntities.size(); index++)
-                {
-                    JsonObject entity = requestContextualEntities.getJsonObject(index);
-                    if ((entity != null) && entity.containsKey("@type") && entity.getString("@type").equals("FederatedAnalysis") && entity.containsKey("request-type") && entity.getString("request-type").equals("DataSHIELDAnalysis"))
-                        requestType = entity.getString("request-type");
-                }
-
-                if ("DataSHIELDAnalysis".equals(requestType))
-                    analysisRequestEmitter.send(requestJson);
-                else
-                {
-                    unknownRequestTypeRequested(requestJson);
-
-                    responseEmitter.send(requestJson);
-                }
-            }
-            else
-            {
-                requestJson.put("allContextualEntities", new JsonArray());
-
-                noRequestTypeRequested(requestJson);
-
-                responseEmitter.send(requestJson);
-            }
+//            if (request.containsKey("allContextualEntities") && (request.getJsonArray("allContextualEntities") != null))
+//            {
+//                String requestType = null;
+//                JsonArray requestContextualEntities = request.getJsonArray("allContextualEntities");
+//                for (int index = 0; index < requestContextualEntities.size(); index++)
+//                {
+//                    JsonObject entity = requestContextualEntities.getJsonObject(null);
+//                    if ((entity != null) && entity.containsKey("@type") && entity.getString("@type").equals("FederatedAnalysis") && entity.containsKey("request-type") && entity.getString("request-type").equals("DataSHIELDAnalysis"))
+//                        requestType = entity.getString("request-type");
+//                }
+//
+//                if ("DataSHIELDAnalysis".equals(requestType))
+//                    analysisRequestEmitter.send(requestJson);
+//                else
+//                {
+//                    unknownRequestTypeRequested(requestJson);
+//
+//                    responseEmitter.send(requestJson);
+//                }
+//            }
+//            else
+//            {
+//                requestJson.put("allContextualEntities", new JsonArray());
+//
+//                noRequestTypeRequested(requestJson);
+//
+//                responseEmitter.send(requestJson);
+//            }
         }
         catch (Error error)
         {
@@ -113,10 +113,10 @@ public class ROCrateAnalysisDispatcher
 
     @Blocking
     @Incoming("dsa_incoming")
-    public void analysisResponseProcessor(JsonObject responseJson)
+    public void analysisResponseProcessor(byte[] responseBytes)
     {
         log.info("############ SDE - ROCrateAnalysisDispatcher::analysisResponseProcessor ############");
 
-        responseEmitter.send(responseJson);
+        responseEmitter.send(responseBytes);
     }
 }

@@ -40,7 +40,7 @@ public class ROCrateRequestReceiver
         {
             log.info("############ SDE - ROCrateRequestReceiver::receiveRequest ############");
 
-            return requestObject;
+            return request;
         }
         catch (Error error)
         {

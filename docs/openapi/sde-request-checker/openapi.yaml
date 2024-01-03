@@ -82,7 +82,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JsonObject'
+                format: binary
+                type: string
   /unchecked_requests:
     get:
       tags:

@@ -117,7 +117,8 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/JsonObject"
+                  "format" : "binary",
+                  "type" : "string"
                 }
               }
             }

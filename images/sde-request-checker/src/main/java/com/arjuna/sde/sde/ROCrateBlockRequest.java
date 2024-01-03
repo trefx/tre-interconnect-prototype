@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Path;
@@ -35,7 +36,7 @@ import io.minio.MinioClient;
 import io.minio.GetObjectArgs;
 import io.minio.RemoveObjectArgs;
 
-import com.arjuna.sde.ROCrateTransformer;
+import com.arjuna.sde.utils.ROCrateTransformer;
 
 @Path("/block_request")
 public class ROCrateBlockRequest
@@ -61,15 +62,16 @@ public class ROCrateBlockRequest
 
         try
         {
-            StringBuilder stringBuffer = new StringBuilder();
-            InputStream   inputStream  = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            InputStream           inputStream           = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
             for (int ch; (ch = inputStream.read()) != -1;)
-                stringBuffer.append((char) ch);
+                byteArrayOutputStream.write(ch);
+            byteArrayOutputStream.close();
             inputStream.close();
 
-            JsonObject requestJson = new JsonObject(stringBuffer.toString());
+            byte[] requestBytes = byteArrayOutputStream.toByteArray();
 
-            requestEmitter.send(requestJson);
+            requestEmitter.send(requestBytes);
 
             minioClient.removeObject(RemoveObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
         }

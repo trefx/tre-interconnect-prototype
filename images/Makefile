@@ -5,6 +5,7 @@
 MAKE = make
 
 all:
+	$(MAKE) -C utils all
 	$(MAKE) -C lab-request-creator all
 	$(MAKE) -C lab-request-sender all
 	$(MAKE) -C lab-response-processor all
@@ -25,6 +26,7 @@ all:
 #	$(MAKE) -C dev-queue-pull all
 
 push:
+	$(MAKE) -C utils push
 	$(MAKE) -C lab-request-creator push
 	$(MAKE) -C lab-request-sender push
 	$(MAKE) -C lab-response-processor push
@@ -45,6 +47,7 @@ push:
 #	$(MAKE) -C dev-queue-pull push
 
 clean:
+	$(MAKE) -C utils clean
 	$(MAKE) -C lab-request-creator clean
 	$(MAKE) -C lab-request-sender clean
 	$(MAKE) -C lab-response-processor clean
@@ -64,6 +67,7 @@ clean:
 #	$(MAKE) -C dev-queue-pull clean
 
 purge:
+	$(MAKE) -C utils purge
 	$(MAKE) -C lab-request-creator purge
 	$(MAKE) -C lab-request-sender purge
 	$(MAKE) -C lab-response-processor purge
