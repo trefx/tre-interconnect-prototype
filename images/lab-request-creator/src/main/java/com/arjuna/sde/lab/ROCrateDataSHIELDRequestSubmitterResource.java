@@ -31,6 +31,8 @@ import org.bson.Document;
 
 import io.minio.MinioClient;
 
+import com.arjuna.sde.utils.ROCrateTransformer;
+
 @Path("/datashield_request_submitter")
 public class ROCrateDataSHIELDRequestSubmitterResource
 {
@@ -41,7 +43,7 @@ public class ROCrateDataSHIELDRequestSubmitterResource
     public ObjectMapper objectMapper;
 
     @Channel("drs_outgoing")
-    public Emitter<JsonObject> requestEmitter;
+    public Emitter<byte[]> requestEmitter;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -82,9 +84,9 @@ public class ROCrateDataSHIELDRequestSubmitterResource
                 )
                 .build();
 
-            JsonObject requestJson = new JsonObject(objectMapper.writeValueAsString(request));
+            byte[] requestBytes = ROCrateTransformer.rocToZipBytes(request);
 
-            requestEmitter.send(requestJson);
+            requestEmitter.send(requestBytes);
 
             return "{ \"outcome\": \"success\" }";
         }

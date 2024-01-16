@@ -6,13 +6,15 @@
 # In IP4 only environment need "export NODE_OPTIONS=--dns-result-order=ipv4first" 
 #
 
+include ../settings.mk
+
 RMDIR  = rm -rf
 NPM    = npm
 NG     = ng
 PODMAN = podman
 
-IMAGE_NAME = docker.io/risbic/sde-webportal
-IMAGE_TAG  = latest
+IMAGE_NAME = $(IMAGE_REPO)/sde-webportal
+# IMAGE_TAG from settings.mk
 
 all: dist
 	$(PODMAN) build -t $(IMAGE_NAME):$(IMAGE_TAG) -f Containerfile .

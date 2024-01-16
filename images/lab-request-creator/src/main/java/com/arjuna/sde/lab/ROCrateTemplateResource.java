@@ -27,9 +27,6 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 import io.vertx.core.json.JsonObject;
 
 import edu.kit.datamanager.ro_crate.RoCrate;
-import edu.kit.datamanager.ro_crate.writer.RoCrateWriter;
-import edu.kit.datamanager.ro_crate.writer.FolderWriter;
-import edu.kit.datamanager.ro_crate.entities.data.RootDataEntity;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;

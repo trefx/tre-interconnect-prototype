@@ -3,6 +3,8 @@
 # Copyright (c) 2023-2024, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
 #
 
+include ../settings.mk
+
 PODMAN = podman
 WGET   = wget
 RM     = rm -f

@@ -43,7 +43,7 @@ spec:
         value: "password"
     args: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
   - name: webportal
-    image: docker.io/risbic/lab-webportal:latest
+    image: docker.io/risbic/lab-webportal:test
     ports:
       - containerPort: 80
         hostPort: 8080
@@ -53,11 +53,11 @@ spec:
       - name: NGINX_PORT
         value: "80"
   - name: request_creator
-    image: docker.io/risbic/lab-request-creator:latest
+    image: docker.io/risbic/lab-request-creator:test
   - name: response_processor
-    image: docker.io/risbic/lab-response-processor:latest
+    image: docker.io/risbic/lab-response-processor:test
   - name: request_sender
-    image: docker.io/risbic/lab-request-sender:latest
+    image: docker.io/risbic/lab-request-sender:test
     env:
       - name: DMZ_AMQPBROKER_HOST
         valueFrom:
@@ -70,7 +70,7 @@ spec:
             name: demo-config
             key: dmz_amqpbroker_port
   - name: devel
-    image: docker.io/risbic/lab-devel:latest
+    image: docker.io/risbic/lab-devel:test
     volumeMounts:
       - mountPath: /data
         name: devel-data

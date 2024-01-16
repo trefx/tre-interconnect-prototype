@@ -6,7 +6,7 @@ import java.util.UUID;
 import java.util.List;
 
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
+import java.io.ByteArrayInputStream;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
@@ -25,14 +25,14 @@ import edu.kit.datamanager.ro_crate.RoCrate;
 
 import io.quarkus.arc.All;
 
-import io.vertx.core.json.JsonObject;
-
 import io.minio.MinioClient;
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.PutObjectArgs;
 
 import io.smallrye.reactive.messaging.annotations.Blocking;
+
+import com.arjuna.sde.utils.ROCrateTransformer;
 
 @ApplicationScoped
 public class ROCrateResponseChecker
@@ -44,7 +44,7 @@ public class ROCrateResponseChecker
     public ObjectMapper objectMapper;
 
     @Channel("rc_outgoing")
-    public Emitter<JsonObject> responseEmitter;
+    public Emitter<byte[]> responseEmitter;
 
     @Inject
     public MinioClient minioClient;
@@ -55,16 +55,19 @@ public class ROCrateResponseChecker
 
     @Blocking
     @Incoming("rc_incoming")
-    public void checkResponse(JsonObject responseJson)
+    public void checkResponse(byte[] responseBytes)
     {
         try
         {
             log.info("############ SDE - ROCrateResponseChecker::checkResponse ############");
 
+            RoCrate response = ROCrateTransformer.zipBytesToROC(responseBytes);
+
             Boolean needsManualChecking = null;
             for (ResponseChecker responseChecker : responseCheckers)
             {
-                Boolean checkManually = responseChecker.check(responseJson);
+                Boolean checkManually = responseChecker.check(null);
+//                Boolean checkManually = responseChecker.check(responseJson);
                 if (needsManualChecking == null)
                     needsManualChecking = checkManually;
                 else if ((checkManually != null) && checkManually.booleanValue())
@@ -73,18 +76,19 @@ public class ROCrateResponseChecker
 
             log.info("############ SDE - ROCrateResponseChecker::needsManualChecking " + needsManualChecking);
 
+            byte[] checkedResponseBytes = ROCrateTransformer.rocToZipBytes(response);
             if ((needsManualChecking == null) || needsManualChecking.booleanValue())
             {
                 if (! minioClient.bucketExists(BucketExistsArgs.builder().bucket("unchecked-responses").build()))
                     minioClient.makeBucket(MakeBucketArgs.builder().bucket("unchecked-responses").build());
 
-                InputStream inputStream = new StringBufferInputStream(responseJson.toString());
+                InputStream inputStream = new ByteArrayInputStream(checkedResponseBytes);
                 minioClient.putObject(PutObjectArgs.builder().bucket("unchecked-responses").object(UUID.randomUUID().toString()).stream(inputStream, -1, 10485760).contentType(MediaType.APPLICATION_JSON).build());
                 inputStream.close();
             }
             else
             {
-                responseEmitter.send(responseJson);
+                responseEmitter.send(checkedResponseBytes);
             }
         }
         catch (Error error)

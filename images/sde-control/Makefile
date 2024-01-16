@@ -3,12 +3,14 @@
 # Copyright (c) 2023-2024, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
 #
 
+include ../settings.mk
+
 QUARKUS = quarkus
 MVN     = mvn
 PODMAN  = podman
 
-IMAGE_NAME = docker.io/risbic/sde-control
-IMAGE_TAG  = latest
+IMAGE_NAME = $(IMAGE_REPO)/sde-control
+# IMAGE_TAG from settings.mk
 
 all:
 	$(QUARKUS) build

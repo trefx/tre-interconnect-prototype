@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Path;
@@ -45,20 +46,21 @@ public class ROCrateUncheckedRequest
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject getUncheckedRequest(@QueryParam("requestid") String requestId)
+    public byte[] getUncheckedRequest(@QueryParam("requestid") String requestId)
     {
         log.info("############ SDE - ROCrateUncheckedRequest.getUncheckedRequest ############");
 
-        JsonObject    results      = new JsonObject();
-        StringBuilder stringBuffer = new StringBuilder();
+        byte[]                results                = null;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try
         {
             InputStream inputStream = minioClient.getObject(GetObjectArgs.builder().bucket("unchecked-requests").object(requestId).build());
             for (int ch; (ch = inputStream.read()) != -1;)
-                stringBuffer.append((char) ch);
+                byteArrayOutputStream.write(ch);
+            byteArrayOutputStream.close();
             inputStream.close();
 
-            results = new JsonObject(stringBuffer.toString());
+            results = byteArrayOutputStream.toByteArray();
         }
         catch (Error error)
         {
