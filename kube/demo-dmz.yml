@@ -22,7 +22,7 @@ spec:
       - name: AMQ_PASSWORD
         value: "password"
   - name: response_router
-    image: docker.io/risbic/dmz-response-router:test
+    image: docker.io/risbic/dmz-response-router:latest
     env:
       - name: LAB_AMQPBROKER_HOST
         valueFrom:
