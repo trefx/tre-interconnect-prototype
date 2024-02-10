@@ -16,17 +16,10 @@ spec:
         value: "admin"
       - name: AMQ_PASSWORD
         value: "password"
-<<<<<<< HEAD:kube/demo-analysis-datashield.yml
   - name: analysis-datashield-adaptor
     image: docker.io/risbic/analysis-datashield-adaptor:latest
   - name: armadillo
     image: docker.io/risbic/analysis-datashield-armadillo:latest
-=======
-  - name: anal-datashield-adaptor
-    image: docker.io/risbic/anal-datashield-adaptor:test
-  - name: armadillo
-    image: docker.io/risbic/anal-datashield-armadillo:test
->>>>>>> cfa83ba98d4e11c03b0068577fe4d8b16a81f1e3:kube/demo-anal-datashield.yml
     ports:
       - containerPort: 8080
         hostPort: 8100
