@@ -1,0 +1,1 @@
+POCMAN_IMAGE_RM = rm -i
