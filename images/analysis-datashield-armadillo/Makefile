@@ -4,6 +4,7 @@
 #
 
 include ../settings.mk
+include ../build.mk
 
 PODMAN = podman
 WGET   = wget
@@ -28,4 +29,4 @@ clean:
 	$(RM) $(MOLGENIS_ARMADILLO_JAR)
 
 purge: clean
-	$(PODMAN) image rm -i $(IMAGE_NAME):$(IMAGE_TAG)
+	$(PODMAN) $(POCMAN_IMAGE_RM) $(IMAGE_NAME):$(IMAGE_TAG)

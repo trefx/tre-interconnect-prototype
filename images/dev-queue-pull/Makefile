@@ -4,6 +4,7 @@
 #
 
 include ../settings.mk
+include ../build.mk
 
 QUARKUS = quarkus
 MVN     = mvn
@@ -23,4 +24,4 @@ clean:
 	$(MVN) clean
 
 purge: clean
-	$(PODMAN) image rm -i $(IMAGE_NAME):$(IMAGE_TAG)
+	$(PODMAN) $(POCMAN_IMAGE_RM) $(IMAGE_NAME):$(IMAGE_TAG)
