@@ -24,7 +24,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JsonObject'
+                $ref: "#/components/schemas/JsonObject"
   /requests:
     get:
       tags:
@@ -53,7 +53,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JsonObject'
+                $ref: "#/components/schemas/JsonObject"
   /responses:
     get:
       tags:

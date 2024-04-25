@@ -24,7 +24,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AgreementData'
+                $ref: "#/components/schemas/AgreementData"
   /agreementdatas/summaries:
     get:
       tags:
@@ -37,7 +37,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/AgreementDataSummary'
+                  $ref: "#/components/schemas/AgreementDataSummary"
 components:
   schemas:
     AgreementData:
