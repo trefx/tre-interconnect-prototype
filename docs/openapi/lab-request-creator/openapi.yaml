@@ -17,7 +17,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/JsonObject'
+              $ref: "#/components/schemas/JsonObject"
       responses:
         "200":
           description: OK
@@ -37,7 +37,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/AnalysisProviderSummary'
+                  $ref: "#/components/schemas/AnalysisProviderSummary"
   /simple_request_submitter:
     post:
       tags:
@@ -64,7 +64,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JsonObject'
+                $ref: "#/components/schemas/JsonObject"
   /template/fields:
     get:
       tags:
@@ -82,7 +82,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/TemplateField'
+                  $ref: "#/components/schemas/TemplateField"
   /template/summaries:
     get:
       tags:
@@ -95,7 +95,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/TemplateSummary'
+                  $ref: "#/components/schemas/TemplateSummary"
   /templated_request_submitter:
     post:
       tags:
@@ -104,7 +104,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/JsonObject'
+              $ref: "#/components/schemas/JsonObject"
       responses:
         "200":
           description: OK

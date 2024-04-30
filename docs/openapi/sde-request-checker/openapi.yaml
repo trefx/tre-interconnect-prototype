@@ -35,7 +35,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JsonObject'
+                $ref: "#/components/schemas/JsonObject"
     post:
       tags:
       - RO Crate List Request Checkers
@@ -43,14 +43,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/JsonObject'
+              $ref: "#/components/schemas/JsonObject"
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JsonObject'
+                $ref: "#/components/schemas/JsonObject"
   /permit_request:
     post:
       tags:
