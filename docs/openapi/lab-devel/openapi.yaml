@@ -1,5 +1,54 @@
 ---
-openapi: 3.0.3
+openapi: 3.1.0
+paths:
+  /empty_requests:
+    post:
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+      summary: Post Empty Requests
+      tags:
+      - Storage Control Resource
+  /empty_responses:
+    post:
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+      summary: Post Empty Responses
+      tags:
+      - Storage Control Resource
+  /reload_providers:
+    post:
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+      summary: Post Reload Providers
+      tags:
+      - Storage Control Resource
+  /reload_templates:
+    post:
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+      summary: Post Reload Templates
+      tags:
+      - Storage Control Resource
 info:
   title: lab-devel API
   version: 1.0.0-SNAPSHOT
@@ -8,48 +57,3 @@ servers:
   description: Auto generated value
 - url: http://0.0.0.0:7090
   description: Auto generated value
-paths:
-  /empty_requests:
-    post:
-      tags:
-      - Storage Control Resource
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-  /empty_responses:
-    post:
-      tags:
-      - Storage Control Resource
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-  /reload_providers:
-    post:
-      tags:
-      - Storage Control Resource
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-  /reload_templates:
-    post:
-      tags:
-      - Storage Control Resource
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string

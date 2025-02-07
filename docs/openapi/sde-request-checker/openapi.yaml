@@ -1,18 +1,8 @@
 ---
-openapi: 3.0.3
-info:
-  title: sde-request-checker API
-  version: 1.0.0-SNAPSHOT
-servers:
-- url: http://localhost:7010
-  description: Auto generated value
-- url: http://0.0.0.0:7010
-  description: Auto generated value
+openapi: 3.1.0
 paths:
   /block_request:
     post:
-      tags:
-      - RO Crate Block Request
       parameters:
       - name: requestid
         in: query
@@ -25,25 +15,17 @@ paths:
             application/json:
               schema:
                 type: string
+      summary: Post Block Request
+      tags:
+      - RO Crate Block Request
   /list_request_checkers:
-    get:
-      tags:
-      - RO Crate List Request Checkers
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/JsonObject"
     post:
-      tags:
-      - RO Crate List Request Checkers
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/JsonObject"
+        required: true
       responses:
         "200":
           description: OK
@@ -51,26 +33,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/JsonObject"
+      summary: Post List Request Checkers
+      tags:
+      - RO Crate List Request Checkers
+    get:
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JsonObject"
+      summary: Get List Request Checkers
+      tags:
+      - RO Crate List Request Checkers
   /permit_request:
     post:
+      parameters:
+      - name: requestid
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+      summary: Post Permit Request
       tags:
       - RO Crate Permit Request
-      parameters:
-      - name: requestid
-        in: query
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
   /unchecked_request:
     get:
-      tags:
-      - RO Crate Unchecked Request
       parameters:
       - name: requestid
         in: query
@@ -82,12 +77,13 @@ paths:
           content:
             application/json:
               schema:
-                format: binary
                 type: string
+                format: binary
+      summary: Get Unchecked Request
+      tags:
+      - RO Crate Unchecked Request
   /unchecked_requests:
     get:
-      tags:
-      - RO Crate Unchecked Requests
       responses:
         "200":
           description: OK
@@ -97,6 +93,9 @@ paths:
                 type: array
                 items:
                   type: string
+      summary: Get Unchecked Request Ids
+      tags:
+      - RO Crate Unchecked Requests
 components:
   schemas:
     JsonObject:
@@ -107,3 +106,11 @@ components:
           key:
             type: string
           value: {}
+info:
+  title: sde-request-checker API
+  version: 1.0.0-SNAPSHOT
+servers:
+- url: http://localhost:7010
+  description: Auto generated value
+- url: http://0.0.0.0:7010
+  description: Auto generated value

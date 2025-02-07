@@ -1,20 +1,8 @@
 {
-  "openapi" : "3.0.3",
-  "info" : {
-    "title" : "sde-response-checker API",
-    "version" : "1.0.0-SNAPSHOT"
-  },
-  "servers" : [ {
-    "url" : "http://localhost:7030",
-    "description" : "Auto generated value"
-  }, {
-    "url" : "http://0.0.0.0:7030",
-    "description" : "Auto generated value"
-  } ],
+  "openapi" : "3.1.0",
   "paths" : {
     "/block_response" : {
       "post" : {
-        "tags" : [ "RO Crate Block Response" ],
         "parameters" : [ {
           "name" : "responseid",
           "in" : "query",
@@ -33,27 +21,13 @@
               }
             }
           }
-        }
+        },
+        "summary" : "Post Block Response",
+        "tags" : [ "RO Crate Block Response" ]
       }
     },
     "/list_response_checkers" : {
-      "get" : {
-        "tags" : [ "RO Crate List Response Checkers" ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/JsonObject"
-                }
-              }
-            }
-          }
-        }
-      },
       "post" : {
-        "tags" : [ "RO Crate List Response Checkers" ],
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -61,7 +35,8 @@
                 "$ref" : "#/components/schemas/JsonObject"
               }
             }
-          }
+          },
+          "required" : true
         },
         "responses" : {
           "200" : {
@@ -74,12 +49,29 @@
               }
             }
           }
-        }
+        },
+        "summary" : "Post List Response Checkers",
+        "tags" : [ "RO Crate List Response Checkers" ]
+      },
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonObject"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get List Response Checkers",
+        "tags" : [ "RO Crate List Response Checkers" ]
       }
     },
     "/permit_response" : {
       "post" : {
-        "tags" : [ "RO Crate Permit Response" ],
         "parameters" : [ {
           "name" : "responseid",
           "in" : "query",
@@ -98,12 +90,13 @@
               }
             }
           }
-        }
+        },
+        "summary" : "Post Permit Response",
+        "tags" : [ "RO Crate Permit Response" ]
       }
     },
     "/unchecked_response" : {
       "get" : {
-        "tags" : [ "RO Crate Unchecked Response" ],
         "parameters" : [ {
           "name" : "responseid",
           "in" : "query",
@@ -122,12 +115,13 @@
               }
             }
           }
-        }
+        },
+        "summary" : "Get Unchecked Response",
+        "tags" : [ "RO Crate Unchecked Response" ]
       }
     },
     "/unchecked_responses" : {
       "get" : {
-        "tags" : [ "RO Crate Unchecked Responses" ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -142,7 +136,9 @@
               }
             }
           }
-        }
+        },
+        "summary" : "Get Unchecked Response Ids",
+        "tags" : [ "RO Crate Unchecked Responses" ]
       }
     }
   },
@@ -161,5 +157,16 @@
         }
       }
     }
-  }
+  },
+  "info" : {
+    "title" : "sde-response-checker API",
+    "version" : "1.0.0-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:7030",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:7030",
+    "description" : "Auto generated value"
+  } ]
 }
