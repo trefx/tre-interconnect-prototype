@@ -8,7 +8,7 @@ armadillo:
 
   profiles:
     - name: default
-      image: datashield/armadillo-rserver_ionic-aqueduct:1.0.0
+      image: datashield/rock-margin-donkey:draft
       host: localhost
       port: 6311
       package-whitelist:
