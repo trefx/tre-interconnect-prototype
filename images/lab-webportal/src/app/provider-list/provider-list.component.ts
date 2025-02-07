@@ -4,9 +4,10 @@ import { ProviderListService } from '../provider-list.service';
 
 @Component
 ({
-    selector:    'sde-provider-list',
+    selector: 'sde-provider-list',
     templateUrl: './provider-list.component.html',
-    styleUrls:   ['./provider-list.component.scss']
+    styleUrls: ['./provider-list.component.scss'],
+    standalone: false
 })
 export class ProviderListComponent
 {

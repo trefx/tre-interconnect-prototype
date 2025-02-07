@@ -8,9 +8,10 @@ import { InteractionLogService } from '../interaction-log.service';
 
 @Component
 ({
-    selector:    'sde-response-list',
+    selector: 'sde-response-list',
     templateUrl: './response-list.component.html',
-    styleUrls:   ['./response-list.component.scss']
+    styleUrls: ['./response-list.component.scss'],
+    standalone: false
 })
 export class ResponseListComponent implements OnInit
 {

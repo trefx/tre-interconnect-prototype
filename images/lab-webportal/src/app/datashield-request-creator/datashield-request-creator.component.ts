@@ -6,9 +6,10 @@ import { DataSHIELDRequestSubmitterService } from '../datashield-request-submitt
 
 @Component
 ({
-    selector:    'sde-datashield-request-creator',
+    selector: 'sde-datashield-request-creator',
     templateUrl: './datashield-request-creator.component.html',
-    styleUrls:   ['./datashield-request-creator.component.scss']
+    styleUrls: ['./datashield-request-creator.component.scss'],
+    standalone: false
 })
 export class DataSHIELDRequestCreatorComponent
 {

@@ -6,9 +6,10 @@ import { SimpleRequestSubmitterService } from '../simple-request-submitter.servi
 
 @Component
 ({
-    selector:    'sde-simple-request-creator',
+    selector: 'sde-simple-request-creator',
     templateUrl: './simple-request-creator.component.html',
-    styleUrls:   ['./simple-request-creator.component.scss']
+    styleUrls: ['./simple-request-creator.component.scss'],
+    standalone: false
 })
 export class SimpleRequestCreatorComponent
 {

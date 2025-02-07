@@ -7,9 +7,10 @@ import { InteractionLogService } from '../interaction-log.service';
 
 @Component
 ({
-    selector:    'sde-request-list',
+    selector: 'sde-request-list',
     templateUrl: './request-list.component.html',
-    styleUrls:   ['./request-list.component.scss']
+    styleUrls: ['./request-list.component.scss'],
+    standalone: false
 })
 export class RequestListComponent implements OnInit
 {

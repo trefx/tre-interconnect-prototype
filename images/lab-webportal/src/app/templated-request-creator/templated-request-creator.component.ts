@@ -9,9 +9,10 @@ import { TemplatedRequestSubmitterService } from '../templated-request-submitter
 
 @Component
 ({
-    selector:    'sde-templated-request-creator',
+    selector: 'sde-templated-request-creator',
     templateUrl: './templated-request-creator.component.html',
-    styleUrls:   ['./templated-request-creator.component.scss']
+    styleUrls: ['./templated-request-creator.component.scss'],
+    standalone: false
 })
 export class TemplatedRequestCreatorComponent
 {

@@ -4,9 +4,10 @@ import { DevelSupportService } from '../devel-support.service';
 
 @Component
 ({
-    selector:    'sde-devel-support',
+    selector: 'sde-devel-support',
     templateUrl: './devel-support.component.html',
-    styleUrls:   ['./devel-support.component.scss']
+    styleUrls: ['./devel-support.component.scss'],
+    standalone: false
 })
 export class DevelSupportComponent
 {
