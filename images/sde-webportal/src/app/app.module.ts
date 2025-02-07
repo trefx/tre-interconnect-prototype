@@ -7,7 +7,7 @@ import { NgModule }                from '@angular/core';
 import { BrowserModule }           from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule }             from '@angular/forms';
-import { HttpClientModule }        from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi }        from '@angular/common/http';
 
 import { MatToolbarModule }         from '@angular/material/toolbar';
 import { MatTabsModule }            from '@angular/material/tabs';
@@ -45,9 +45,7 @@ import { ResponseCheckingControlService } from './response-checking-control.serv
 import { AgreementDatasService }          from './agreement-datas.service';
 
 @NgModule
-({
-    declarations:
-    [
+({ declarations: [
         AppComponent,
         AgreementDatasComponent,
         InteractionHistoryComponent,
@@ -57,12 +55,11 @@ import { AgreementDatasService }          from './agreement-datas.service';
         RequestCheckingControlComponent,
         ResponseCheckingControlComponent
     ],
-    imports:
-    [
-        BrowserModule,
+    bootstrap: [
+        AppComponent
+    ], imports: [BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        HttpClientModule,
         MatToolbarModule,
         MatGridListModule,
         MatTabsModule,
@@ -78,21 +75,14 @@ import { AgreementDatasService }          from './agreement-datas.service';
         MatIconModule,
         MatBadgeModule,
         MatSlideToggleModule,
-        AppRoutingModule
-    ],
-    providers:
-    [
+        AppRoutingModule], providers: [
         ConfigService,
         UncheckedInteractionLogService,
         RequestCheckingControlService,
         ResponseCheckingControlService,
-        AgreementDatasService
-    ],
-    bootstrap:
-    [
-        AppComponent
-    ]
-})
+        AgreementDatasService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule
 {
 }
