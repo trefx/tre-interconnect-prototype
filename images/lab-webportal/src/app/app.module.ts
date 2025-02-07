@@ -7,7 +7,7 @@ import { NgModule }                from '@angular/core';
 import { BrowserModule }           from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule }             from '@angular/forms';
-import { HttpClientModule }        from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi }        from '@angular/common/http';
 
 import { MatToolbarModule }         from '@angular/material/toolbar';
 import { MatTabsModule }            from '@angular/material/tabs';
@@ -48,9 +48,7 @@ import { InteractionLogService }             from './interaction-log.service';
 import { DevelSupportService }               from './devel-support.service';
 
 @NgModule
-({
-    declarations:
-    [
+({ declarations: [
         AppComponent,
         ROCrateComponent,
         ROCrateListComponent,
@@ -63,12 +61,11 @@ import { DevelSupportService }               from './devel-support.service';
         ResponseListComponent,
         DevelSupportComponent
     ],
-    imports:
-    [
-        BrowserModule,
+    bootstrap: [
+        AppComponent
+    ], imports: [BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        HttpClientModule,
         MatToolbarModule,
         MatTabsModule,
         MatTableModule,
@@ -83,23 +80,16 @@ import { DevelSupportService }               from './devel-support.service';
         MatButtonModule,
         MatIconModule,
         MatBadgeModule,
-        AppRoutingModule
-    ],
-    providers:
-    [
+        AppRoutingModule], providers: [
         ConfigService,
         ProviderListService,
         SimpleRequestSubmitterService,
         TemplatedRequestSubmitterService,
         DataSHIELDRequestSubmitterService,
         InteractionLogService,
-        DevelSupportService
-    ],
-    bootstrap:
-    [
-        AppComponent
-    ]
-})
+        DevelSupportService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule
 {
 }
