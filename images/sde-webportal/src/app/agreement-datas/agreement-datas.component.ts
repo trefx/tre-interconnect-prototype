@@ -4,9 +4,10 @@ import { AgreementDatasService } from '../agreement-datas.service';
 
 @Component
 ({
-    selector:    'sde-agreement-datas',
+    selector: 'sde-agreement-datas',
     templateUrl: './agreement-datas.component.html',
-    styleUrls:   ['./agreement-datas.component.scss']
+    styleUrls: ['./agreement-datas.component.scss'],
+    standalone: false
 })
 export class AgreementDatasComponent
 {

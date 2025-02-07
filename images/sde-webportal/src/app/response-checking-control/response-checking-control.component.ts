@@ -4,9 +4,10 @@ import { ResponseCheckingControlService } from '../response-checking-control.ser
 
 @Component
 ({
-    selector:    'sde-response-checking-control',
+    selector: 'sde-response-checking-control',
     templateUrl: './response-checking-control.component.html',
-    styleUrls:   ['./response-checking-control.component.scss']
+    styleUrls: ['./response-checking-control.component.scss'],
+    standalone: false
 })
 export class ResponseCheckingControlComponent
 {

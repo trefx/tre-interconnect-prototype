@@ -6,9 +6,10 @@ import { UncheckedInteractionLogService } from '../unchecked-interaction-log.ser
 
 @Component
 ({
-    selector:    'sde-unchecked-request-list',
+    selector: 'sde-unchecked-request-list',
     templateUrl: './unchecked-request-list.component.html',
-    styleUrls:   ['./unchecked-request-list.component.scss']
+    styleUrls: ['./unchecked-request-list.component.scss'],
+    standalone: false
 })
 export class UncheckedRequestListComponent implements OnInit
 {

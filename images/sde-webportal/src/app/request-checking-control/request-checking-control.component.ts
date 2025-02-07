@@ -4,9 +4,10 @@ import { RequestCheckingControlService } from '../request-checking-control.servi
 
 @Component
 ({
-    selector:    'sde-request-checking-control',
+    selector: 'sde-request-checking-control',
     templateUrl: './request-checking-control.component.html',
-    styleUrls:   ['./request-checking-control.component.scss']
+    styleUrls: ['./request-checking-control.component.scss'],
+    standalone: false
 })
 export class RequestCheckingControlComponent
 {
