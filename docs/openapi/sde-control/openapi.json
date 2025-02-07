@@ -1,62 +1,5 @@
 {
-  "openapi" : "3.0.3",
-  "info" : {
-    "title" : "sde-control API",
-    "version" : "1.0.0-SNAPSHOT"
-  },
-  "servers" : [ {
-    "url" : "http://localhost:7050",
-    "description" : "Auto generated value"
-  }, {
-    "url" : "http://0.0.0.0:7050",
-    "description" : "Auto generated value"
-  } ],
-  "paths" : {
-    "/agreementdatas/data" : {
-      "get" : {
-        "tags" : [ "Agreement Datas Resource" ],
-        "parameters" : [ {
-          "name" : "agreement_data_name",
-          "in" : "query",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/AgreementData"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/agreementdatas/summaries" : {
-      "get" : {
-        "tags" : [ "Agreement Datas Resource" ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/AgreementDataSummary"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
+  "openapi" : "3.1.0",
   "components" : {
     "schemas" : {
       "AgreementData" : {
@@ -94,5 +37,64 @@
         }
       }
     }
-  }
+  },
+  "paths" : {
+    "/agreementdatas/data" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "agreement_data_name",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AgreementData"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Agreement Data",
+        "tags" : [ "Agreement Datas Resource" ]
+      }
+    },
+    "/agreementdatas/summaries" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AgreementDataSummary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Agreement Data Summaries",
+        "tags" : [ "Agreement Datas Resource" ]
+      }
+    }
+  },
+  "info" : {
+    "title" : "sde-control API",
+    "version" : "1.0.0-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:7050",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:7050",
+    "description" : "Auto generated value"
+  } ]
 }

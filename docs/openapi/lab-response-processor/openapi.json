@@ -1,20 +1,24 @@
 {
-  "openapi" : "3.0.3",
-  "info" : {
-    "title" : "lab-response-processor API",
-    "version" : "1.0.0-SNAPSHOT"
+  "openapi" : "3.1.0",
+  "components" : {
+    "schemas" : {
+      "JsonObject" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "key" : {
+              "type" : "string"
+            },
+            "value" : { }
+          }
+        }
+      }
+    }
   },
-  "servers" : [ {
-    "url" : "http://localhost:7010",
-    "description" : "Auto generated value"
-  }, {
-    "url" : "http://0.0.0.0:7010",
-    "description" : "Auto generated value"
-  } ],
   "paths" : {
     "/request" : {
       "get" : {
-        "tags" : [ "RO Crate Request" ],
         "parameters" : [ {
           "name" : "requestid",
           "in" : "query",
@@ -33,12 +37,13 @@
               }
             }
           }
-        }
+        },
+        "summary" : "Get Request",
+        "tags" : [ "RO Crate Request" ]
       }
     },
     "/requests" : {
       "get" : {
-        "tags" : [ "RO Crate Requests" ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -53,12 +58,13 @@
               }
             }
           }
-        }
+        },
+        "summary" : "Get Request Ids",
+        "tags" : [ "RO Crate Requests" ]
       }
     },
     "/response" : {
       "get" : {
-        "tags" : [ "RO Crate Response" ],
         "parameters" : [ {
           "name" : "responseid",
           "in" : "query",
@@ -77,12 +83,13 @@
               }
             }
           }
-        }
+        },
+        "summary" : "Get Response",
+        "tags" : [ "RO Crate Response" ]
       }
     },
     "/responses" : {
       "get" : {
-        "tags" : [ "RO Crate Responses" ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -97,24 +104,21 @@
               }
             }
           }
-        }
+        },
+        "summary" : "Get Response Ids",
+        "tags" : [ "RO Crate Responses" ]
       }
     }
   },
-  "components" : {
-    "schemas" : {
-      "JsonObject" : {
-        "type" : "array",
-        "items" : {
-          "type" : "object",
-          "properties" : {
-            "key" : {
-              "type" : "string"
-            },
-            "value" : { }
-          }
-        }
-      }
-    }
-  }
+  "info" : {
+    "title" : "lab-response-processor API",
+    "version" : "1.0.0-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:7010",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:7010",
+    "description" : "Auto generated value"
+  } ]
 }

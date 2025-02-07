@@ -1,20 +1,8 @@
 {
-  "openapi" : "3.0.3",
-  "info" : {
-    "title" : "sde-devel API",
-    "version" : "1.0.0-SNAPSHOT"
-  },
-  "servers" : [ {
-    "url" : "http://localhost:7090",
-    "description" : "Auto generated value"
-  }, {
-    "url" : "http://0.0.0.0:7090",
-    "description" : "Auto generated value"
-  } ],
+  "openapi" : "3.1.0",
   "paths" : {
     "/reload_agreementdatas" : {
       "post" : {
-        "tags" : [ "Storage Control Resource" ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -26,8 +14,21 @@
               }
             }
           }
-        }
+        },
+        "summary" : "Post Reload Agreement Datas",
+        "tags" : [ "Storage Control Resource" ]
       }
     }
-  }
+  },
+  "info" : {
+    "title" : "sde-devel API",
+    "version" : "1.0.0-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:7090",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:7090",
+    "description" : "Auto generated value"
+  } ]
 }

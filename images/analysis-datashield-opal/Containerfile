@@ -1,0 +1,6 @@
+#
+# Containerfile for Opal 5.1.1 Server for DataSHIELD testing
+#
+
+FROM docker.io/obiba/opal:5.1.1
+

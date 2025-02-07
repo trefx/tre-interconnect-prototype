@@ -1,8 +1,9 @@
 {
-  "openapi" : "3.0.3",
+  "openapi" : "3.1.0",
+  "paths" : { },
   "info" : {
-    "title" : "analysis-datashield-adaptor API",
-    "version" : "1.0.0-SNAPSHOT"
+    "title" : "Generated API",
+    "version" : "1.0"
   },
   "servers" : [ {
     "url" : "http://localhost:7000",
@@ -10,6 +11,5 @@
   }, {
     "url" : "http://0.0.0.0:7000",
     "description" : "Auto generated value"
-  } ],
-  "paths" : { }
+  } ]
 }

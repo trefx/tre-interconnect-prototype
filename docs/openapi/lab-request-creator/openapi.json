@@ -1,178 +1,5 @@
 {
-  "openapi" : "3.0.3",
-  "info" : {
-    "title" : "lab-request-creator API",
-    "version" : "1.0.0-SNAPSHOT"
-  },
-  "servers" : [ {
-    "url" : "http://localhost:7000",
-    "description" : "Auto generated value"
-  }, {
-    "url" : "http://0.0.0.0:7000",
-    "description" : "Auto generated value"
-  } ],
-  "paths" : {
-    "/datashield_request_submitter" : {
-      "post" : {
-        "tags" : [ "RO Crate Data SHIELD Request Submitter Resource" ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/JsonObject"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/providers" : {
-      "get" : {
-        "tags" : [ "Analysis Provider Resource" ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/AnalysisProviderSummary"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/simple_request_submitter" : {
-      "post" : {
-        "tags" : [ "RO Crate Simple Request Submitter Resource" ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/template" : {
-      "get" : {
-        "tags" : [ "RO Crate Template Resource" ],
-        "parameters" : [ {
-          "name" : "template_id",
-          "in" : "query",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/JsonObject"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/template/fields" : {
-      "get" : {
-        "tags" : [ "RO Crate Template Resource" ],
-        "parameters" : [ {
-          "name" : "template_id",
-          "in" : "query",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/TemplateField"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/template/summaries" : {
-      "get" : {
-        "tags" : [ "RO Crate Template Resource" ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/TemplateSummary"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/templated_request_submitter" : {
-      "post" : {
-        "tags" : [ "RO Crate Templated Request Submitter Resource" ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/JsonObject"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
+  "openapi" : "3.1.0",
   "components" : {
     "schemas" : {
       "AnalysisProviderSummary" : {
@@ -251,5 +78,187 @@
         }
       }
     }
-  }
+  },
+  "paths" : {
+    "/datashield_request_submitter" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/JsonObject"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Post Submit Data SHIELD Request",
+        "tags" : [ "RO Crate Data SHIELD Request Submitter Resource" ]
+      }
+    },
+    "/providers" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnalysisProviderSummary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Analysis Provider Summaries",
+        "tags" : [ "Analysis Provider Resource" ]
+      }
+    },
+    "/simple_request_submitter" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Post Submit Simple Request",
+        "tags" : [ "RO Crate Simple Request Submitter Resource" ]
+      }
+    },
+    "/template" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "template_id",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/JsonObject"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Template",
+        "tags" : [ "RO Crate Template Resource" ]
+      }
+    },
+    "/template/fields" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "template_id",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/TemplateField"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Template Fields",
+        "tags" : [ "RO Crate Template Resource" ]
+      }
+    },
+    "/template/summaries" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/TemplateSummary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Template Summaries",
+        "tags" : [ "RO Crate Template Resource" ]
+      }
+    },
+    "/templated_request_submitter" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/JsonObject"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Post Submit Templated Request",
+        "tags" : [ "RO Crate Templated Request Submitter Resource" ]
+      }
+    }
+  },
+  "info" : {
+    "title" : "lab-request-creator API",
+    "version" : "1.0.0-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:7000",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:7000",
+    "description" : "Auto generated value"
+  } ]
 }

@@ -1,18 +1,18 @@
 #
-# Containerfile for Armadillo 3.3 Server for DataSHIELD testing
+# Containerfile for Armadillo 4.11.1 Server for DataSHIELD testing
 #
 
 FROM alpine:latest
 
-COPY molgenis-armadillo-3.3.0.jar .
+COPY molgenis-armadillo-4.11.1.jar .
 COPY application-local.yml .
 
 RUN apk update
 RUN apk upgrade
-RUN apk add openjdk17-jdk
-RUN apk add openjdk17-jre-headless
+RUN apk add openjdk21-jdk
+RUN apk add openjdk21-jre-headless
 RUN mkdir -p data
 
 ENV SPRING_PROFILES_ACTIVE=basic
 
-CMD java -Dspring.config.additional-location="application-local.yml" -jar molgenis-armadillo-3.3.0.jar
+CMD java -Dspring.config.additional-location="application-local.yml" -jar molgenis-armadillo-4.11.1.jar

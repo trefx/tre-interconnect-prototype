@@ -1,6 +1,6 @@
 #
 # Copyright (c) 2023, TRE-FX Consortium Members
-# Copyright (c) 2023-2024, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
+# Copyright (c) 2023-2025, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
 #
 
 include ../settings.mk
@@ -13,8 +13,8 @@ RM     = rm -f
 IMAGE_NAME = docker.io/risbic/analysis-datashield-armadillo
 IMAGE_TAG  = latest
 
-MOLGENIS_ARMADILLO_JAR = molgenis-armadillo-3.3.0.jar
-MOLGENIS_ARMADILLO_URL = https://github.com/molgenis/molgenis-service-armadillo/releases/download/v3.3.0/molgenis-armadillo-3.3.0.jar
+MOLGENIS_ARMADILLO_JAR = molgenis-armadillo-4.11.1.jar
+MOLGENIS_ARMADILLO_URL = https://github.com/molgenis/molgenis-service-armadillo/releases/download/v4.11.1/molgenis-armadillo-4.11.1.jar
 
 all: $(MOLGENIS_ARMADILLO_JAR)
 	$(PODMAN) build -t $(IMAGE_NAME):$(IMAGE_TAG) -f Containerfile .
