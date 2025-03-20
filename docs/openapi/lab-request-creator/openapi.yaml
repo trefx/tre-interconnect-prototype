@@ -67,6 +67,8 @@ paths:
             application/json:
               schema:
                 type: string
+        "400":
+          description: Bad Request
       summary: Post Submit Data SHIELD Request
       tags:
       - RO Crate Data SHIELD Request Submitter Resource
@@ -161,6 +163,8 @@ paths:
             application/json:
               schema:
                 type: string
+        "400":
+          description: Bad Request
       summary: Post Submit Templated Request
       tags:
       - RO Crate Templated Request Submitter Resource

@@ -8,7 +8,7 @@ armadillo:
 
   profiles:
     - name: default
-      image: datashield/rock-margin-donkey:draft
+      image: datashield/rock-margin-gypsum:draft
       host: localhost
       port: 6311
       package-whitelist:
