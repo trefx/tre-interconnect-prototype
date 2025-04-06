@@ -33,6 +33,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/JsonObject"
+        "400":
+          description: Bad Request
       summary: Post List Response Checkers
       tags:
       - RO Crate List Response Checkers

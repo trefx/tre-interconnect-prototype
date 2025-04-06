@@ -48,6 +48,9 @@
                 }
               }
             }
+          },
+          "400" : {
+            "description" : "Bad Request"
           }
         },
         "summary" : "Post List Request Checkers",
